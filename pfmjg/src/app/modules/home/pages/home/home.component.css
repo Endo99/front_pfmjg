@@ -1,0 +1,101 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vw;
+    padding: 0;
+    margin: 0;
+    background-image: url("/src/assets/img/logo_nova_nutri.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.top-bar{
+    background-image: linear-gradient(to right, #fffffc, #e9ecef , #000, #09FE04);
+    height: 5vw;
+    min-height: 5vw;
+    z-index: 0;
+    max-height: 30%;
+}
+
+.logo img {
+    width: 6.5vw;
+    max-width: 50%;
+    height: auto;
+    max-height: 50%;
+    cursor: pointer;
+}
+
+.top-bar #bar .logo img {
+    display: block;
+    margin: 0 auto;
+}
+
+
+#bar .menu img {
+    width: 6.5vw;
+    min-width: 5vw;
+    max-width: 50%;
+    cursor: pointer;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.button-menu {
+    left: 93vw;
+}
+
+#menu-bento{
+    left: 93vw;
+}
+
+.menu img{
+    height: 6vw;
+}
+
+#menu-bento-aberto {
+    background-color: #E5E5E0;
+}
+
+
+#menu-bento-aberto {
+    border-radius: 5%;
+    position:relative;
+}
+
+.lista-item {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1vw;
+    flex-direction: column;
+    justify-content: left;
+    list-style: none;
+    text-decoration: none;
+    padding: 5%;
+}
+
+.lista-item li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E5E5E0;
+    height: 7vw;
+    border-radius: 5%;
+}
+  
+.lista-item li img {
+    display: flex; 
+    justify-content: center;
+    border: 2px solid #000;
+    
+}

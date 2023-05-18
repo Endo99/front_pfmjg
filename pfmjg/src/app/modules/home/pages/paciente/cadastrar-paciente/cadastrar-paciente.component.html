@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Pacientes</title>
+    <link rel="stylesheet" href="../cadastrar-paciente/cadastrar-paciente.component.css">
+  </head>
+  <body>
+    <div class="top-bar">
+        <header id="bar">
+            <div class="logo">
+                <img src="/src/assets/icons/LOGO_JOHW.svg" alt="">
+            
+            </div>
+            <div class="menu">
+                <img id="menu-bento" src="/src/assets/icons/MENU_BENTO.svg" alt="" onclick="">
+                    <section id="menu-bento-aberto">
+                    </section>
+            </div>
+        </header>
+    </div>
+
+    <section class="body-paciente">
+      <div class="view-pacientes">
+        <div class="background-paciente">
+          
+            <main class="information">
+              <form>
+                <legend>
+                  <h1>Dados Clientes</h1>
+                </legend>
+                
+                <label for="nomePaciente">Nome:</label>
+                <input type="text" id="nomePaciente" name="nomePaciente">
+
+                <label for="sobrenomePaciente">Sobrenome:</label>
+                <input type="text" id="sobrenomePaciente" name="sobrenomePaciente">
+
+                <label for="dataNascPac">Data de nascimento:</label>
+                <input type="date" id="dataNascPac" name="dataNascPac">
+                
+                <label for="idade">Idade:</label>
+                <input type="number" id="idadePac" name="idadePac">
+
+                <label for="cidadePac">Cidade:</label>
+                <select id="cidadePac" name="cidadePac">
+                  <option value="saoPaulo">São Paulo</option>
+                  <option value="londrina">Londrina</option>
+                  <option value="curitiba">Curitiba</option>
+                </select>
+                
+                <label for="estadoPac">Estado:</label>
+                <select id="estadoPac" name="estadoPac">
+                  <option value="SP">SP</option>
+                  <option value="PR">PR</option>
+                  <option value="MT">MT</option>
+                </select>
+
+                <label for="statusPag">Status Pagamento:</label>
+                <select id="statusPag" name="statusPag">
+                  <option value="analise">Em Análise</option>
+                  <option value="pagando">Pagando</option>
+                  <option value="devendo">Devendo</option>
+                </select>
+
+                <label for="tipoConsul">Tipo Consulta:</label>
+                <select id="tipoConsul" name="tipoConsul">
+                  <option value="online">On-line</option>
+                  <option value="presencial">Presencial</option>
+                </select>
+
+                <label for="quantMesAcom">Quantidade de meses acompanhado:</label>
+                <input type="number" id="quantMesAcom" name="quantMesAcom">
+                
+                <label for="telefone">Telefone:</label>
+                <input type="number" id="telefone" name="telefone">
+                
+                <label for="valorConsul">Nome:</label>
+                <input type="number" id="valorConsul" name="valorConsul">
+
+                <label for="quantPag">Quantidade pago:</label>
+                <input type="text" id="quantPag" name="quantPag">
+
+                <label for="tipoPag">Tipo Pagamento:</label>
+                <select id="tipoPag" name="tipoPag">
+                  <option value="dinheiro">Dinheiro</option>
+                  <option value="pix">PIX</option>
+                  <option value="credito">Crédito</option>
+                  <option value="debito">Débito</option>
+                </select>
+
+              </form>
+
+            </main>
+          </div>
+      </div>
+  </section>
+  </body>
+</html>
