@@ -1,15 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-
-import { HomeModule } from './modules/home/home.module';
 import { AppRoutingModule } from './app-routing.module';
-
-//icons
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
-
+import { AppComponent } from './app.component';
 
 
 @NgModule({
@@ -18,10 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HomeModule,
-    BrowserAnimationsModule,
-    MatIconModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

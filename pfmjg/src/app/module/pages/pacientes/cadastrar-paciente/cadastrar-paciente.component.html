@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Pacientes</title>
+    <link rel="stylesheet" href="../cadastrar-paciente/cadastrar-paciente.component.scss">
+  </head>
+  <body>
+    <div class="top-bar">
+        <header id="bar">
+            <div class="logo">
+                <img src="./assets/LOGO_JOHW.svg" alt="">
+            
+            </div>
+            <div class="menu">
+                <img id="menu-bento" src="./assets/icons/MENU_BENTO.svg" alt="" onclick="">
+                    <section id="menu-bento-aberto">
+                    </section>
+            </div>
+        </header>
+    </div>
+
+    <section class="body-paciente">
+      <div class="view-pacientes">
+        <div class="background-paciente">
+          
+            <main class="information">
+              <form (ngSubmit) ="onSubmit()" >
+                <legend>
+                  <h1>Cadastrar um paciente</h1>
+                </legend>
+                  <div class="container text-center" >
+                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2"> 
+  
+                      <div class="col">
+                        <label for="nomePaciente">Nome:</label>
+                        <input type="text" id="nomePaciente" name="nomePaciente">
+                      </div>
+
+                      <div class="col">
+                        <label for="sobrenomePaciente">Sobrenome:</label>
+                        <input type="text" id="sobrenomePaciente" name="sobrenomePaciente">
+                      </div>
+
+                      <div class="col">
+                        <label for="dataNascPac">Data de nascimento:</label>
+                        <input class="data" type="date" id="dataNascPac" name="dataNascPac">
+                      </div>
+                      
+                      <div class="col">
+                        <label for="idade">Idade:</label>
+                        <input type="number" id="idadePac" name="idadePac">
+                      </div>
+
+                      <div class="col">
+                        <label for="cidadePac">Cidade:</label>
+                        <select id="cidadePac" name="cidadePac">
+                          <option selected>Escolha a cidade</option>
+                          <option value="saoPaulo">São Paulo</option>
+                          <option value="londrina">Londrina</option>
+                          <option value="curitiba">Curitiba</option>
+                        </select>
+                      </div>
+                      
+                      <div class="col">
+                        <label for="estadoPac">Estado:</label>
+                        <select id="estadoPac" name="estadoPac">
+                          <option selected>Escolha o estado</option>
+                          <option value="SP">SP</option>
+                          <option value="PR">PR</option>
+                          <option value="MT">MT</option>
+                        </select>
+                      </div>
+
+                      <div class="col">
+                        <label for="statusPag">Status Pagamento:</label>
+                        <select id="statusPag" name="statusPag">
+                          <option selected>Escolha o status</option>
+                          <option value="analise">Em Análise</option>
+                          <option value="pagando">Pagando</option>
+                          <option value="devendo">Devendo</option>
+                        </select>
+                      </div>
+
+                      <div class="col">
+                        <label for="tipoConsul">Tipo Consulta:</label>
+                        <select id="tipoConsul" name="tipoConsul">
+                          <option selected>Escolha a consulta</option>
+                          <option value="online">On-line</option>
+                          <option value="presencial">Presencial</option>
+                        </select>
+                      </div>
+
+                      <div class="col">
+                        <label for="quantMesAcom">Quantidade de meses acompanhado:</label>
+                        <input type="number" id="quantMesAcom" name="quantMesAcom">
+                      </div>
+                      
+                      <div class="col">
+                        <label for="telefone">Telefone:</label>
+                        <input type="number" id="telefone" name="telefone">
+                      </div>
+                      
+                      <div class="col">
+                        <label for="valorConsul">Valor da Consulta:</label>
+                        <input type="number" id="valorConsul" name="valorConsul">
+                      </div>
+
+                      <div class="col">
+                        <label for="quantPag">Quantidade pago:</label>
+                        <input type="text" id="quantPag" name="quantPag">
+                      </div>
+
+                      <div class="col">
+                        <label for="tipoPag">Tipo Pagamento:</label>
+                        <select id="tipoPag" name="tipoPag">
+                          <option selected>Escolha o pagamento</option>
+                          <option value="dinheiro">Dinheiro</option>
+                          <option value="pix">PIX</option>
+                          <option value="credito">Crédito</option>
+                          <option value="debito">Débito</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                      <div class="button">
+                        <input type="submit" class="btn btn-primary" value="Cadastrar">
+                      </div>
+                </form>
+                  
+            </main>
+          </div>
+      </div>
+  </section>
+  </body>
+</html>
