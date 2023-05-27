@@ -68,29 +68,12 @@ body {
     align-items: center;
 }
 
-.information, h1 {
-    font-weight: bold;
-    letter-spacing: 0.1vw;
-}
-
-.information, legend {
-    margin: 0;
-    padding: 0;
-    bottom: 1vw;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-}
-
 .view-pacientes h1{
     font-size: 1.5vw;
     padding: 2vw 0;
     text-align: center;
     margin: 0;
+    font-weight: bold;
 }
 
 .background-paciente {
@@ -105,69 +88,42 @@ body {
     padding: 1.5vw;
 }
 
-.card-paciente {
-    border: 4px solid white;
-    border-radius: 10px;
+
+.list-pacientes {
+    min-width: 30%;
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 30%;
+}
+
+.table, button {
+    background-color: transparent;
+    border: none;
+}
+
+.button-home {
+    
 }
 
 .list-pacientes {
-    display: inline-block;
+    border-radius: 20px;
 }
 
-.btn {
-    position: absolute;
-    background-color: #29F217;
-    letter-spacing: 0.1vw;
-    top: .9vw;
-    padding: 0.7vw;
-    width: 30%;
-    margin: 0 0 0 35%;
-    font-weight: bold;
-    color: #000;
-    font-size: 1.2vw;
-    border: #000 solid 0.3px;
-    border-radius: 15px;
-}
-
-.button {
-    position: relative;
-}
-
-.col, label {
-    display: block;
-    letter-spacing: 0.1vw;
-    font-weight: bold;
-}
-
-.col input {
-    background-color: #C3F6C3;
-    border: #000 solid 0.3px;
-    border-radius: 15px;
-}
-
-.col select {
-    background-color: #C3F6C3;
-    padding: 0.4vw;
-    width: 50%;
-    min-width: 25%;
-    max-width: 50%;
-    border: #000 solid 0.3px;
-    border-radius: 15px;
-}
-
-.col select, option {
-    font-weight: bold;
-}
-
-.data {
-    font-weight: bold;
-    letter-spacing: 0.1vw;
-    width: 50%;
-    min-width: 25%;
-    max-width: 50%;
-}
-
-input[type="date"] {
+.table thead, th {
+    background-color: #283618;
+    color: #fff;
+    border: solid #fff 5px;
     text-align: center;
 }
 
+.table thead .none {
+    background-color: #283618;
+    color: #fff;
+    border: none;
+    border-top: solid #fff 5px;
+    border-bottom: solid #fff 5px;
+}
+
+.table thead .none-right {
+    border: none;
+}

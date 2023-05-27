@@ -1,40 +1,85 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Paciente } from '../../../../models/paciente';
+import { ServicePaciente } from 'src/app/services/service-paciente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastrar-paciente',
   templateUrl: './cadastrar-paciente.component.html',
   styleUrls: ['./cadastrar-paciente.component.scss']
 })
-export class CadastrarPacienteComponent {
-
-  @Output() addPaciente: EventEmitter<Paciente> = new EventEmitter<Paciente>();
+export class CadastrarPacienteComponent implements OnInit{
 
   paciente: Paciente = {
-    idPaciente: 0,
-    nomePaciente: "",
-    sobrenomePaciente: "",
+    nomePaciente: '',
+    sobrenomePaciente: '',
     dataNascPac: new Date(),
-    idade: 0,
-    cidade: "",
-    estado: "",
-    statusPag: "",
-    tipoConsul: "",
-    qtdaMesAcom: 0,
-    telefone: "",
+    idadePac: 0,
+    cidadePac: '',
+    estadoPac: '',
+    statusPag: '',
+    tipoConsul: '',
+    qtdaMesAcom: 0, 
+    telefone: '',
     qtdaPago: 0,
-    tipoPag: "",
-    valorConsul: 0
+    tipoPag: '',
+    valorConsul: 0,
+  };
 
+  ngOnInit() : void {
   }
-
-  onSubmit() {
-    if (this.paciente != null) {
-      this.addPaciente.emit(this.paciente);
-    }
-    console.log(this.paciente.nomePaciente);
-  }
-
   
+  
+  constructor(private servicePaciente: ServicePaciente, private rota: Router) {
+    this.paciente = new Paciente();
 
+  }
+
+  addPaciente(): void {this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response => 
+    {
+      console.log(response);
+      console.log(this.paciente);
+    })
+    this.rota.navigate(['/home-paciente'])
+  }
+
+  // atualizarCidade(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.cidadePac = escolhido;
+  // }
+
+  // atualizarEstado(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.estadoPac = escolhido;
+  // }
+
+  // atualizarTipoConsul(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.tipoConsul = escolhido;
+  // }
+
+  // atualizarStatus(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.statusPag = escolhido;
+  // }
+
+  // atualizarTipoPagamento(valor: string): void {
+  //   if (valor) {
+  //     this.paciente.tipoPag = valor;
+  // }
+  // }
+
+  // atualizarQtdMes(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.qtdaMesAcom = parseInt(escolhido);
+  // }
+
+  atualizarNomePaciente(event: Event) {
+    this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
+  }
 }

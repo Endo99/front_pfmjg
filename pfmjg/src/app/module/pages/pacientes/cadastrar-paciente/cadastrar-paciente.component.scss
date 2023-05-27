@@ -171,3 +171,15 @@ input[type="date"] {
     text-align: center;
 }
 
+.col, input {
+    text-align: center;
+    font-weight:normal;
+}
+
+.col, select {
+    text-align: center;
+}
+
+.col, input, ::placeholder {
+    text-align: center;
+}
