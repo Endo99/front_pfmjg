@@ -21,9 +21,15 @@ export class HomePacienteComponent implements OnInit{
   }
 
   listarPacientes(): void {
-      this.pacienteService.getPaciente().subscribe(data => {
-      this.pacientes = data;
-    })
+    this.pacienteService.getPaciente().subscribe(
+      pacientes => {
+        this.pacientes = pacientes;
+        console.log(pacientes);
+      },
+      error => {
+        console.error('Erro ao carregar pacientes: ', error);
+      }
+    );
   }
     // private paciente: Paciente;
 

@@ -101,14 +101,6 @@ body {
     border: none;
 }
 
-.button-home {
-    
-}
-
-.list-pacientes {
-    border-radius: 20px;
-}
-
 .table thead, th {
     background-color: #283618;
     color: #fff;
@@ -126,4 +118,8 @@ body {
 
 .table thead .none-right {
     border: none;
+}
+
+.table tbody td {
+    text-align: center;
 }
