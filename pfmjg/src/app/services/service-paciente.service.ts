@@ -33,6 +33,11 @@ export class ServicePaciente {
     return this.http.get<Paciente[]>(`${this.apiUrl}/nome-${nomePaciente}`)
   }
 
+  getAllPacienteIds(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.apiUrl}/ids`);
+  }
+
+
   // private atualizarPaciente(paciente: Paciente): Observable<Paciente> {
   //   const url = '${this.apiUrl}/${/editar-paciente-paciente.id}';
   //   return this.http.put<Paciente>(url, paciente);

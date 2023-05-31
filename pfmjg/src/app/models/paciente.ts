@@ -1,7 +1,6 @@
 // interface IPaciente {}
 export class Paciente {
 
-    idPaciente?: any;
     nomePaciente?: string;
     sobrenomePaciente?: string;
     dataNascimentoPaciente?: Date;

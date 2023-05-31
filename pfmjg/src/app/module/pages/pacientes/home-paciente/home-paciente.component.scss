@@ -96,6 +96,10 @@ body {
     min-height: 30%;
 }
 
+.table-responsive {
+    background-color: #fff;
+}
+
 .table, button {
     background-color: transparent;
     border: none;
@@ -122,4 +126,9 @@ body {
 
 .table tbody td {
     text-align: center;
+}
+
+tr:hover {
+    background-color: #29F217;
+    cursor: pointer;
 }

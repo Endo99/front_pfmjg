@@ -15,7 +15,6 @@ export class CadastrarPacienteComponent implements OnInit{
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
 
   paciente: Paciente = {
-    idPaciente: 0,
     nomePaciente: '',
     sobrenomePaciente: '',
     dataNascimentoPaciente: new Date(),
@@ -42,13 +41,6 @@ export class CadastrarPacienteComponent implements OnInit{
 
   addPaciente(): void {
 
-    const uuid = uuidv4();
-
-    const idPaciente = parseInt(uuid.replace(/-/g, ''), 1);
-
-    this.paciente.idPaciente = idPaciente;
-
-    console.log('Valor recebido para o campo idPaciente:', this.paciente.idPaciente);
     console.log('Valor recebido para o campo nomePaciente:', this.paciente.nomePaciente);
     console.log('Valor recebido para o campo sobrenomePaciente:', this.paciente.sobrenomePaciente);
     console.log('Valor recebido para o campo dataPaciente:', this.paciente.dataNascimentoPaciente);
@@ -63,15 +55,17 @@ export class CadastrarPacienteComponent implements OnInit{
     console.log('Valor recebido para o campo formaPagamento:', this.paciente.formaPagamento);
     console.log('Valor recebido para o campo valorConsulta:', this.paciente.valorConsulta);
 
-    this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response => 
+      this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response => 
+    
+      {
+          
+        console.log(response);
+        console.log(this.paciente);
+        this.rota.navigate(['/paciente'])
+    
+      });
 
-    {
-      
-      console.log(response);
-      console.log(this.paciente);
-      this.rota.navigate(['/home-paciente'])
 
-    })
   }
   // atualizarCidade(event: Event): void {
   //   const selectElement = event.target as HTMLSelectElement;
