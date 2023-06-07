@@ -29,109 +29,115 @@
                 <legend>
                   <h1>Editar paciente {{paciente.nomePaciente}}</h1>
                 </legend>
-                  <div class="container text-center" >
-                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2"> 
-  
-                      <div class="col">
-                        <label for="nomePaciente">Nome:</label>
-                        <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente" (input)="atualizarNomePaciente($event)">
-                      </div>
+                <div class="container text-center" >
+                  <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2"> 
 
-                      <div class="col">
-                        <label for="sobrenomePaciente">Sobrenome:</label>
-                        <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente" (input)="atualizarsobrenomePaciente($event)">
-                      </div>
+                    <div class="col">
+                      <label for="nomePaciente">Nome:</label>
+                      <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente" (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus>
+                      <div class="warning" *ngIf="nome.invalid && nome.touched">Campo obrigatório</div>
+                    </div>
 
-                      <div class="col">
-                        <label for="dataNascimentoPaciente">Data de nascimento:</label>
-                        <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente">
-                      </div>
-                      
-                      <div class="col">
-                        <label for="idadePaciente">Idade:</label>
-                        <input type="number" id="idadePaciente"  name="idadePaciente" value = "0" [(ngModel)]="paciente.idadePaciente">
-                      </div>
-                      
-                      <!-- Tenho que ver uma biblioteca do java ou angular que disponibiliza os estados e cidades do país -->
-                      <div class="col">
-                        <label for="cidade">Cidade:</label>
-                        <select id="cidade" name="cidade" [(ngModel)]="paciente.cidade">
-                          <option value="" selected disabled>Escolha a cidade</option>
-                          <option value="saoPaulo">São Paulo</option>
-                          <option value="londrina">Londrina</option>
-                          <option value="curitiba">Curitiba</option>
-                        </select>
-                      </div>
-                      
-                      <div class="col">
-                        <label for="estado">Estado:</label>
-                        <select id="estado" name="estado" [(ngModel)]="paciente.estado">
-                          <option value="" selected disabled>Escolha o estado</option>
-                          <option value="SP">SP</option>
-                          <option value="PR">PR</option>
-                          <option value="MT">MT</option>
-                        </select>
-                      </div>
+                    <div class="col">
+                      <label for="sobrenomePaciente">Sobrenome:</label>
+                      <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente" (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel">
+                      <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched">Campo obrigatório</div>
+                    </div>
 
+                    <div class="col">
+                      <label for="dataNascimentoPaciente">Data de nascimento:</label>
+                      <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente" required #data="ngModel">
+                      <div class="warning" *ngIf="data.invalid && data.touched">Campo obrigatório</div>
+                    </div>
+                    
+                    <div class="col">
+                      <label for="idadePaciente">Idade:</label>
+                      <input type="number" id="idadePaciente"  name="idadePaciente" value = "0" [(ngModel)]="paciente.idadePaciente" required>
+                    </div>
+                    
+                    <!-- Tenho que ver uma biblioteca do java ou angular que disponibiliza os estados e cidades do país -->
+                    
+                    <div class="col">
+                      <label for="estado">Estado:</label>
+                      <select id="estado" name="estado" [(ngModel)]="estadoSelecionado" required #estado="ngModel">
+                        <option value="" selected disabled>Escolha o estado</option>
+                        <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+                      </select>
+                      <div class="warning" *ngIf="estado.invalid && estado.touched">Campo obrigatório</div>
+                    </div>
+                    
+                    <div class="col">
+                      <label for="cidade">Cidade:</label>
+                      <input type="text" id="cidade"  name="cidade" [(ngModel)]="paciente.cidade"  required #cidade="ngModel">
+                      <div class="warning" *ngIf="cidade.invalid && cidade.touched">Campo obrigatório</div>
+                    </div>
 
 
-                      <div class="col">
-                        <label for="statusPagamento">Status Pagamento:</label>
-                        <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento">
-                          <option value="" selected disabled>Escolha o status</option>
-                          <option value="pago">Pago</option>
-                          <option value="atraso">Em atraso</option>
-                          <option value="andamento">Em andamento</option>
-                          <option value="cancelado">Cancelado</option>
-                          <option value="finalizado">Finalizado</option>
-                        </select>
-                      </div>
+                    <div class="col">
+                      <label for="statusPagamento">Status Pagamento:</label>
+                      <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento" required #status="ngModel">
+                        <option value="" selected disabled>Escolha o status</option>
+                        <option value="pago">Pago</option>
+                        <option value="atraso">Em atraso</option>
+                        <option value="andamento">Em andamento</option>
+                        <option value="cancelado">Cancelado</option>
+                        <option value="finalizado">Finalizado</option>
+                      </select>
+                      <div class="warning" *ngIf="status.invalid && status.touched">Campo obrigatório</div>
+                    </div>
 
-                      <div class="col">
-                        <label for="tipoConsulta">Tipo Consulta:</label>
-                        <select id="tipoConsul" name="tipoConsul" [(ngModel)]="paciente.tipoConsulta">
-                          <option value="" selected disabled>Escolha o tipo de consulta</option>
-                          <option value="online">On-line</option>
-                          <option value="presencial">Presencial</option>
-                        </select>
-                      </div>
+                    <div class="col">
+                      <label for="tipoConsulta">Tipo Consulta:</label>
+                      <select id="tipoConsul" name="tipoConsul" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel">
+                        <option value="" selected disabled>Escolha o tipo de consulta</option>
+                        <option value="online">On-line</option>
+                        <option value="presencial">Presencial</option>
+                      </select>
+                      <div class="warning" *ngIf="tipo.invalid && tipo.touched">Campo obrigatório</div>
+                    </div>
 
-                      <div class="col">
-                        <label for="mesesAcompanhado">Quantidade de meses acompanhado:</label>
-                        <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" value="0" [(ngModel)]="paciente.mesesAcompanhado">
-                      </div>
-                      
-                      <div class="col">
-                        <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone">
-                      </div>
-                      
-                      <div class="col">
-                        <label for="valorConsulta">Valor da Consulta:</label>
-                        <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta">
-                      </div>
+                    <div class="col">
+                      <label for="mesesAcompanhado">Quantidade de meses acompanhado:</label>
+                      <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" value="0" [(ngModel)]="paciente.mesesAcompanhado" required #meses="ngModel">
+                      <div class="warning" *ngIf="meses.invalid && meses.touched">Campo obrigatório</div>
+                    </div>
+                    
+                    <div class="col">
+                      <label for="telefone">Telefone:</label>
+                      <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" required #tel="ngModel">
+                      <div class="warning" *ngIf="tel.invalid && tel.touched">Campo obrigatório</div>
+                    </div>
+                    
+                    <div class="col">
+                      <label for="valorConsulta">Valor da Consulta:</label>
+                      <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta" required #consulta="ngModel">
+                      <div class="warning" *ngIf="consulta.invalid && consulta.touched">Campo obrigatório</div>
+                    </div>
 
-                      <div class="col">
-                        <label for="quantiaPaga">Quantidade pago:</label>
-                        <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga">
-                      </div>
+                    <div class="col">
+                      <label for="quantiaPaga">Quantidade pago:</label>
+                      <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga" required #pago="ngModel">
+                      <div class="warning" *ngIf="pago.invalid && pago.touched">Campo obrigatório</div>
+                    </div>
 
-                      <div class="col">
-                        <label for="formaPagamento">Tipo Pagamento: </label>
-                        <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento">
-                          <option value="" selected disabled>Escolha o pagamento</option>
-                          <option value="dinheiro">Dinheiro</option>
-                          <option value="pix">PIX</option>
-                          <option value="credito">Crédito</option>
-                          <option value="debito">Débito</option>
-                        </select>
-                      </div>
+                    <div class="col">
+                      <div class="campo-obrigatorio">Este campo é obrigatório!</div>
+                      <label for="formaPagamento">Tipo Pagamento: </label>
+                      <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento" required #pagamento="ngModel">
+                        <option value="" selected disabled>Escolha o pagamento</option>
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="pix">PIX</option>
+                        <option value="credito">Crédito</option>
+                        <option value="debito">Débito</option>
+                      </select>
+                      <div class="warning" *ngIf="pagamento.invalid && pagamento.touched">Campo obrigatório</div>
                     </div>
                   </div>
-                      <div class="button">
-                        <input type="submit" class="btn btn-primary" value="Cadastrar">
-                      </div>
-                </form>
+                </div>
+                    <div class="button">
+                      <input type="submit" class="btn btn-primary" value="Cadastrar">
+                    </div>
+              </form>
                   
             </main>
           </div>

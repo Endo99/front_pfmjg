@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { ServicePaciente } from './services/service-paciente.service';
-import { PacientesModule } from './module/pages/pacientes/pacientes.module';
+import { PacientesModule } from './module/pacientes.module';
 
 
 @NgModule({

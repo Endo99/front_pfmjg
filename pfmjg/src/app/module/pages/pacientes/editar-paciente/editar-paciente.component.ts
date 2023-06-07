@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
+import { GeonamesService } from 'src/app/services/geonames.service';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
 @Component({
@@ -11,7 +12,39 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 })
 export class EditarPacienteComponent {
 
+  estados: string[] = ['Acre',
+  'Alagoas',
+  'Amapá',
+  'Amazonas',
+  'Bahia',
+  'Ceará',
+  'Distrito Federal',
+  'Espírito Santo',
+  'Goiás',
+  'Maranhão',
+  'Mato Grosso',
+  'Mato Grosso do Sul',
+  'Minas Gerais',
+  'Pará',
+  'Paraíba',
+  'Paraná',
+  'Pernambuco',
+  'Piauí',
+  'Rio de Janeiro',
+  'Rio Grande do Norte',
+  'Rio Grande do Sul',
+  'Rondônia',
+  'Roraima',
+  'Santa Catarina',
+  'São Paulo',
+  'Sergipe',
+  'Tocantins'];
+
+  estadoSelecionado: string = '';
+
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
+
+  pacienteId: number = 0;
 
   paciente: Paciente = {
     nomePaciente: '',
@@ -30,12 +63,24 @@ export class EditarPacienteComponent {
   };
 
   ngOnInit() : void {
-    this.updPaciente
+    this.rotaAtiva.params.subscribe(params => {
+      this.pacienteId = +params['id'];
+      this.carregarDetalhesPaciente();
+    })
   }
   
   
-  constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute, private rota: Router) {
+  constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
+    private rota: Router,) {
 
+  }
+
+  atualizarNomePaciente(event: any) {
+    this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
+  }
+  
+  atualizarsobrenomePaciente(event: any) {
+    this.paciente.sobrenomePaciente = event.target.value;
   }
 
   updPaciente(): void {
@@ -54,7 +99,7 @@ export class EditarPacienteComponent {
     console.log('Valor recebido para o campo formaPagamento:', this.paciente.formaPagamento);
     console.log('Valor recebido para o campo valorConsulta:', this.paciente.valorConsulta);
     
-    const id = Number(this.rotaAtiva.snapshot.paramMap.get('idPaciente'));
+    const id = Number(this.rotaAtiva.snapshot.paramMap.get('id'));
     this.servicePaciente.getPacienteById(id).subscribe(pac => {
       this.paciente = pac;
     })
@@ -75,25 +120,40 @@ export class EditarPacienteComponent {
 
   }
 
-  updtarPaciente() : void {
-    if (this.paciente.idadePaciente) {
-      this.servicePaciente.atualizarPaciente(this.paciente.idadePaciente, this.paciente).subscribe(() =>
-      {
-        this.rota.navigate(['/pacientes']);
-      });
-    } else {
-      
-      this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(() => {
-        this.rota.navigate(['/pacientes'])
-      })
+  atualizarPaciente(): void {
+    if (this.pacienteForm.valid) {
+
+      this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente;
+      this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente;
+      this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente;
+      this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente;
+      this.paciente.cidade = this.pacienteForm.value.cidade;
+      this.paciente.estado = this.pacienteForm.value.estado;
+      this.paciente.statusPagamento = this.pacienteForm.value.statusPagamento;
+      this.paciente.tipoConsulta = this.pacienteForm.value.tipoConsulta;
+      this.paciente.mesesAcompanhado = this.pacienteForm.value.mesesAcompanhado;
+      this.paciente.telefone = this.pacienteForm.value.telefone;
+      this.paciente.quantiaPaga = this.pacienteForm.value.quantiaPaga;
+      this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento;
+      this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta;
+  
+      if (this.paciente.idPaciente) {
+        this.servicePaciente.atualizarPaciente(this.paciente.idPaciente, this.paciente).subscribe(() => {
+          this.rota.navigate(['/pacientes']);
+        });
+      }
     }
   }
+    carregarDetalhesPaciente() {
+      this.servicePaciente.getPacienteById(this.pacienteId).subscribe(
+        paciente => {
+          this.paciente = paciente;
+      // Preencha os campos de edição com os valores do paciente
+        },
+        error => {
+      // Lida com o erro de carregamento dos detalhes do paciente
+        }
+  );
+}
 
-  atualizarNomePaciente(event: any) {
-    this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
-  }
-  
-  atualizarsobrenomePaciente(event: any) {
-    this.paciente.sobrenomePaciente = event.target.value;
-  }
 }

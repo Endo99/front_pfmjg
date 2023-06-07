@@ -1,6 +1,6 @@
 import { NgForOf } from '@angular/common';
 import { Component, Directive, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
@@ -12,9 +12,30 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 })
 export class HomePacienteComponent implements OnInit{
 
+  exibirPopupExclusao = false;
+
   pacientes: Paciente[] = [];
 
-  constructor(private pacienteService: ServicePaciente, private router: Router) { }
+  id: string = '';
+
+  paciente: Paciente = {
+    idPaciente: 0,
+    nomePaciente: '',
+    sobrenomePaciente: '',
+    dataNascimentoPaciente: new Date(),
+    idadePaciente: 0,
+    cidade: '',
+    estado: '',
+    statusPagamento: '',
+    tipoConsulta: '',
+    mesesAcompanhado: 0, 
+    telefone: '',
+    quantiaPaga: 0,
+    formaPagamento: '',
+    valorConsulta: 0,
+  };
+
+  constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.listarPacientes();
@@ -31,7 +52,37 @@ export class HomePacienteComponent implements OnInit{
       }
     );
   }
-    // private paciente: Paciente;
+  
+  buscarPaciente(id: string): void {
+    this.pacienteService.getPacienteById(parseInt(id)).subscribe(
+      paciente => {
+        this.paciente = paciente;
+      },
+      error => {
+        console.error('Erro ao buscar paciente: ', error);
+      }
+    );
+  }
 
-    // console.log(paciente);
+  salvarPaciente(): void {
+    if (this.paciente.idPaciente) {
+      this.pacienteService.atualizarPaciente(this.paciente.idPaciente, this.paciente).subscribe(
+        response => {
+          this.router.navigate(['/pacientes']);
+        },
+        error => {
+          console.error('Erro ao salvar paciente: ', error);
+        }
+      );
+    } else {
+      console.error('ID do paciente não definido.');
+    }
+  }
+
+  excluirPaciente() {
+    // Lógica para excluir o paciente
+    // ...
+    // Após a exclusão, você pode atualizar a lista de pacientes, se necessário.
+  }
+
 }

@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     position: relative;
-    
 }
 
 body {
@@ -160,3 +159,29 @@ tr:hover {
     background-color: #29F217;
     cursor: pointer;
 }
+
+.popup {
+    background-color: #C7F9CC;
+    border:  solid #000;
+    border-radius: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Outros estilos do popup */
+  }
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo escura com opacidade de 0.5 */
+    z-index: 999; /* Certifique-se de que o overlay esteja acima de outros elementos */
+  }

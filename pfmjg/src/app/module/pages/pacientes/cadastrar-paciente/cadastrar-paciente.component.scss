@@ -183,3 +183,11 @@ input[type="date"] {
 .col, input, ::placeholder {
     text-align: center;
 }
+
+.warning{
+    color: #ef233c;
+}
+
+.warning, input.text, select, label {
+    border: #ef233c;
+}

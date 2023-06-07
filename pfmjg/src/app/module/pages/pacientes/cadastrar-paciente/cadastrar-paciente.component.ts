@@ -3,7 +3,7 @@ import { Paciente } from '../../../../models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
+import { GeonamesService } from 'src/app/services/geonames.service';
 
 @Component({
   selector: 'app-cadastrar-paciente',
@@ -13,6 +13,37 @@ import { v4 as uuidv4 } from 'uuid';
 export class CadastrarPacienteComponent implements OnInit{
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
+
+  cidades: any[] = [];
+  estados: string[] = ['Acre',
+  'Alagoas',
+  'Amapá',
+  'Amazonas',
+  'Bahia',
+  'Ceará',
+  'Distrito Federal',
+  'Espírito Santo',
+  'Goiás',
+  'Maranhão',
+  'Mato Grosso',
+  'Mato Grosso do Sul',
+  'Minas Gerais',
+  'Pará',
+  'Paraíba',
+  'Paraná',
+  'Pernambuco',
+  'Piauí',
+  'Rio de Janeiro',
+  'Rio Grande do Norte',
+  'Rio Grande do Sul',
+  'Rondônia',
+  'Roraima',
+  'Santa Catarina',
+  'São Paulo',
+  'Sergipe',
+  'Tocantins'];
+
+  estadoSelecionado: string = '';
 
   paciente: Paciente = {
     nomePaciente: '',
@@ -32,11 +63,9 @@ export class CadastrarPacienteComponent implements OnInit{
 
   ngOnInit() : void {
   }
-  
-  
-  constructor(private servicePaciente: ServicePaciente, private rota: Router) {
-    this.paciente = new Paciente();
 
+  constructor(private servicePaciente: ServicePaciente, private rota: Router, private geonamesService: GeonamesService) {
+    this.paciente = new Paciente();
   }
 
   addPaciente(): void {
@@ -67,43 +96,14 @@ export class CadastrarPacienteComponent implements OnInit{
 
 
   }
-  // atualizarCidade(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.cidadePac = escolhido;
-  // }
 
-  // atualizarEstado(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.estadoPac = escolhido;
-  // }
+  gerarIdade(date: Date) {
+    dateNow: new Date();
+    dateInput: this.paciente.dataNascimentoPaciente;
 
-  // atualizarTipoConsul(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.tipoConsul = escolhido;
-  // }
+    age: date
 
-  // atualizarStatus(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.statusPag = escolhido;
-  // }
-
-
-
-  // atualizarTipoPagamento(valor: string): void {
-  //   if (valor) {
-  //     this.paciente.tipoPag = valor;
-  // }
-  // }
-
-  // atualizarQtdMes(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.qtdaMesAcom = parseInt(escolhido);
-  // }
+  }
 
   atualizarNomePaciente(event: any) {
     this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
@@ -111,6 +111,26 @@ export class CadastrarPacienteComponent implements OnInit{
 
   atualizarsobrenomePaciente(event: any) {
     this.paciente.sobrenomePaciente = event.target.value;
+  }
+
+  camposPreenchidos: { [key: string]: boolean} = {};
+  
+  salvar(form: NgForm): void {
+    if (form.valid) {
+      // Implemente a lógica para salvar os dados do formulário
+    } else {
+      // Marcar os campos que estão vazios ou inválidos como preenchidos
+      Object.keys(form.controls).forEach(controlName => {
+        const control = form.controls[controlName];
+        this.camposPreenchidos[controlName] = control.value !== '' || (control.touched && control.invalid);
+      });
+    }
+  }
+
+  atualizarEstado(event: any): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const escolhido = selectElement.value;
+    this.paciente.estado = escolhido;
   }
   
 }
