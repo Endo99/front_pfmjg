@@ -80,7 +80,7 @@ body {
     margin: 0.5% 3% 0% 3%;
     border-radius: 15px;
     border: 6px solid #29F217;
-    max-height: 80%;
+    max-height: 0%;
     position: relative;
 }
 
@@ -112,7 +112,6 @@ body {
 
 .table {
     table-layout: fixed;
-    border-radius: 20px;
 }
 
 .table-responsive {
@@ -148,9 +147,6 @@ body {
     border-bottom: solid #fff 5px;
 }
 
-.table thead .none-right {
-    border: none;
-}
 
 .table tbody td {
     text-align: center;
@@ -158,5 +154,10 @@ body {
 
 tr:hover {
     background-color: #29F217;
+    cursor: pointer;
+}
+
+.button-excluir {
+    background-color: rgba(255, 150, 255, 0.2);
     cursor: pointer;
 }

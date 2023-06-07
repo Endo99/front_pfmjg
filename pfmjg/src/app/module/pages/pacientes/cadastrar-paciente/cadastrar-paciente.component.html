@@ -61,7 +61,7 @@
                         <label for="estado">Estado:</label>
                         <select id="estado" name="estado" [(ngModel)]="estadoSelecionado" required #estado="ngModel">
                           <option value="" selected disabled>Escolha o estado</option>
-                          <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+                          <option *ngFor="let estado of abreviacoes" [value]="estado">{{ estado }}</option>
                         </select>
                         <div class="warning" *ngIf="estado.invalid && estado.touched">Campo obrigatório</div>
                       </div>

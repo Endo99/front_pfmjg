@@ -21,10 +21,14 @@ export class ServicePaciente {
     return this.http.get<Paciente>(`${this.apiUrl}/${id}`);
   }
 
-  atualizarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
-    return this.http.put<Paciente>(`${this.apiUrl}/editar-paciente-${id}`, paciente);
-  }
+  
 
+  atualizarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
+    console.log('ID do Paciente:', id);
+    console.log('Objeto Paciente:', paciente);
+    return this.http.put<Paciente>(`${this.apiUrl}/editar-paciente/${id}`, paciente);
+  }
+  
   excluirPaciente(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/deletar-paciente-${id}`);
   }

@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
-import { GeonamesService } from 'src/app/services/geonames.service';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
 @Component({
@@ -12,33 +11,8 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 })
 export class EditarPacienteComponent {
 
-  estados: string[] = ['Acre',
-  'Alagoas',
-  'Amapá',
-  'Amazonas',
-  'Bahia',
-  'Ceará',
-  'Distrito Federal',
-  'Espírito Santo',
-  'Goiás',
-  'Maranhão',
-  'Mato Grosso',
-  'Mato Grosso do Sul',
-  'Minas Gerais',
-  'Pará',
-  'Paraíba',
-  'Paraná',
-  'Pernambuco',
-  'Piauí',
-  'Rio de Janeiro',
-  'Rio Grande do Norte',
-  'Rio Grande do Sul',
-  'Rondônia',
-  'Roraima',
-  'Santa Catarina',
-  'São Paulo',
-  'Sergipe',
-  'Tocantins'];
+  estados: string[] = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
+  'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
   estadoSelecionado: string = '';
 
@@ -47,6 +21,7 @@ export class EditarPacienteComponent {
   pacienteId: number = 0;
 
   paciente: Paciente = {
+    idPaciente: 0,
     nomePaciente: '',
     sobrenomePaciente: '',
     dataNascimentoPaciente: new Date(),
@@ -65,6 +40,7 @@ export class EditarPacienteComponent {
   ngOnInit() : void {
     this.rotaAtiva.params.subscribe(params => {
       this.pacienteId = +params['id'];
+      console.log('ID do Paciente:', this.pacienteId);
       this.carregarDetalhesPaciente();
     })
   }
@@ -84,66 +60,54 @@ export class EditarPacienteComponent {
   }
 
   updPaciente(): void {
-    
-    console.log('Valor recebido para o campo nomePaciente:', this.paciente.nomePaciente);
-    console.log('Valor recebido para o campo sobrenomePaciente:', this.paciente.sobrenomePaciente);
-    console.log('Valor recebido para o campo dataPaciente:', this.paciente.dataNascimentoPaciente);
-    console.log('Valor recebido para o campo idadePaciente:', this.paciente.idadePaciente);
-    console.log('Valor recebido para o campo cidade:', this.paciente.cidade);
-    console.log('Valor recebido para o campo estado:', this.paciente.estado);
-    console.log('Valor recebido para o campo status:', this.paciente.statusPagamento);
-    console.log('Valor recebido para o campo tipoConsulta:', this.paciente.tipoConsulta);
-    console.log('Valor recebido para o campo mesesAcompanhado:', this.paciente.mesesAcompanhado);
-    console.log('Valor recebido para o campo telefone:', this.paciente.telefone);
-    console.log('Valor recebido para o campo quantiaPaga:', this.paciente.quantiaPaga);
-    console.log('Valor recebido para o campo formaPagamento:', this.paciente.formaPagamento);
-    console.log('Valor recebido para o campo valorConsulta:', this.paciente.valorConsulta);
-    
-    const id = Number(this.rotaAtiva.snapshot.paramMap.get('id'));
-    this.servicePaciente.getPacienteById(id).subscribe(pac => {
-      this.paciente = pac;
-    })
-
-    console.log('Valor recebido depois nomePaciente:', this.paciente.nomePaciente);
-    console.log('Valor recebido depois sobrenomePaciente:', this.paciente.sobrenomePaciente);
-    console.log('Valor recebido depois dataPaciente:', this.paciente.dataNascimentoPaciente);
-    console.log('Valor recebido depois idadePaciente:', this.paciente.idadePaciente);
-    console.log('Valor recebido depois cidade:', this.paciente.cidade);
-    console.log('Valor recebido depois estado:', this.paciente.estado);
-    console.log('Valor recebido depois status:', this.paciente.statusPagamento);
-    console.log('Valor recebido depois tipoConsulta:', this.paciente.tipoConsulta);
-    console.log('Valor recebido depois mesesAcompanhado:', this.paciente.mesesAcompanhado);
-    console.log('Valor recebido depois telefone:', this.paciente.telefone);
-    console.log('Valor recebido depois quantiaPaga:', this.paciente.quantiaPaga);
-    console.log('Valor recebido depois formaPagamento:', this.paciente.formaPagamento);
-    console.log('Valor recebido depois valorConsulta:', this.paciente.valorConsulta);
-
-  }
-
-  atualizarPaciente(): void {
-    if (this.pacienteForm.valid) {
-
-      this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente;
-      this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente;
-      this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente;
-      this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente;
-      this.paciente.cidade = this.pacienteForm.value.cidade;
-      this.paciente.estado = this.pacienteForm.value.estado;
-      this.paciente.statusPagamento = this.pacienteForm.value.statusPagamento;
-      this.paciente.tipoConsulta = this.pacienteForm.value.tipoConsulta;
-      this.paciente.mesesAcompanhado = this.pacienteForm.value.mesesAcompanhado;
-      this.paciente.telefone = this.pacienteForm.value.telefone;
-      this.paciente.quantiaPaga = this.pacienteForm.value.quantiaPaga;
-      this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento;
-      this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta;
+    const idPaciente = this.paciente.idPaciente;
+    console.log('ID do Paciente:', idPaciente);
+    console.log('Valores do Formulário:', this.pacienteForm.value);
+    // Verifique se o objeto paciente está definido e se o formulário é válido
+    if (this.paciente && this.pacienteForm.valid && idPaciente !== undefined) {
+      // Preencha os valores do objeto paciente com os valores do formulário
+      console.log("Entrou");
+      
+      console.log(this.paciente.idPaciente = idPaciente)
+      console.log(this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente)
+      console.log(this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente)
+      console.log(this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente)
+      console.log(this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente)
+      console.log(this.paciente.cidade = this.pacienteForm.value.cidade)
+      console.log(this.paciente.estado = this.pacienteForm.value.estado)
+      console.log(this.paciente.statusPagamento = this.pacienteForm.value.statusPagamento)
+      console.log(this.paciente.tipoConsulta = this.pacienteForm.value.tipoConsulta)
+      console.log(this.paciente.mesesAcompanhado = this.pacienteForm.value.mesesAcompanhado)
+      console.log(this.paciente.telefone = this.pacienteForm.value.telefone)
+      console.log(this.paciente.quantiaPaga = this.pacienteForm.value.quantiaPaga)
+      console.log(this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento)
+      console.log(this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta)
+      
+      this.paciente.idPaciente = idPaciente;
+      this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente as string;
+      this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente as string;
+      this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente as Date;
+      this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente as number;
+      this.paciente.cidade = this.pacienteForm.value.cidade as string;
+      this.paciente.estado = this.pacienteForm.value.estado as string;
+      this.paciente.statusPagamento = this.pacienteForm.value.statusPagamento as string;
+      this.paciente.tipoConsulta = this.pacienteForm.value.tipoConsulta as string;
+      this.paciente.mesesAcompanhado = this.pacienteForm.value.mesesAcompanhado as number;
+      this.paciente.telefone = this.pacienteForm.value.telefone as string;
+      this.paciente.quantiaPaga = this.pacienteForm.value.quantiaPaga as number;
+      this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento as string;
+      this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta as number;
   
-      if (this.paciente.idPaciente) {
-        this.servicePaciente.atualizarPaciente(this.paciente.idPaciente, this.paciente).subscribe(() => {
-          this.rota.navigate(['/pacientes']);
-        });
-      }
+      this.servicePaciente.atualizarPaciente(idPaciente, this.paciente).subscribe(() => {
+        this.rota.navigate(['/pacientes']);
+      });
+      
+    } else {
+      console.log('Paciente não definido ou formulário inválido');
     }
   }
+  
+  
     carregarDetalhesPaciente() {
       this.servicePaciente.getPacienteById(this.pacienteId).subscribe(
         paciente => {
@@ -151,7 +115,7 @@ export class EditarPacienteComponent {
       // Preencha os campos de edição com os valores do paciente
         },
         error => {
-      // Lida com o erro de carregamento dos detalhes do paciente
+          console.log(error)
         }
   );
 }

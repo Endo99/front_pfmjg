@@ -13,6 +13,7 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 export class HomePacienteComponent implements OnInit{
 
   exibirPopupExclusao = false;
+  pacienteSelecionado: any = null;
 
   pacientes: Paciente[] = [];
 
@@ -80,9 +81,28 @@ export class HomePacienteComponent implements OnInit{
   }
 
   excluirPaciente() {
+    if (this.pacienteSelecionado) {
+      // Implemente sua lógica de exclusão aqui
+      // Por exemplo, você pode chamar um serviço para excluir o paciente
+      // e atualizar a lista de pacientes após a exclusão
+
+      // Aqui está um exemplo de como você pode remover o paciente da lista
+      const index = this.pacientes.indexOf(this.pacienteSelecionado);
+      if (index > -1) {
+        this.pacientes.splice(index, 1);
+      }
+
+      // Após a exclusão, você pode redefinir o paciente selecionado e fechar o pop-up
+      this.pacienteSelecionado = null;
+      this.exibirPopupExclusao = false;
+    }
+  }
+
+  abrirPopupExclusao(paciente: any) {
+    this.pacienteSelecionado = paciente;
+    this.exibirPopupExclusao = true;
+  }
     // Lógica para excluir o paciente
     // ...
     // Após a exclusão, você pode atualizar a lista de pacientes, se necessário.
-  }
-
 }

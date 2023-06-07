@@ -127,10 +127,18 @@ body {
     font-size: 1.2vw;
     border: #000 solid 0.3px;
     border-radius: 15px;
+
 }
+
+.btn:hover {
+    background-color: #7CFF87;
+    cursor: pointer;
+}
+
 
 .button {
     position: relative;
+
 }
 
 .col, label {

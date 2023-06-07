@@ -3,7 +3,6 @@ import { Paciente } from '../../../../models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { GeonamesService } from 'src/app/services/geonames.service';
 
 @Component({
   selector: 'app-cadastrar-paciente',
@@ -15,33 +14,8 @@ export class CadastrarPacienteComponent implements OnInit{
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
 
   cidades: any[] = [];
-  estados: string[] = ['Acre',
-  'Alagoas',
-  'Amapá',
-  'Amazonas',
-  'Bahia',
-  'Ceará',
-  'Distrito Federal',
-  'Espírito Santo',
-  'Goiás',
-  'Maranhão',
-  'Mato Grosso',
-  'Mato Grosso do Sul',
-  'Minas Gerais',
-  'Pará',
-  'Paraíba',
-  'Paraná',
-  'Pernambuco',
-  'Piauí',
-  'Rio de Janeiro',
-  'Rio Grande do Norte',
-  'Rio Grande do Sul',
-  'Rondônia',
-  'Roraima',
-  'Santa Catarina',
-  'São Paulo',
-  'Sergipe',
-  'Tocantins'];
+  abreviacoes: string[] = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
+  'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
   estadoSelecionado: string = '';
 
@@ -64,8 +38,7 @@ export class CadastrarPacienteComponent implements OnInit{
   ngOnInit() : void {
   }
 
-  constructor(private servicePaciente: ServicePaciente, private rota: Router, private geonamesService: GeonamesService) {
-    this.paciente = new Paciente();
+  constructor(private servicePaciente: ServicePaciente, private rota: Router) {
   }
 
   addPaciente(): void {
@@ -117,20 +90,12 @@ export class CadastrarPacienteComponent implements OnInit{
   
   salvar(form: NgForm): void {
     if (form.valid) {
-      // Implemente a lógica para salvar os dados do formulário
     } else {
-      // Marcar os campos que estão vazios ou inválidos como preenchidos
       Object.keys(form.controls).forEach(controlName => {
         const control = form.controls[controlName];
         this.camposPreenchidos[controlName] = control.value !== '' || (control.touched && control.invalid);
       });
     }
-  }
-
-  atualizarEstado(event: any): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const escolhido = selectElement.value;
-    this.paciente.estado = escolhido;
   }
   
 }
