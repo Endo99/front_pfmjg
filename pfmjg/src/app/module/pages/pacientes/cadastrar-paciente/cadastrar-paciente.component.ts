@@ -1,8 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Paciente } from '../../../../models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { NgForm } from '@angular/forms';
+=======
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
 
 @Component({
   selector: 'app-cadastrar-paciente',
@@ -11,6 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class CadastrarPacienteComponent implements OnInit{
 
+<<<<<<< HEAD
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
 
   cidades: any[] = [];
@@ -19,20 +23,22 @@ export class CadastrarPacienteComponent implements OnInit{
 
   estadoSelecionado: string = '';
 
+=======
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
   paciente: Paciente = {
     nomePaciente: '',
     sobrenomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
-    cidade: '',
-    estado: '',
-    statusPagamento: '',
-    tipoConsulta: '',
-    mesesAcompanhado: 0, 
+    dataNascPac: new Date(),
+    idadePac: 0,
+    cidadePac: '',
+    estadoPac: '',
+    statusPag: '',
+    tipoConsul: '',
+    qtdaMesAcom: 0, 
     telefone: '',
-    quantiaPaga: 0,
-    formaPagamento: '',
-    valorConsulta: 0,
+    qtdaPago: 0,
+    tipoPag: '',
+    valorConsul: 0,
   };
 
   ngOnInit() : void {
@@ -41,6 +47,7 @@ export class CadastrarPacienteComponent implements OnInit{
   constructor(private servicePaciente: ServicePaciente, private rota: Router) {
   }
 
+<<<<<<< HEAD
   addPaciente(): void {
 
     console.log('Valor recebido para o campo nomePaciente:', this.paciente.nomePaciente);
@@ -69,6 +76,21 @@ export class CadastrarPacienteComponent implements OnInit{
 
 
   }
+=======
+  addPaciente(): void {this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response => 
+    {
+      console.log(response);
+      console.log(this.paciente);
+    })
+    this.rota.navigate(['/home-paciente'])
+  }
+
+  // atualizarCidade(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.cidadePac = escolhido;
+  // }
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
 
   gerarIdade(date: Date) {
     dateNow: new Date();
@@ -76,11 +98,32 @@ export class CadastrarPacienteComponent implements OnInit{
 
     age: date
 
+<<<<<<< HEAD
   }
+=======
+  // atualizarStatus(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.statusPag = escolhido;
+  // }
 
-  atualizarNomePaciente(event: any) {
+  // atualizarTipoPagamento(valor: string): void {
+  //   if (valor) {
+  //     this.paciente.tipoPag = valor;
+  // }
+  // }
+
+  // atualizarQtdMes(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const escolhido = selectElement.value;
+  //   this.paciente.qtdaMesAcom = parseInt(escolhido);
+  // }
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
+
+  atualizarNomePaciente(event: Event) {
     this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
   }
+<<<<<<< HEAD
 
   atualizarsobrenomePaciente(event: any) {
     this.paciente.sobrenomePaciente = event.target.value;
@@ -98,5 +141,6 @@ export class CadastrarPacienteComponent implements OnInit{
     }
   }
   
+=======
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
 }
-

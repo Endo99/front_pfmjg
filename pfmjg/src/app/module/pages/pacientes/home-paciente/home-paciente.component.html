@@ -41,12 +41,19 @@
                             </thead>
                             <tbody>
                                 <tr  *ngFor="let paciente of pacientes">
+<<<<<<< HEAD
                                     <td>
                                         <button class="button-paciente"  [routerLink]="['detalhes', paciente.idPaciente]"> {{ paciente.nomePaciente }} {{ paciente.sobrenomePaciente }} </button>
                                     </td>
                                     <td>{{ paciente.cidade }}</td>
                                     <td>{{ paciente.estado }}</td>
                                     <td>{{ paciente.statusPagamento }}</td>
+=======
+                                    <td>{{ paciente.nomePaciente }} {{ paciente.sobrenomePaciente }}</td>
+                                    <td>{{ paciente.cidadePac }}</td>
+                                    <td>{{ paciente.estadoPac }}</td>
+                                    <td>{{ paciente.statusPag }}</td>
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
                                     <td>
                                         <button class="button-editar" [routerLink]="['editar', paciente.idPaciente]">
                                             <span>

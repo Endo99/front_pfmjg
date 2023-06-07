@@ -1,5 +1,6 @@
 {
     "workbench.colorCustomizations": {
+<<<<<<< HEAD
         "activityBar.activeBackground": "#04f483",
         "activityBar.background": "#04f483",
         "activityBar.foreground": "#15202b",
@@ -19,4 +20,25 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#03c268"
+=======
+        "activityBar.activeBackground": "#a334de",
+        "activityBar.background": "#a334de",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#523a0d",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#a334de",
+        "statusBar.background": "#881fc0",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#a334de",
+        "statusBarItem.remoteBackground": "#881fc0",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#881fc0",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#881fc099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#881fc0"
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
 }

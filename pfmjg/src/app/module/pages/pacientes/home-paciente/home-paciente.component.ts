@@ -43,15 +43,9 @@ export class HomePacienteComponent implements OnInit{
   }
 
   listarPacientes(): void {
-    this.pacienteService.getPaciente().subscribe(
-      pacientes => {
-        this.pacientes = pacientes;
-        console.log(pacientes);
-      },
-      error => {
-        console.error('Erro ao carregar pacientes: ', error);
-      }
-    );
+      this.pacienteService.getPaciente().subscribe(data => {
+      this.pacientes = data;
+    })
   }
   
   buscarPaciente(id: string): void {

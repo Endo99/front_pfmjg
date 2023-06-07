@@ -6,21 +6,18 @@ import { Paciente } from '../models/paciente';
 @Injectable(
 )
 export class ServicePaciente {
-  private readonly apiUrl = 'http://localhost:8080/pfmjg/pacientes';
+  private readonly apiUrl = 'https://localhost:8080/pfmjg/pacientes';
   constructor(private http: HttpClient) {}
 
   cadastrarPaciente(paciente: Paciente): Observable<Paciente> {
-    return this.http.post<Paciente>(`${this.apiUrl}/cadastrar-paciente`, paciente);
+    return this.http.post<Paciente>('${this.apiUrl}/cadastrar', paciente).pipe(first());
   }
 
   getPaciente(): Observable<Paciente[]> {
-    return this.http.get<Paciente[]>(`${this.apiUrl}/listar`);
+    return this.http.get<Paciente[]>('${this.apiUrl}/listar');
   }
 
-  getPacienteById(id: number): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.apiUrl}/${id}`);
-  }
-
+<<<<<<< HEAD
   
 
   atualizarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
@@ -31,10 +28,18 @@ export class ServicePaciente {
   
   excluirPaciente(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/deletar-paciente-${id}`);
+=======
+  atualizarPaciente(idPaciente: number, paciente: Paciente): Observable<Paciente> {
+    return this.http.put<Paciente>('${this.apiUrl}/editar-paciente-${idPaciente}', paciente);
   }
 
-  getPacienteByName(nomePaciente: string): Observable<Paciente[]> {
-    return this.http.get<Paciente[]>(`${this.apiUrl}/nome-${nomePaciente}`)
+  excluirPaciente(idPaciente: number): Observable<void> {
+    return this.http.delete<void>('${this.apiUrl}/deletar-paciente-${idPaciente}');
+>>>>>>> parent of 69a39f9 (Puxando os dados!)
+  }
+
+  getPacienteByName(namePaciente: string): Observable<Paciente> {
+    return this.http.get<Paciente>('${this.apiUrl}/nome-${nomePaciente}')
   }
 
   getAllPacienteIds(): Observable<number[]> {

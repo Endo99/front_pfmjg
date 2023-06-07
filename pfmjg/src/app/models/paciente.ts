@@ -4,16 +4,16 @@ export class Paciente {
     idPaciente?: number;
     nomePaciente?: string;
     sobrenomePaciente?: string;
-    dataNascimentoPaciente?: Date;
-    idadePaciente?: number;
-    cidade?: string;
-    estado?: string;
-    statusPagamento?: string;
-    tipoConsulta?: string;
-    mesesAcompanhado?: number; 
+    dataNascPac?: Date;
+    idadePac?: number;
+    cidadePac?: string;
+    estadoPac?: string;
+    statusPag?: string;
+    tipoConsul?: string;
+    qtdaMesAcom?: number; 
     telefone?: string;
-    quantiaPaga?: number;
-    formaPagamento?: string;
-    valorConsulta?: number;
+    qtdaPago?: number;
+    tipoPag?: string;
+    valorConsul?: number;
 
 }
