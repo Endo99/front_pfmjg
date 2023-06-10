@@ -30,12 +30,8 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
-              "src/styles.scss"
-=======
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
->>>>>>> parent of 69a39f9 (Puxando os dados!)
             ],
             "scripts": []
           },
@@ -107,10 +103,6 @@
     }
   },
   "cli": {
-<<<<<<< HEAD
-    "analytics": "fc66f25b-bd4f-4021-894b-52743f7677ac"
-=======
     "analytics": "d90220da-07cf-4d29-a1af-c1c556979f50"
->>>>>>> parent of 69a39f9 (Puxando os dados!)
   }
 }

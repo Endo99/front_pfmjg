@@ -127,9 +127,6 @@ body {
     border: none;
 }
 
-.button-home {
-    
-}
 
 .list-pacientes {
     border-radius: 20px;
@@ -155,23 +152,11 @@ body {
     border-bottom: solid #fff 5px;
 }
 
-<<<<<<< HEAD
-
-.table tbody td {
-    text-align: center;
-}
-
-tr:hover {
-    background-color: #29F217;
-    cursor: pointer;
-}
-
-.button-excluir {
-    background-color: rgba(255, 150, 255, 0.2);
-    cursor: pointer;
-}
-=======
 .table thead .none-right {
     border: none;
 }
->>>>>>> parent of 69a39f9 (Puxando os dados!)
+
+.button-center {
+    display: block;
+    margin: 0 auto;
+}

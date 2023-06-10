@@ -22,9 +22,9 @@
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                                     <ul class="lista-item">
                                         <li *ngFor="let item of listMenu">
-                                            <button type="button" class="btn btn-primary" onclick="">
-                                                <i class="{{item.icon}}"></i>
-                                            </button>
+                                            <a type="button" class="btn btn-primary" onclick="">
+                                                <i [class]="item.icon"></i>
+                                            </a>
                                             <span class="col">{{item.legenda.toUpperCase()}}</span>
                                         </li>
                                     </ul>

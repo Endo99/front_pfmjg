@@ -8,7 +8,6 @@ import { DetalhesPacienteComponent } from './pages/pacientes/detalhes-paciente/d
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -20,7 +19,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class PacientesModule { }

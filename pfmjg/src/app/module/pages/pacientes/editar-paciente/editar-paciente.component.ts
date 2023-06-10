@@ -14,8 +14,6 @@ export class EditarPacienteComponent {
   estados: string[] = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
   'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
-  estadoSelecionado: string = '';
-
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
 
   pacienteId: number = 0;
@@ -27,7 +25,7 @@ export class EditarPacienteComponent {
     dataNascimentoPaciente: new Date(),
     idadePaciente: 0,
     cidade: '',
-    estado: '',
+    estado: 'AC',
     statusPagamento: '',
     tipoConsulta: '',
     mesesAcompanhado: 0, 
@@ -36,6 +34,11 @@ export class EditarPacienteComponent {
     formaPagamento: '',
     valorConsulta: 0,
   };
+  
+  constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
+    private rota: Router,) {
+
+  }
 
   ngOnInit() : void {
     this.rotaAtiva.params.subscribe(params => {
@@ -46,10 +49,6 @@ export class EditarPacienteComponent {
   }
   
   
-  constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
-    private rota: Router,) {
-
-  }
 
   atualizarNomePaciente(event: any) {
     this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
@@ -59,7 +58,7 @@ export class EditarPacienteComponent {
     this.paciente.sobrenomePaciente = event.target.value;
   }
 
-  updPaciente(): void {
+  updPaciente(form: NgForm): void {
     const idPaciente = this.paciente.idPaciente;
     console.log('ID do Paciente:', idPaciente);
     console.log('Valores do Formulário:', this.pacienteForm.value);
@@ -99,7 +98,7 @@ export class EditarPacienteComponent {
       this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta as number;
   
       this.servicePaciente.atualizarPaciente(idPaciente, this.paciente).subscribe(() => {
-        this.rota.navigate(['/pacientes']);
+      this.rota.navigate(['/pacientes']);
       });
       
     } else {
@@ -109,15 +108,20 @@ export class EditarPacienteComponent {
   
   
     carregarDetalhesPaciente() {
-      this.servicePaciente.getPacienteById(this.pacienteId).subscribe(
+      this.servicePaciente.getIdPaciente(this.pacienteId).subscribe(
         paciente => {
+          console.log('Dados do paciente obtidos:', paciente);
           this.paciente = paciente;
-      // Preencha os campos de edição com os valores do paciente
+          
+          console.log('Valores do paciente após atribuição:');
+          console.log('ID do Paciente:', this.paciente.idPaciente);
+          console.log('Nome do Paciente:', this.paciente.nomePaciente);
+          console.log('Sobrenome do Paciente:', this.paciente.sobrenomePaciente);
         },
         error => {
-          console.log(error)
+          console.log('Erro ao obter os dados do paciente:', error);
         }
-  );
+      );
 }
 
 }

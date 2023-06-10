@@ -3,8 +3,6 @@ import { Component, Directive, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
-
-
 @Component({
   selector: 'app-home-paciente',
   templateUrl: './home-paciente.component.html',
@@ -49,7 +47,7 @@ export class HomePacienteComponent implements OnInit{
   }
   
   buscarPaciente(id: string): void {
-    this.pacienteService.getPacienteById(parseInt(id)).subscribe(
+    this.pacienteService.getIdPaciente(parseInt(id)).subscribe(
       paciente => {
         this.paciente = paciente;
       },

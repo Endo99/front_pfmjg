@@ -6,48 +6,37 @@ import { Paciente } from '../models/paciente';
 @Injectable(
 )
 export class ServicePaciente {
-  private readonly apiUrl = 'https://localhost:8080/pfmjg/pacientes';
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/pacientes';
   constructor(private http: HttpClient) {}
 
   cadastrarPaciente(paciente: Paciente): Observable<Paciente> {
-    return this.http.post<Paciente>('${this.apiUrl}/cadastrar', paciente).pipe(first());
+    return this.http.post<Paciente>(`${this.apiUrl}/adastrar-paciente`, paciente);
   }
 
   getPaciente(): Observable<Paciente[]> {
-    return this.http.get<Paciente[]>('${this.apiUrl}/listar');
-  }
-
-<<<<<<< HEAD
-  
-
-  atualizarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
-    console.log('ID do Paciente:', id);
-    console.log('Objeto Paciente:', paciente);
-    return this.http.put<Paciente>(`${this.apiUrl}/editar-paciente/${id}`, paciente);
+    return this.http.get<Paciente[]>(`${this.apiUrl}/listar`);
   }
   
-  excluirPaciente(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletar-paciente-${id}`);
-=======
   atualizarPaciente(idPaciente: number, paciente: Paciente): Observable<Paciente> {
-    return this.http.put<Paciente>('${this.apiUrl}/editar-paciente-${idPaciente}', paciente);
+    console.log('ID do Paciente:', idPaciente);
+    console.log('Objeto Paciente:', paciente);
+    return this.http.put<Paciente>(`${this.apiUrl}/editar-paciente/${idPaciente}`, paciente);
   }
-
+  
   excluirPaciente(idPaciente: number): Observable<void> {
-    return this.http.delete<void>('${this.apiUrl}/deletar-paciente-${idPaciente}');
->>>>>>> parent of 69a39f9 (Puxando os dados!)
+    return this.http.delete<void>(`${this.apiUrl}/deletar-paciente/${idPaciente}`);
   }
 
-  getPacienteByName(namePaciente: string): Observable<Paciente> {
-    return this.http.get<Paciente>('${this.apiUrl}/nome-${nomePaciente}')
+  getPacienteByName(nomePaciente: string): Observable<Paciente> {
+    return this.http.get<Paciente>(`${this.apiUrl}/nome/${nomePaciente}`)
   }
 
   getAllPacienteIds(): Observable<number[]> {
     return this.http.get<number[]>(`${this.apiUrl}/ids`);
   }
 
-  getIdPaciente(id: number): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.apiUrl}/${id}`);
+  getIdPaciente(idPaciente: number): Observable<Paciente> {
+    return this.http.get<Paciente>(`${this.apiUrl}/${idPaciente}`);
   }
 
 
