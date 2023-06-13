@@ -74,19 +74,19 @@ export class HomePacienteComponent implements OnInit{
 
   excluirPaciente() {
     if (this.pacienteSelecionado) {
-      // Implemente sua lógica de exclusão aqui
-      // Por exemplo, você pode chamar um serviço para excluir o paciente
-      // e atualizar a lista de pacientes após a exclusão
 
-      // Aqui está um exemplo de como você pode remover o paciente da lista
-      const index = this.pacientes.indexOf(this.pacienteSelecionado);
-      if (index > -1) {
-        this.pacientes.splice(index, 1);
-      }
+      const idPaciente = this.pacienteSelecionado.idadePaciente;
+      this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
+        console.log('Paciente excluido com sucesso!');
+
+        this.listarPacientes();
+
+        this.pacienteSelecionado = null;
+        this.exibirPopupExclusao = false;
+      })
 
       // Após a exclusão, você pode redefinir o paciente selecionado e fechar o pop-up
-      this.pacienteSelecionado = null;
-      this.exibirPopupExclusao = false;
+    
     }
   }
 

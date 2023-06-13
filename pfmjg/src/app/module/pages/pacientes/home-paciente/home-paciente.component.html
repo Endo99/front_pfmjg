@@ -77,7 +77,7 @@
                 <div *ngIf="exibirPopupExclusao" class="popup-exclusao">
                     <h2>Confirmar exclusão</h2>
                     <p>Deseja realmente excluir o {{paciente.nomePaciente}} {{paciente.sobrenomePaciente}}?</p>
-                    <button class="button-confirmar" (click)="excluirPaciente()">Confirmar</button>
+                    <button class="button-confirmar" (click)="excluirPaciente()" [routerLink]="['pacientes']">Confirmar</button>
                     <button class="button-cancelar" (click)="exibirPopupExclusao = false">Cancelar</button>
                 </div>
             </div>

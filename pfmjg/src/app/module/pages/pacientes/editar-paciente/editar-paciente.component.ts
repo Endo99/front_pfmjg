@@ -117,6 +117,16 @@ export class EditarPacienteComponent {
           console.log('ID do Paciente:', this.paciente.idPaciente);
           console.log('Nome do Paciente:', this.paciente.nomePaciente);
           console.log('Sobrenome do Paciente:', this.paciente.sobrenomePaciente);
+          console.log('Data de nascimentp do Paciente:', this.paciente.dataNascimentoPaciente);
+          console.log('Idade do Paciente:', this.paciente.idadePaciente);
+          console.log('Cidade do Paciente:', this.paciente.cidade);
+          console.log('Estado do Paciente:', this.paciente.estado);
+          console.log('Forma de Pagamento do Paciente:', this.paciente.formaPagamento);
+          console.log('Quantia paga atualmente do Paciente:', this.paciente.quantiaPaga);
+          console.log('Valor da consulta do Paciente:', this.paciente.valorConsulta);
+          console.log('Meses de acompanhado do Paciente:', this.paciente.mesesAcompanhado);
+          console.log('Status do Pagamento do Paciente:', this.paciente.statusPagamento);
+
         },
         error => {
           console.log('Erro ao obter os dados do paciente:', error);

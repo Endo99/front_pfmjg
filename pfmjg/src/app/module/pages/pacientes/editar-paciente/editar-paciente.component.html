@@ -75,23 +75,24 @@
 
                     <div class="col">
                       <label for="statusPagamento">Status Pagamento:</label>
-                      <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento" required #status="ngModel">
+                      <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento" required #statusPagamento="ngModel">
                         <option value="" selected disabled>Escolha o status</option>
-                        <option value="pago">Pago</option>
-                        <option value="atraso">Em atraso</option>
-                        <option value="andamento">Em andamento</option>
-                        <option value="cancelado">Cancelado</option>
-                        <option value="finalizado">Finalizado</option>
+                        <option value="Pago">Pago</option>
+                        <option value="Em Atraso">Em atraso</option>
+                        <option value="Em Andamento">Em andamento</option>
+                        <option value="Cancelado">Cancelado</option>
+                        <option value="Finalizado">Finalizado</option>
+                        <option value="Não recebeu">Não recebeu</option>
                       </select>
-                      <div class="warning" *ngIf="status.invalid && status.touched">Campo obrigatório</div>
+                      <div class="warning" *ngIf="statusPagamento.invalid && statusPagamento.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="tipoConsulta">Tipo Consulta:</label>
-                      <select id="tipoConsul" name="tipoConsul" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel">
+                      <select id="tipoConsulta" name="tipoConsulta" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel">
                         <option value="" selected disabled>Escolha o tipo de consulta</option>
-                        <option value="online">On-line</option>
-                        <option value="presencial">Presencial</option>
+                        <option value="Online">On-line</option>
+                        <option value="Presencial">Presencial</option>
                       </select>
                       <div class="warning" *ngIf="tipo.invalid && tipo.touched">Campo obrigatório</div>
                     </div>
@@ -110,27 +111,26 @@
                     
                     <div class="col">
                       <label for="valorConsulta">Valor da Consulta:</label>
-                      <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta" required #consulta="ngModel">
-                      <div class="warning" *ngIf="consulta.invalid && consulta.touched">Campo obrigatório</div>
+                      <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta" required #valorConsulta="ngModel">
+                      <div class="warning" *ngIf="valorConsulta.invalid && valorConsulta.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="quantiaPaga">Quantidade pago:</label>
-                      <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga" required #pago="ngModel">
-                      <div class="warning" *ngIf="pago.invalid && pago.touched">Campo obrigatório</div>
+                      <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga" required #quantiaPaga="ngModel">
+                      <div class="warning" *ngIf="quantiaPaga.invalid && quantiaPaga.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
-                      <div class="campo-obrigatorio">Este campo é obrigatório!</div>
                       <label for="formaPagamento">Tipo Pagamento: </label>
-                      <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento" required #pagamento="ngModel">
+                      <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento" required #formaPagamento="ngModel">
                         <option value="" selected disabled>Escolha o pagamento</option>
-                        <option value="dinheiro">Dinheiro</option>
-                        <option value="pix">PIX</option>
-                        <option value="credito">Crédito</option>
-                        <option value="debito">Débito</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                        <option value="PIX">PIX</option>
+                        <option value="Crédito">Crédito</option>
+                        <option value="Débito">Débito</option>
                       </select>
-                      <div class="warning" *ngIf="pagamento.invalid && pagamento.touched">Campo obrigatório</div>
+                      <div class="warning" *ngIf="formaPagamento.invalid && formaPagamento.touched">Campo obrigatório</div>
                     </div>
                   </div>
                 </div>
