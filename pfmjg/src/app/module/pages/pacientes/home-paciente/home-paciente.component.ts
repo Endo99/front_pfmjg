@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { Component, Directive, OnInit } from '@angular/core';
+import { Component, Directive, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
@@ -12,6 +12,8 @@ export class HomePacienteComponent implements OnInit{
 
   exibirPopupExclusao = false;
   pacienteSelecionado: Paciente | null = null;
+
+  selectedPaciente: any;
 
   pacientes: Paciente[] = [];
 
@@ -34,10 +36,13 @@ export class HomePacienteComponent implements OnInit{
     valorConsulta: 0,
   };
 
-  constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute) { }
+  constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.listarPacientes();
+    if (this.pacienteSelecionado) {
+      this.renderer.addClass(document.body, 'paciente-selecionado');
+    }
   }
 
   listarPacientes(): void {
@@ -93,12 +98,20 @@ export class HomePacienteComponent implements OnInit{
     }
   }
 
-  abrirPopupExclusao(paciente: any) {
-    this.exibirPopupExclusao = true;
-  }
-
   selecionarPaciente(paciente: Paciente): void {
     this.pacienteSelecionado = paciente;
+  }
+
+  openPopup(paciente: any) {
+    console.log("Clicou");
+    console.log(this.selectedPaciente = paciente);
+    this.selectedPaciente = paciente;
+  
+  }
+
+  closePopup() {
+    this.selectedPaciente = null;
+    this.router.navigate(['/pacientes']);
   }
   
 }

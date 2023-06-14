@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
@@ -40,7 +40,7 @@ export class EditarPacienteComponent {
   };
   
   constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
-    private rota: Router,) {
+    private rota: Router, private el: ElementRef) {
 
   }
 
@@ -66,12 +66,14 @@ export class EditarPacienteComponent {
     const idPaciente = this.paciente.idPaciente;
     console.log('ID do Paciente:', idPaciente);
     console.log('Valores do Formulário:', this.pacienteForm.value);
+    console.log(this.paciente.idPaciente = idPaciente)
+    console.log(this.paciente);
+    console.log(this.pacienteForm.valid);
     // Verifique se o objeto paciente está definido e se o formulário é válido
     if (this.paciente && this.pacienteForm.valid && idPaciente !== undefined) {
       // Preencha os valores do objeto paciente com os valores do formulário
       console.log("Entrou");
       
-      console.log(this.paciente.idPaciente = idPaciente)
       console.log(this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente)
       console.log(this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente)
       console.log(this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente)
@@ -144,6 +146,24 @@ export class EditarPacienteComponent {
       const dataNascimento = new Date(this.paciente.dataNascimentoPaciente);
       const diff = Math.abs(hoje.getTime() - dataNascimento.getTime());
       this.paciente.idadePaciente = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // Calcula a idade em anos considerando anos bissextos
+  }
+}
+
+formatarTelefone(): void {
+  if (this.paciente.telefone) {
+    const telefone = this.paciente.telefone;
+    const telefoneNumerico = telefone.replace(/\D/g, '');
+    if (telefoneNumerico.length === 11) {
+      this.paciente.telefone = `(${telefoneNumerico.substring(0, 2)}) ${telefoneNumerico.substring(2, 7)}-${telefoneNumerico.substring(7)}`;
+    }
+  }
+}
+
+@HostListener('input')
+onInput() {
+  const input = this.el.nativeElement;
+  if (input.value < 0) {
+    input.value = '';
   }
 }
 

@@ -34,13 +34,13 @@
   
                       <div class="col">
                         <label for="nomePaciente">Nome:</label>
-                        <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente" (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus>
+                        <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente" (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus minlength="3" maxlength="50">
                         <div class="warning" *ngIf="nome.invalid && nome.touched">Campo obrigatório</div>
                       </div>
 
                       <div class="col">
                         <label for="sobrenomePaciente">Sobrenome:</label>
-                        <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente" (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel">
+                        <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente" (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel" minlength="3" maxlength="50">
                         <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched">Campo obrigatório</div>
                       </div>
 
@@ -68,7 +68,7 @@
                       
                       <div class="col">
                         <label for="cidade">Cidade:</label>
-                        <input type="text" id="cidade"  name="cidade" [(ngModel)]="paciente.cidade"  required #cidade="ngModel">
+                        <input type="text" id="cidade"  name="cidade" [(ngModel)]="paciente.cidade"  required #cidade="ngModel" minlength="3" maxlength="50">
                         <div class="warning" *ngIf="cidade.invalid && cidade.touched">Campo obrigatório</div>
                       </div>
 
@@ -77,11 +77,14 @@
                         <label for="statusPagamento">Status Pagamento:</label>
                         <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento" required #status="ngModel">
                           <option value="" selected disabled>Escolha o status</option>
-                          <option value="pago">Pago</option>
-                          <option value="atraso">Em atraso</option>
-                          <option value="andamento">Em andamento</option>
-                          <option value="cancelado">Cancelado</option>
-                          <option value="finalizado">Finalizado</option>
+                          <option value="Pago">Pago</option>
+                          <option value="Em Atraso">Em atraso</option>
+                          <option value="Em Andamento">Em andamento</option>
+                          <option value="Cancelado">Cancelado</option>
+                          <option value="Finalizado">Finalizado</option>
+                          <option value="Recebendo">Recebendo</option>
+                          <option value="Aguardando">Aguardando</option>
+                          <option value="Não recebeu">Não recebeu</option>
                         </select>
                         <div class="warning" *ngIf="status.invalid && status.touched">Campo obrigatório</div>
                       </div>
@@ -90,33 +93,33 @@
                         <label for="tipoConsulta">Tipo Consulta:</label>
                         <select id="tipoConsul" name="tipoConsul" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel">
                           <option value="" selected disabled>Escolha o tipo de consulta</option>
-                          <option value="online">On-line</option>
-                          <option value="presencial">Presencial</option>
+                          <option value="Online">On-line</option>
+                          <option value="Presencial">Presencial</option>
                         </select>
                         <div class="warning" *ngIf="tipo.invalid && tipo.touched">Campo obrigatório</div>
                       </div>
 
                       <div class="col">
                         <label for="mesesAcompanhado">Quantidade de meses acompanhado:</label>
-                        <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" value="0" [(ngModel)]="paciente.mesesAcompanhado" required #meses="ngModel">
+                        <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" value="0" [(ngModel)]="paciente.mesesAcompanhado" required #meses="ngModel" positiveNumber>
                         <div class="warning" *ngIf="meses.invalid && meses.touched">Campo obrigatório</div>
                       </div>
                       
                       <div class="col">
                         <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" required #tel="ngModel">
+                        <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" placeholder="(DDD) XXXXX-XXXX" required #tel="ngModel" (input)="formatarTelefone()">
                         <div class="warning" *ngIf="tel.invalid && tel.touched">Campo obrigatório</div>
                       </div>
                       
                       <div class="col">
                         <label for="valorConsulta">Valor da Consulta:</label>
-                        <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta" required #consulta="ngModel">
+                        <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta" required #consulta="ngModel" positiveNumber>
                         <div class="warning" *ngIf="consulta.invalid && consulta.touched">Campo obrigatório</div>
                       </div>
 
                       <div class="col">
                         <label for="quantiaPaga">Quantidade pago:</label>
-                        <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga" required #pago="ngModel">
+                        <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga" required #pago="ngModel" positiveNumber>
                         <div class="warning" *ngIf="pago.invalid && pago.touched">Campo obrigatório</div>
                       </div>
 
@@ -125,10 +128,10 @@
                         <label for="formaPagamento">Tipo Pagamento: </label>
                         <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento" required #pagamento="ngModel">
                           <option value="" selected disabled>Escolha o pagamento</option>
-                          <option value="dinheiro">Dinheiro</option>
-                          <option value="pix">PIX</option>
-                          <option value="credito">Crédito</option>
-                          <option value="debito">Débito</option>
+                          <option value="Dinheiro">Dinheiro</option>
+                          <option value="PIX">PIX</option>
+                          <option value="Crédito">Crédito</option>
+                          <option value="Débito">Débito</option>
                         </select>
                         <div class="warning" *ngIf="pagamento.invalid && pagamento.touched">Campo obrigatório</div>
                       </div>

@@ -12,6 +12,10 @@ body {
     padding: 0;
     height: 100vh;
     width: 100%;
+    &.paciente-selecionado {
+        background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo escura com opacidade de 0.5 */
+        z-index: 999;
+      }
 }
 
 .top-bar{
@@ -160,3 +164,36 @@ body {
     display: block;
     margin: 0 auto;
 }
+
+ 
+.table tbody tr:hover {
+    background-color: #29F217;
+    cursor: pointer;
+}
+
+.popup {
+    background-color: #C7F9CC;
+    border:  solid #000;
+    border-radius: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Outros estilos do popup */
+  }
+
+  .popup-overlay {
+    &.paciente-selecionado {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+  }

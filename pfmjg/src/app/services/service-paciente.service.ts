@@ -10,7 +10,7 @@ export class ServicePaciente {
   constructor(private http: HttpClient) {}
 
   cadastrarPaciente(paciente: Paciente): Observable<Paciente> {
-    return this.http.post<Paciente>(`${this.apiUrl}/adastrar-paciente`, paciente);
+    return this.http.post<Paciente>(`${this.apiUrl}/cadastrar-paciente`, paciente);
   }
 
   getPaciente(): Observable<Paciente[]> {

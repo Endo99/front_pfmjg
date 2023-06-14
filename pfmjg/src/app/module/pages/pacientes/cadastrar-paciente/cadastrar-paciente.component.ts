@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { Paciente } from '../../../../models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { FormControl, NgForm, Validators } from '@angular/forms';
 export class CadastrarPacienteComponent implements OnInit{
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
+
+  sucessMessage: string = "Paciente Cadastrado!";
 
   regex = new FormControl();
 
@@ -42,7 +44,7 @@ export class CadastrarPacienteComponent implements OnInit{
   ngOnInit() : void {
   }
 
-  constructor(private servicePaciente: ServicePaciente, private rota: Router) {
+  constructor(private servicePaciente: ServicePaciente, private rota: Router, private el: ElementRef) {
   }
 
   addPaciente(form: NgForm): void {
@@ -52,7 +54,7 @@ export class CadastrarPacienteComponent implements OnInit{
         {
           console.log(response);
           console.log(this.paciente);
-          this.rota.navigate(['/paciente'])
+          this.rota.navigate(['paciente'])
       });
     }
   }
@@ -101,6 +103,24 @@ export class CadastrarPacienteComponent implements OnInit{
         const control = form.controls[controlName];
         this.camposPreenchidos[controlName] = control.value !== '' || (control.touched && control.invalid);
       });
+    }
+  }
+
+  formatarTelefone(): void {
+    if (this.paciente.telefone) {
+      const telefone = this.paciente.telefone;
+      const telefoneNumerico = telefone.replace(/\D/g, '');
+      if (telefoneNumerico.length === 11) {
+        this.paciente.telefone = `(${telefoneNumerico.substring(0, 2)}) ${telefoneNumerico.substring(2, 7)}-${telefoneNumerico.substring(7)}`;
+      }
+    }
+  }
+
+  @HostListener('input')
+  onInput() {
+    const input = this.el.nativeElement;
+    if (input.value < 0) {
+      input.value = '';
     }
   }
   
