@@ -35,19 +35,19 @@
                     <div class="col">
                       <label for="nomePaciente">Nome:</label>
                       <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente" (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus>
-                      <div class="warning" *ngIf="nome.invalid && nome.touched">Campo obrigatório</div>
+                      <div class="warning" *ngIf="nome.invalid && nome.touched || null">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="sobrenomePaciente">Sobrenome:</label>
                       <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente" (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel">
-                      <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched">Campo obrigatório</div>
+                      <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched || null">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="dataNascimentoPaciente">Data de nascimento:</label>
-                      <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente" required #data="ngModel">
-                      <div class="warning" *ngIf="data.invalid && data.touched">Campo obrigatório</div>
+                      <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente" (change)="calcularIdade()" required #data="ngModel">
+                      <div class="warning" *ngIf="data.invalid && data.touched || null">Campo obrigatório</div>
                     </div>
                     
                     <div class="col">
@@ -82,6 +82,8 @@
                         <option value="Em Andamento">Em andamento</option>
                         <option value="Cancelado">Cancelado</option>
                         <option value="Finalizado">Finalizado</option>
+                        <option value="Recebendo">Recebendo</option>
+                        <option value="Aguardando">Aguardando</option>
                         <option value="Não recebeu">Não recebeu</option>
                       </select>
                       <div class="warning" *ngIf="statusPagamento.invalid && statusPagamento.touched">Campo obrigatório</div>
@@ -134,8 +136,8 @@
                     </div>
                   </div>
                 </div>
-                    <div class="button">
-                      <input type="submit" class="btn btn-primary" value="Editar">
+                    <div class="button" *ngIf="pacienteForm !== null">
+                      <input type="submit" class="btn btn-primary" value="Editar" >
                     </div>
               </form>
                   

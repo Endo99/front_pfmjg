@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { Paciente } from '../../../../models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastrar-paciente',
@@ -12,6 +12,10 @@ import { NgForm } from '@angular/forms';
 export class CadastrarPacienteComponent implements OnInit{
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
+
+  regex = new FormControl();
+
+  controleRegex = new FormControl('', [Validators.pattern(/^[a-zA-Z0-9 ]*$/)])
 
   cidades: any[] = [];
   abreviacoes: string[] = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
@@ -53,11 +57,13 @@ export class CadastrarPacienteComponent implements OnInit{
     }
   }
 
-  gerarIdade(date: Date) {
-    dateNow: new Date();
-    dateInput: this.paciente.dataNascimentoPaciente;
-
-    age: date
+  calcularIdade() {
+    if (this.paciente.dataNascimentoPaciente) {
+      const hoje = new Date();
+      const dataNascimento = new Date(this.paciente.dataNascimentoPaciente);
+      const diff = Math.abs(hoje.getTime() - dataNascimento.getTime());
+      this.paciente.idadePaciente = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // Calcula a idade em anos considerando anos bissextos
+    }
   }
 
   // atualizarStatus(event: Event): void {

@@ -46,13 +46,13 @@
 
                       <div class="col">
                         <label for="dataNascimentoPaciente">Data de nascimento:</label>
-                        <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente" required #data="ngModel">
+                        <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente" (change)="calcularIdade()" required #data="ngModel">
                         <div class="warning" *ngIf="data.invalid && data.touched">Campo obrigatório</div>
                       </div>
                       
                       <div class="col">
                         <label for="idadePaciente">Idade:</label>
-                        <input type="number" id="idadePaciente"  name="idadePaciente" value = "0" [(ngModel)]="paciente.idadePaciente" required>
+                        <input type="number" id="idadePaciente" class="idade" name="idadePaciente" value = "0" [(ngModel)]="paciente.idadePaciente" required>
                       </div>
                       
                       <!-- Tenho que ver uma biblioteca do java ou angular que disponibiliza os estados e cidades do país -->
