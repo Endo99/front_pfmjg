@@ -11,7 +11,7 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 export class HomePacienteComponent implements OnInit{
 
   exibirPopupExclusao = false;
-  pacienteSelecionado: any = null;
+  pacienteSelecionado: Paciente | null = null;
 
   pacientes: Paciente[] = [];
 
@@ -73,9 +73,11 @@ export class HomePacienteComponent implements OnInit{
   }
 
   excluirPaciente() {
-    if (this.pacienteSelecionado) {
 
-      const idPaciente = this.pacienteSelecionado.idadePaciente;
+
+    if (this.pacienteSelecionado && this.pacienteSelecionado.idPaciente) {
+
+      const idPaciente = this.pacienteSelecionado.idPaciente;
       this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
         console.log('Paciente excluido com sucesso!');
 
@@ -83,18 +85,20 @@ export class HomePacienteComponent implements OnInit{
 
         this.pacienteSelecionado = null;
         this.exibirPopupExclusao = false;
-      })
-
-      // Após a exclusão, você pode redefinir o paciente selecionado e fechar o pop-up
+      });
     
+    }
+    else  {
+        console.log("Não encontrado ou erro");
     }
   }
 
   abrirPopupExclusao(paciente: any) {
-    this.pacienteSelecionado = paciente;
     this.exibirPopupExclusao = true;
   }
-    // Lógica para excluir o paciente
-    // ...
-    // Após a exclusão, você pode atualizar a lista de pacientes, se necessário.
+
+  selecionarPaciente(paciente: Paciente): void {
+    this.pacienteSelecionado = paciente;
+  }
+  
 }
