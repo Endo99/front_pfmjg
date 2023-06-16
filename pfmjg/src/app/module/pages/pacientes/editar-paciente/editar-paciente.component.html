@@ -107,7 +107,7 @@
                     
                     <div class="col">
                       <label for="telefone">Telefone:</label>
-                      <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" required (input)="formatarTelefone()" #tel="ngModel">
+                      <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" required (input)="formatarTelefone()" #tel="ngModel" maxlength="14">
                       <div class="warning" *ngIf="tel.invalid && tel.touched">Campo obrigatório</div>
                     </div>
                     
