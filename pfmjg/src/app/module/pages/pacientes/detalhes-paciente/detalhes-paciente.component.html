@@ -81,12 +81,28 @@
     <div class="popup" *ngIf="selectedPaciente">
         <div class="popup-content">
           <h2>{{ selectedPaciente.nomePaciente }} {{ selectedPaciente.sobrenomePaciente }}</h2>
-          <p class="titulo">Tipo de Consulta:<p> <p class="response">{{ selectedPaciente.tipoConsulta }}</p>
-          <p class="titulo">Tipo de pagamento:</p> <p class="response">{{ selectedPaciente.formapagamento }}</p>
-          <p class="titulo">Meses acompanhado:</p> <p class="response">{{ selectedPaciente.mesesAcompanhado }}</p>
-          <p class="titulo">Quantidade pago:</p> <p class="response">{{ selectedPaciente.quantiaPaga }}</p>
-          <p class="titulo">Telefone:</p> <p class="response">{{ selectedPaciente.telefone }}</p>
-          <p class="titulo">Data de nascimento:</p> <p class="response">{{ selectedPaciente.dataNascimentoPaciente }}</p>
+          <div class="container text-center">
+            <div class="row">
+              <div class="col">
+                <p class="titulo">Tipo de Consulta:<p> <p class="response">{{ selectedPaciente.tipoConsulta }}</p>
+              </div>
+              <div class="col">
+                  <p class="titulo">Tipo de pagamento:</p> <p class="response">{{ selectedPaciente.formapagamento }}</p>
+              </div>
+              <div class="col">
+                  <p class="titulo">Meses acompanhado:</p> <p class="response">{{ selectedPaciente.mesesAcompanhado }}</p>
+              </div>
+              <div class="col">
+                  <p class="titulo">Quantidade pago:</p> <p class="response">{{ selectedPaciente.quantiaPaga }}</p>
+            </div>
+            <div class="col">
+                <p class="titulo">Telefone:</p> <p class="response">{{ selectedPaciente.telefone }}</p>
+            </div>
+            <div class="col">
+                <p class="titulo">Data de nascimento:</p> <p class="response">{{ selectedPaciente.dataNascimentoPaciente }}</p>
+            </div>
+        </div>
+        </div>
           <!-- Outros detalhes do paciente aqui -->
           <button class="close" (click)="closePopup()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">

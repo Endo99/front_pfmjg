@@ -7,6 +7,9 @@ import { HomePacienteComponent } from './pages/pacientes/home-paciente/home-paci
 import { DetalhesPacienteComponent } from './pages/pacientes/detalhes-paciente/detalhes-paciente.component';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +24,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
   ]
 })
 export class PacientesModule { }

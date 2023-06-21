@@ -121,7 +121,7 @@ body {
     top: .9vw;
     padding: 0.7vw;
     width: 30%;
-    margin: 0 0 0 35%;
+    margin: 0 0 0 20%;
     font-weight: bold;
     color: #000;
     font-size: 1.2vw;
@@ -188,10 +188,48 @@ input[type="date"] {
     background-color: #000;
 }
 
+
 .warning{
     color: #ef233c;
 }
 
 .warning, input.text, select, label {
     border: #ef233c;
+}
+
+.success-message {
+    background-color: rgba(9,254,4, 0.3);
+    border: #000 2px solid;
+    border-radius: 20px;
+    text-align: center;
+    padding: 1vw;
+    left: 42%;
+    bottom: 25%;
+    position: fixed;
+    font-weight: bold;
+    transform: translateY(-500%);
+}
+
+.highlight-error {
+    border: 1px solid red;
+}
+
+.red {
+    position: absolute;
+    background-color: #dc2f02;
+    letter-spacing: 0.1vw;
+    top: .9vw;
+    padding: 0.7vw;
+    width: 30%;
+    margin: 0 0 0 55%;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2vw;
+    border: #000 solid 0.3px;
+    border-radius: 15px;
+    
+}
+.red:hover {
+    background-color: #f8ad9d;
+    cursor: pointer;
 }

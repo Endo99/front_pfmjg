@@ -1,6 +1,7 @@
 import { NgForOf } from '@angular/common';
 import { Component, Directive, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 @Component({
@@ -12,6 +13,10 @@ export class HomePacienteComponent implements OnInit{
 
   exibirPopupExclusao = false;
   pacienteSelecionado: Paciente | null = null;
+
+  sucessMessage: string = "";
+
+  exibirMensagem: boolean = false;
 
   selectedPaciente: any;
 
@@ -36,18 +41,22 @@ export class HomePacienteComponent implements OnInit{
     valorConsulta: 0,
   };
 
-  constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute, private renderer: Renderer2) { }
+  constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute,
+    private renderer: Renderer2, private toastr: ToastrService) {
+     }
 
   ngOnInit(): void {
+    
     this.listarPacientes();
     if (this.pacienteSelecionado) {
       this.renderer.addClass(document.body, 'paciente-selecionado');
     }
   }
-
+  
   listarPacientes(): void {
       this.pacienteService.getPaciente().subscribe(data => {
       this.pacientes = data;
+      this.sortPacientesByNome();
     })
   }
   
@@ -84,8 +93,15 @@ export class HomePacienteComponent implements OnInit{
 
       const idPaciente = this.pacienteSelecionado.idPaciente;
       this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
-        console.log('Paciente excluido com sucesso!');
-
+        
+        
+        
+        this.sucessMessage = "Paciente Excluído!";
+        this.exibirMensagem = true;
+        setTimeout(() => {
+          this.toastr.success(this.sucessMessage, 'Sucesso');
+          this.router.navigate(['pacientes']);
+        }, 2000)
         this.listarPacientes();
 
         this.pacienteSelecionado = null;
@@ -113,5 +129,24 @@ export class HomePacienteComponent implements OnInit{
     this.selectedPaciente = null;
     this.router.navigate(['/pacientes']);
   }
+
+  sortPacientesByNome() {
+    this.pacientes = this.pacientes.filter(paciente => paciente.nomePaciente !== undefined);
+    this.pacientes.sort((a, b) => {
+    const nomeA = a.nomePaciente!.toLowerCase();
+    const nomeB = b.nomePaciente!.toLowerCase();
+    if (nomeA < nomeB) {
+      return -1;
+    }
+    if (nomeA > nomeB) {
+      return 1;
+    }
+    return 0;
+  });
+  }
   
+  voltarPagina(): void {
+    this.router.navigate(['pacientes'])
+  }
+
 }

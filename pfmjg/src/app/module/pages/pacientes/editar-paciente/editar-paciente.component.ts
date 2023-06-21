@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
@@ -12,6 +13,10 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 export class EditarPacienteComponent {
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
+
+  sucessMessage: string = "";
+
+  exibirMensagem: boolean = false;
 
   regex = new FormControl();
 
@@ -40,7 +45,7 @@ export class EditarPacienteComponent {
   };
   
   constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
-    private rota: Router, private el: ElementRef) {
+    private rota: Router, private el: ElementRef, private toastr: ToastrService) {
 
   }
 
@@ -66,8 +71,6 @@ export class EditarPacienteComponent {
     const idPaciente = this.paciente.idPaciente;
     console.log('ID do Paciente:', idPaciente);
     console.log('Valores do Formulário:', this.pacienteForm.value);
-    console.log(this.paciente.idPaciente = idPaciente)
-    console.log(this.paciente);
     console.log(this.pacienteForm.valid);
     // Verifique se o objeto paciente está definido e se o formulário é válido
     if (this.paciente && this.pacienteForm.valid && idPaciente !== undefined) {
@@ -88,6 +91,8 @@ export class EditarPacienteComponent {
       console.log(this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento)
       console.log(this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta)
       
+      
+
       this.paciente.idPaciente = idPaciente;
       this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente as string;
       this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente as string;
@@ -104,7 +109,13 @@ export class EditarPacienteComponent {
       this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta as number;
   
       this.servicePaciente.atualizarPaciente(idPaciente, this.paciente).subscribe(() => {
-      this.rota.navigate(['/pacientes']);
+        this.sucessMessage = "Paciente Salvo!";
+        this.exibirMensagem = true;
+        setTimeout(() => {
+          this.toastr.success(this.sucessMessage, 'Sucesso');
+          this.rota.navigate(['pacientes']);
+        }, 2000)
+
       });
       
     } else {
@@ -123,7 +134,7 @@ export class EditarPacienteComponent {
           console.log('ID do Paciente:', this.paciente.idPaciente);
           console.log('Nome do Paciente:', this.paciente.nomePaciente);
           console.log('Sobrenome do Paciente:', this.paciente.sobrenomePaciente);
-          console.log('Data de nascimentp do Paciente:', this.paciente.dataNascimentoPaciente);
+          console.log('Data de nascimento do Paciente:', this.paciente.dataNascimentoPaciente);
           console.log('Idade do Paciente:', this.paciente.idadePaciente);
           console.log('Cidade do Paciente:', this.paciente.cidade);
           console.log('Estado do Paciente:', this.paciente.estado);
@@ -157,6 +168,10 @@ formatarTelefone(): void {
       this.paciente.telefone = `(${telefoneNumerico.substring(0, 2)}) ${telefoneNumerico.substring(2, 7)}-${telefoneNumerico.substring(7)}`;
     }
   }
+}
+
+voltarPagina(): void {
+  this.rota.navigate(['pacientes'])
 }
 
 @HostListener('input')

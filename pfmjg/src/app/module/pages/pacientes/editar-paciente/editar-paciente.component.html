@@ -25,7 +25,7 @@
         <div class="background-paciente">
           
             <main class="information">
-              <form #pacienteForm="ngForm" (ngSubmit) ="updPaciente(pacienteForm)"> 
+              <form #pacienteForm="ngForm" (ngSubmit)="updPaciente(pacienteForm)"> 
                 <legend>
                   <h1>Editar paciente {{paciente.nomePaciente}} {{paciente.sobrenomePaciente}}</h1>
                 </legend>
@@ -34,32 +34,41 @@
 
                     <div class="col">
                       <label for="nomePaciente">Nome:</label>
-                      <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente" (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus minlength="3" maxlength="50">
-                      <div class="warning" *ngIf="nome.invalid && nome.touched || null">Campo obrigatório</div>
+                      <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente"
+                      (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus minlength="3" maxlength="50"
+                      [ngClass]="{ 'highlight-error': nome.invalid && nome.touched }">
+                      <div class="warning" *ngIf="nome.invalid && nome.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="sobrenomePaciente">Sobrenome:</label>
-                      <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente" (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel" minlength="3" maxlength="50">
-                      <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched || null">Campo obrigatório</div>
+                      <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente"
+                      (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel" minlength="3" maxlength="50"
+                      [ngClass]="{ 'highlight-error': sobrenome.invalid && sobrenome.touched }">
+                      <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="dataNascimentoPaciente">Data de nascimento:</label>
-                      <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente" [(ngModel)]="paciente.dataNascimentoPaciente" (change)="calcularIdade()" required #data="ngModel">
-                      <div class="warning" *ngIf="data.invalid && data.touched || null">Campo obrigatório</div>
+                      <input class="data" type="date" id="dataNascimentoPaciente" name="dataNascimentoPaciente"
+                      [(ngModel)]="paciente.dataNascimentoPaciente" (change)="calcularIdade()" required #data="ngModel"
+                      [ngClass]="{ 'highlight-error': data.invalid && data.touched }">
+                      <div class="warning" *ngIf="data.invalid && data.touched">Campo obrigatório</div>
                     </div>
                     
                     <div class="col">
                       <label for="idadePaciente">Idade:</label>
-                      <input type="number" id="idadePaciente"  name="idadePaciente" value = "0" [(ngModel)]="paciente.idadePaciente" required>
+                      <input type="number" id="idadePaciente" class="idade" name="idadePaciente" value = "0"
+                      [(ngModel)]="paciente.idadePaciente" required>
                     </div>
                     
                     <!-- Tenho que ver uma biblioteca do java ou angular que disponibiliza os estados e cidades do país -->
                     
                     <div class="col">
                       <label for="estado">Estado:</label>
-                      <select id="estado" name="estado" [(ngModel)]="paciente.estado" required #estado="ngModel">
+                      <select id="estado" name="estado" [(ngModel)]="paciente.estado" required #estado="ngModel"
+                      [ngClass]="{ 'highlight-error': estado.invalid && estado.touched }"
+                      >
                         <option value="" selected disabled>Escolha o estado</option>
                         <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
                       </select>
@@ -68,14 +77,16 @@
                     
                     <div class="col">
                       <label for="cidade">Cidade:</label>
-                      <input type="text" id="cidade"  name="cidade" [(ngModel)]="paciente.cidade"  required #cidade="ngModel" minlength="3" maxlength="50">
+                      <input type="text" id="cidade"  name="cidade" [(ngModel)]="paciente.cidade" required
+                      #cidade="ngModel" minlength="3" maxlength="50" [ngClass]="{ 'highlight-error': cidade.invalid && cidade.touched }">
                       <div class="warning" *ngIf="cidade.invalid && cidade.touched">Campo obrigatório</div>
                     </div>
 
 
                     <div class="col">
                       <label for="statusPagamento">Status Pagamento:</label>
-                      <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento" required #statusPagamento="ngModel">
+                      <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento"
+                      required #status="ngModel" [ngClass]="{ 'highlight-error': status.invalid && status.touched }">
                         <option value="" selected disabled>Escolha o status</option>
                         <option value="Pago">Pago</option>
                         <option value="Em Atraso">Em atraso</option>
@@ -86,12 +97,13 @@
                         <option value="Aguardando">Aguardando</option>
                         <option value="Não recebeu">Não recebeu</option>
                       </select>
-                      <div class="warning" *ngIf="statusPagamento.invalid && statusPagamento.touched">Campo obrigatório</div>
+                      <div class="warning" *ngIf="status.invalid && status.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="tipoConsulta">Tipo Consulta:</label>
-                      <select id="tipoConsulta" name="tipoConsulta" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel" >
+                      <select id="tipoConsulta" name="tipoConsulta" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel"
+                      [ngClass]="{ 'highlight-error': tipo.invalid && tipo.touched }">
                         <option value="" selected disabled>Escolha o tipo de consulta</option>
                         <option value="Online">On-line</option>
                         <option value="Presencial">Presencial</option>
@@ -101,43 +113,56 @@
 
                     <div class="col">
                       <label for="mesesAcompanhado">Quantidade de meses acompanhado:</label>
-                      <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" value="0" [(ngModel)]="paciente.mesesAcompanhado" required #meses="ngModel" positiveNumber>
-                      <div class="warning" *ngIf="meses.invalid && meses.touched">Campo obrigatório</div>
+                          <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" [(ngModel)]="paciente.mesesAcompanhado"
+                          required #meses="ngModel" positiveNumber [ngClass]="{ 'highlight-error': meses.invalid && meses.touched }" min="0">
+                          <div class="warning" *ngIf="meses.invalid && meses.touched">Campo obrigatório</div>
                     </div>
                     
                     <div class="col">
                       <label for="telefone">Telefone:</label>
-                      <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" required (input)="formatarTelefone()" #tel="ngModel" maxlength="14">
+                      <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone"
+                      placeholder="(DDD) XXXXX-XXXX" required #tel="ngModel" (input)="formatarTelefone()"
+                      [ngClass]="{ 'highlight-error': tel.invalid && tel.touched }" maxlength="15">
                       <div class="warning" *ngIf="tel.invalid && tel.touched">Campo obrigatório</div>
                     </div>
                     
                     <div class="col">
                       <label for="valorConsulta">Valor da Consulta:</label>
-                      <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$" value="0" [(ngModel)]="paciente.valorConsulta" required #valorConsulta="ngModel" positiveNumber>
-                      <div class="warning" *ngIf="valorConsulta.invalid && valorConsulta.touched">Campo obrigatório</div>
+                      <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$"
+                      [(ngModel)]="paciente.valorConsulta" required #consulta="ngModel" positiveNumber
+                      [ngClass]="{ 'highlight-error': consulta.invalid && consulta.touched }"
+                      min="0">
+                      <div class="warning" *ngIf="consulta.invalid && consulta.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="quantiaPaga">Quantidade pago:</label>
-                      <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$" value="0" [(ngModel)]="paciente.quantiaPaga" required #quantiaPaga="ngModel" positiveNumber>
-                      <div class="warning" *ngIf="quantiaPaga.invalid && quantiaPaga.touched">Campo obrigatório</div>
+                        <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$"
+                        [(ngModel)]="paciente.quantiaPaga" required #pago="ngModel" positiveNumber
+                        [ngClass]="{ 'highlight-error': pago.invalid && pago.touched }" min="0">
+                      <div class="warning" *ngIf="pago.invalid && pago.touched">Campo obrigatório</div>
                     </div>
 
                     <div class="col">
                       <label for="formaPagamento">Tipo Pagamento: </label>
-                      <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento" required #formaPagamento="ngModel">
+                      <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento"
+                      required #pagamento="ngModel" [ngClass]="{ 'highlight-error': pagamento.invalid && pagamento.touched }">
                         <option value="" selected disabled>Escolha o pagamento</option>
                         <option value="Dinheiro">Dinheiro</option>
                         <option value="PIX">PIX</option>
                         <option value="Crédito">Crédito</option>
                         <option value="Débito">Débito</option>
                       </select>
-                      <div class="warning" *ngIf="formaPagamento.invalid && formaPagamento.touched">Campo obrigatório</div>
+                      <div class="warning" *ngIf="pagamento.invalid && pagamento.touched">Campo obrigatório</div>
                     </div>
                   </div>
                 </div>
                     <div class="button" *ngIf="pacienteForm !== null">
-                      <input type="submit" class="btn btn-primary" value="Editar" >
+                      <input type="submit" class="btn btn-primary" value="Salvar">
+                      <div *ngIf="exibirMensagem" class="success-message" >
+                        {{sucessMessage}}
+                      </div>
+                      <input type="button" class="btn btn-primary red" value="Cancelar" (click)="voltarPagina()">
                     </div>
               </form>
                   

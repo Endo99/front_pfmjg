@@ -78,6 +78,9 @@
                     <h2>Confirmar exclusão</h2>
                     <p>Deseja realmente excluir o {{pacienteSelecionado?.nomePaciente}} {{pacienteSelecionado?.sobrenomePaciente}}?</p>
                     <button class="button-confirmar" (click)="excluirPaciente()" [routerLink]="['/pacientes']">Confirmar</button>
+                    <div *ngIf="exibirMensagem" class="success-message" >
+                        {{sucessMessage}}
+                      </div>
                     <button class="button-cancelar" (click)="exibirPopupExclusao = false">Cancelar</button>
                 </div>
             </div>
@@ -86,14 +89,28 @@
     <div class="popup-overlay" *ngIf="selectedPaciente"></div>
     <div class="popup" *ngIf="selectedPaciente">
         <div class="popup-content">
-          <h2>{{ selectedPaciente.nomePaciente }} {{ selectedPaciente.sobrenomePaciente }}</h2>
-          <p class="titulo">Tipo de Consulta:<p> <p class="response">{{ selectedPaciente.tipoConsulta }}</p>
-          <p class="titulo">Tipo de pagamento:</p> <p class="response">{{ selectedPaciente.formapagamento }}</p>
-          <p class="titulo">Meses acompanhado:</p> <p class="response">{{ selectedPaciente.mesesAcompanhado }}</p>
-          <p class="titulo">Quantidade pago:</p> <p class="response">{{ selectedPaciente.quantiaPaga }}</p>
-          <p class="titulo">Telefone:</p> <p class="response">{{ selectedPaciente.telefone }}</p>
-          <p class="titulo">Data de nascimento:</p> <p class="response">{{ selectedPaciente.dataNascimentoPaciente }}</p>
-          <!-- Outros detalhes do paciente aqui -->
+            <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <p class="titulo">Tipo de Consulta:<p> <p class="response">{{ selectedPaciente.tipoConsulta }}</p>
+                  </div>
+                  <div class="col">
+                      <p class="titulo">Forma de pagamento:</p> <p class="response">{{ selectedPaciente.formaPagamento }}</p>
+                  </div>
+                  <div class="col">
+                      <p class="titulo">Meses acompanhado:</p> <p class="response">{{ selectedPaciente.mesesAcompanhado }}</p>
+                  </div>
+                  <div class="col">
+                      <p class="titulo">Quantidade pago:</p> <p class="response">{{ selectedPaciente.quantiaPaga }}</p>
+                </div>
+                <div class="col">
+                    <p class="titulo">Telefone:</p> <p class="response">{{ selectedPaciente.telefone }}</p>
+                </div>
+                <div class="col">
+                    <p class="titulo">Data de nascimento:</p> <p class="response">{{ selectedPaciente.dataNascimentoPaciente }}</p>
+                </div>
+            </div>
+            </div>
           <button class="close" (click)="closePopup()">
             <svg xmlns="http://www.w3.org/2000/svg" width="5vw" height="5vw" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

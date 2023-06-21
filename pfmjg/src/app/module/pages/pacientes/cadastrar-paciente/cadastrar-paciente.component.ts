@@ -3,6 +3,7 @@ import { Paciente } from '../../../../models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
 import { FormControl, NgForm, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cadastrar-paciente',
@@ -13,7 +14,9 @@ export class CadastrarPacienteComponent implements OnInit{
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
 
-  sucessMessage: string = "Paciente Cadastrado!";
+  sucessMessage: string = "";
+
+  exibirMensagem: boolean = false;
 
   regex = new FormControl();
 
@@ -44,18 +47,24 @@ export class CadastrarPacienteComponent implements OnInit{
   ngOnInit() : void {
   }
 
-  constructor(private servicePaciente: ServicePaciente, private rota: Router, private el: ElementRef) {
+  constructor(private servicePaciente: ServicePaciente, private rota: Router, private el: ElementRef, private toastr: ToastrService) {
   }
 
   addPaciente(form: NgForm): void {
-
+    console.log(this.exibirMensagem)
    if (form.valid) {
-        this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response =>     
-        {
-          console.log(response);
-          console.log(this.paciente);
-          this.rota.navigate(['paciente'])
-      });
+    this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response =>     
+    {
+      this.sucessMessage = "Paciente Cadastrado!";
+      this.exibirMensagem = true;
+      console.log(response);
+      console.log(this.paciente);
+      console.log(this.exibirMensagem);
+      setTimeout(() => {
+        this.toastr.success(this.sucessMessage, 'Sucesso');
+        this.rota.navigate(['pacientes']);
+      }, 2000)
+    });
     }
   }
 
@@ -66,6 +75,10 @@ export class CadastrarPacienteComponent implements OnInit{
       const diff = Math.abs(hoje.getTime() - dataNascimento.getTime());
       this.paciente.idadePaciente = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // Calcula a idade em anos considerando anos bissextos
     }
+  }
+
+  voltarPagina(): void {
+    this.rota.navigate(['pacientes'])
   }
 
   // atualizarStatus(event: Event): void {

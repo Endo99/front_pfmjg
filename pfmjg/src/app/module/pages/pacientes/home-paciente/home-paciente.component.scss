@@ -197,3 +197,47 @@ body {
         z-index: 2;
     }
   }
+
+.popup-exclusao {
+    background-color: #C7F9CC;
+    border:  solid #000;
+    border-radius: 20px;
+    z-index: 2;
+    position: relative;
+    letter-spacing: .2vw;
+}
+
+.popup-exclusao {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Outros estilos do popup */
+  }
+
+.success-message {
+    background-color: rgba(9,254,4, 0.3);
+    border: #000 2px solid;
+    border-radius: 20px;
+    text-align: center;
+    padding: 1vw;
+    left: 42%;
+    bottom: 25%;
+    position: fixed;
+    font-weight: bold;
+    transform: translateY(-500%);
+}
+.popup-content {
+    letter-spacing: .1vw;
+    text-align: center;
+}
+
+.popup-content .titulo{
+
+}
+
+.popup-content .response{
+    display: inline-block;
+    right: 5%;
+    
+}
