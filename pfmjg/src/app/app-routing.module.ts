@@ -8,6 +8,8 @@ import { HomeComponent } from './module/pages/home/home.component';
 import { CadastrarPacienteComponent } from './module/pages/pacientes/cadastrar-paciente/cadastrar-paciente.component';
 import { EditarPacienteComponent } from './module/pages/pacientes/editar-paciente/editar-paciente.component';
 import { DetalhesPacienteComponent } from './module/pages/pacientes/detalhes-paciente/detalhes-paciente.component';
+import { HomeCategoriaComponent } from './module/pages/categoria/home-categoria/home-categoria.component';
+import { CadastrarCategoriaComponent } from './module/pages/categoria/cadastrar-categoria/cadastrar-categoria.component';
 
 
 const routes: Routes = [

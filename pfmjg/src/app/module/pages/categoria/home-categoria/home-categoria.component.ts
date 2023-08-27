@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Renderer2 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-home-categoria',
+  templateUrl: './home-categoria.component.html',
+  styleUrls: ['./home-categoria.component.scss']
 })
-export class HomeComponent {
+export class HomeCategoriaComponent {
 
   readonly listMenu = [
     { 
@@ -46,4 +47,8 @@ export class HomeComponent {
     },
   ];
 
+  constructor(private router: Router, private route: ActivatedRoute,
+    private renderer: Renderer2, private toastr: ToastrService) {
+      
+     }
 }

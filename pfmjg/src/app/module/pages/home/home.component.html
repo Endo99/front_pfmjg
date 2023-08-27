@@ -23,7 +23,9 @@
                                     <ul class="lista-item">
                                         <li *ngFor="let item of listMenu">
                                             <a type="button" class="btn btn-primary" onclick="">
-                                                <i [class]="item.icon"></i>
+                                                <ng-container *ngIf="item.iconSvg">
+                                                    <img [src]="item.iconSvg" alt="">
+                                                </ng-container>
                                             </a>
                                             <span class="col">{{item.legenda.toUpperCase()}}</span>
                                         </li>

@@ -8,13 +8,10 @@ export class Paciente {
     idadePaciente?: number;
     cidade?: string;
     estado?: string;
-    status?: string;
     statusPagamento ?: string;
     tipoConsulta?: string;
     mesesAcompanhado?: number; 
     telefone?: string;
-    quantiaPaga?: number;
     formaPagamento?: string;
-    valorConsulta?: number;
 
 }

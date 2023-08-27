@@ -34,14 +34,12 @@ export class EditarPacienteComponent {
     dataNascimentoPaciente: new Date(),
     idadePaciente: 0,
     cidade: '',
-    estado: 'AC',
+    estado: '',
     statusPagamento: '',
     tipoConsulta: '',
     mesesAcompanhado: 0, 
     telefone: '',
-    quantiaPaga: 0,
     formaPagamento: '',
-    valorConsulta: 0,
   };
   
   constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
@@ -87,9 +85,7 @@ export class EditarPacienteComponent {
       console.log(this.paciente.tipoConsulta = this.pacienteForm.value.tipoConsulta)
       console.log(this.paciente.mesesAcompanhado = this.pacienteForm.value.mesesAcompanhado)
       console.log(this.paciente.telefone = this.pacienteForm.value.telefone)
-      console.log(this.paciente.quantiaPaga = this.pacienteForm.value.quantiaPaga)
       console.log(this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento)
-      console.log(this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta)
       
       
 
@@ -104,9 +100,7 @@ export class EditarPacienteComponent {
       this.paciente.tipoConsulta = this.pacienteForm.value.tipoConsulta as string;
       this.paciente.mesesAcompanhado = this.pacienteForm.value.mesesAcompanhado as number;
       this.paciente.telefone = this.pacienteForm.value.telefone as string;
-      this.paciente.quantiaPaga = this.pacienteForm.value.quantiaPaga as number;
       this.paciente.formaPagamento = this.pacienteForm.value.formaPagamento as string;
-      this.paciente.valorConsulta = this.pacienteForm.value.valorConsulta as number;
   
       this.servicePaciente.atualizarPaciente(idPaciente, this.paciente).subscribe(() => {
         this.sucessMessage = "Paciente Salvo!";
@@ -139,8 +133,6 @@ export class EditarPacienteComponent {
           console.log('Cidade do Paciente:', this.paciente.cidade);
           console.log('Estado do Paciente:', this.paciente.estado);
           console.log('Forma de Pagamento do Paciente:', this.paciente.formaPagamento);
-          console.log('Quantia paga atualmente do Paciente:', this.paciente.quantiaPaga);
-          console.log('Valor da consulta do Paciente:', this.paciente.valorConsulta);
           console.log('Meses de acompanhado do Paciente:', this.paciente.mesesAcompanhado);
           console.log('Status do Pagamento do Paciente:', this.paciente.statusPagamento);
 

@@ -39,9 +39,7 @@ export class CadastrarPacienteComponent implements OnInit{
     tipoConsulta: '',
     mesesAcompanhado: 0, 
     telefone: '',
-    quantiaPaga: 0,
     formaPagamento: '',
-    valorConsulta: 0,
   };
 
   ngOnInit() : void {
@@ -52,9 +50,11 @@ export class CadastrarPacienteComponent implements OnInit{
 
   addPaciente(form: NgForm): void {
     console.log(this.exibirMensagem)
+    console.log(this.paciente.idPaciente)
    if (form.valid) {
     this.servicePaciente.cadastrarPaciente(this.paciente).subscribe(response =>     
     {
+      console.log("Id gerado com o número: " + this.paciente.idPaciente);
       this.sucessMessage = "Paciente Cadastrado!";
       this.exibirMensagem = true;
       console.log(response);
@@ -65,6 +65,9 @@ export class CadastrarPacienteComponent implements OnInit{
         this.rota.navigate(['pacientes']);
       }, 2000)
     });
+    }
+    else {
+      console.log()
     }
   }
 

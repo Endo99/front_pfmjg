@@ -36,9 +36,7 @@ export class HomePacienteComponent implements OnInit{
     tipoConsulta: '',
     mesesAcompanhado: 0, 
     telefone: '',
-    quantiaPaga: 0,
     formaPagamento: '',
-    valorConsulta: 0,
   };
 
   constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute,

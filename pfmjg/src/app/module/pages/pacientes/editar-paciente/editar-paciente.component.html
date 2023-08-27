@@ -127,23 +127,6 @@
                     </div>
                     
                     <div class="col">
-                      <label for="valorConsulta">Valor da Consulta:</label>
-                      <input type="number" id="valorConsulta" name="valorConsulta" placeholder="$"
-                      [(ngModel)]="paciente.valorConsulta" required #consulta="ngModel" positiveNumber
-                      [ngClass]="{ 'highlight-error': consulta.invalid && consulta.touched }"
-                      min="0">
-                      <div class="warning" *ngIf="consulta.invalid && consulta.touched">Campo obrigatório</div>
-                    </div>
-
-                    <div class="col">
-                      <label for="quantiaPaga">Quantidade pago:</label>
-                        <input type="number" id="quantiaPaga" name="quantiaPaga" placeholder="$"
-                        [(ngModel)]="paciente.quantiaPaga" required #pago="ngModel" positiveNumber
-                        [ngClass]="{ 'highlight-error': pago.invalid && pago.touched }" min="0">
-                      <div class="warning" *ngIf="pago.invalid && pago.touched">Campo obrigatório</div>
-                    </div>
-
-                    <div class="col">
                       <label for="formaPagamento">Tipo Pagamento: </label>
                       <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento"
                       required #pagamento="ngModel" [ngClass]="{ 'highlight-error': pagamento.invalid && pagamento.touched }">

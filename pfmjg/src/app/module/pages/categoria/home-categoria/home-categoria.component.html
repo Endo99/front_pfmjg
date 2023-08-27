@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <link rel="stylesheet" href="./home-categoria.component.scss">
+  </head>
+  <body>
+    <div class="top-bar">
+        <header id="bar">
+            <div class="logo">
+                <img src="/assets/icons/LOGO_JOHW.svg" alt="">
+            
+            </div>
+            <div class="menu">
+                <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" onclick="">
+                    <section id="menu-bento-aberto">
+                        <img src="/src/assets/icons/">
+                        <div class="lista-menu">
+                            <div class="container text-center">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                                    <ul class="lista-item">
+                                        <li *ngFor="let item of listMenu">
+                                            <a type="button" class="btn btn-primary" onclick="">
+                                                <ng-container *ngIf="item.iconSvg">
+                                                    <img [src]="item.iconSvg" alt="">
+                                                </ng-container>
+                                            </a>
+                                            <span class="col">{{item.legenda.toUpperCase()}}</span>
+                                        </li>
+                                    </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </section>
+            </div>
+            <div class="user">
+            
+            </div>
+
+            <section class="body-categoria">
+                <div class="view-categoria">
+                    <h1>Dados Clientes</h1>
+                    <div class="background-categoria">
+                        <main class="list-categoria">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </main>
+                        <button class="button-add button-add-border">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3vw" height="3vw" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                              </svg>
+                        </button>
+                        
+                </div>
+            </div>
+            </section>
+            
+        </header>
+    </div>
+
+
+    </body>
+</html>
