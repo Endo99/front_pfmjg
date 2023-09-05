@@ -9,9 +9,6 @@ export class Paciente {
     cidade?: string;
     estado?: string;
     statusPagamento ?: string;
-    tipoConsulta?: string;
-    mesesAcompanhado?: number; 
     telefone?: string;
-    formaPagamento?: string;
 
 }

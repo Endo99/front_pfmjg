@@ -32,8 +32,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Paciente</th>
-                                    <th scope="col">Cidade</th>
-                                    <th scope="col">Estado</th>
+                                    <th scope="col">Telefone</th>
+                                    <th scope="col">Data Consulta</th>
                                     <th scope="col">Status Pagamento</th>
                                     <th scope="col" class="none"></th>
                                     <th scope="col" class="none-right"></th>
@@ -44,7 +44,7 @@
                                     <td>
                                         <button class="button-paciente" (click)="openPopup(paciente)"> {{ paciente.nomePaciente }} {{ paciente.sobrenomePaciente }} </button>
                                     </td>
-                                    <td>{{ paciente.cidade }}</td>
+                                    <td>{{ paciente.telefone }}</td>
                                     <td>{{ paciente.estado }}</td>
                                     <td>{{ paciente.statusPagamento }}</td>
                                     <td>

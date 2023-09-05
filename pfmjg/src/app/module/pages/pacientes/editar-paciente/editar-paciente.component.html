@@ -99,24 +99,6 @@
                       </select>
                       <div class="warning" *ngIf="status.invalid && status.touched">Campo obrigatório</div>
                     </div>
-
-                    <div class="col">
-                      <label for="tipoConsulta">Tipo Consulta:</label>
-                      <select id="tipoConsulta" name="tipoConsulta" [(ngModel)]="paciente.tipoConsulta" required #tipo="ngModel"
-                      [ngClass]="{ 'highlight-error': tipo.invalid && tipo.touched }">
-                        <option value="" selected disabled>Escolha o tipo de consulta</option>
-                        <option value="Online">On-line</option>
-                        <option value="Presencial">Presencial</option>
-                      </select>
-                      <div class="warning" *ngIf="tipo.invalid && tipo.touched">Campo obrigatório</div>
-                    </div>
-
-                    <div class="col">
-                      <label for="mesesAcompanhado">Quantidade de meses acompanhado:</label>
-                          <input type="number" id="mesesAcompanhado" name="mesesAcompanhado" [(ngModel)]="paciente.mesesAcompanhado"
-                          required #meses="ngModel" positiveNumber [ngClass]="{ 'highlight-error': meses.invalid && meses.touched }" min="0">
-                          <div class="warning" *ngIf="meses.invalid && meses.touched">Campo obrigatório</div>
-                    </div>
                     
                     <div class="col">
                       <label for="telefone">Telefone:</label>
@@ -126,18 +108,6 @@
                       <div class="warning" *ngIf="tel.invalid && tel.touched">Campo obrigatório</div>
                     </div>
                     
-                    <div class="col">
-                      <label for="formaPagamento">Tipo Pagamento: </label>
-                      <select id="formaPagamento" name="formaPagamento" [(ngModel)] = "paciente.formaPagamento"
-                      required #pagamento="ngModel" [ngClass]="{ 'highlight-error': pagamento.invalid && pagamento.touched }">
-                        <option value="" selected disabled>Escolha o pagamento</option>
-                        <option value="Dinheiro">Dinheiro</option>
-                        <option value="PIX">PIX</option>
-                        <option value="Crédito">Crédito</option>
-                        <option value="Débito">Débito</option>
-                      </select>
-                      <div class="warning" *ngIf="pagamento.invalid && pagamento.touched">Campo obrigatório</div>
-                    </div>
                   </div>
                 </div>
                     <div class="button" *ngIf="pacienteForm !== null">

@@ -36,10 +36,7 @@ export class CadastrarPacienteComponent implements OnInit{
     cidade: '',
     estado: '',
     statusPagamento: '',
-    tipoConsulta: '',
-    mesesAcompanhado: 0, 
     telefone: '',
-    formaPagamento: '',
   };
 
   ngOnInit() : void {

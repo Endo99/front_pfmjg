@@ -25,10 +25,7 @@ export class DetalhesPacienteComponent implements OnInit{
     cidade: '',
     estado: '',
     statusPagamento: '',
-    tipoConsulta: '',
-    mesesAcompanhado: 0, 
     telefone: '',
-    formaPagamento: '',
   };
 
   constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute) { }
