@@ -2,6 +2,7 @@ import { NgForOf } from '@angular/common';
 import { Component, Directive, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Agendamento } from 'src/app/models/agendamento/agendamento';
 import { Paciente } from 'src/app/models/paciente';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 @Component({
@@ -23,6 +24,12 @@ export class HomePacienteComponent implements OnInit{
   pacientes: Paciente[] = [];
 
   id: string = '';
+
+  agendamento: Agendamento = {
+    idAgendamento: 0,
+    idPaciente: 0,
+    
+  }
 
   paciente: Paciente = {
     idPaciente: 0,

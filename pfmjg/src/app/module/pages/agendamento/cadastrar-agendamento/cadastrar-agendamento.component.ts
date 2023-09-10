@@ -1,18 +1,18 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
-import { Paciente } from '../../../../models/paciente';
-import { Agendamento } from '../../../../models/agendamento/agendamento';
-import { ServicePaciente } from 'src/app/services/service-paciente.service';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { Consulta } from 'src/app/models/consulta/consulta';
+import { Paciente } from 'src/app/models/paciente';
+import { ServiceConsultaService } from 'src/app/services/service-consulta.service';
+import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
 @Component({
-  selector: 'app-cadastrar-paciente',
-  templateUrl: './cadastrar-paciente.component.html',
-  styleUrls: ['./cadastrar-paciente.component.scss']
+  selector: 'app-cadastrar-agendamento',
+  templateUrl: './cadastrar-agendamento.component.html',
+  styleUrls: ['./cadastrar-agendamento.component.scss']
 })
-export class CadastrarPacienteComponent implements OnInit{
+export class CadastrarAgendamentoComponent implements OnInit {
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
 
@@ -41,10 +41,21 @@ export class CadastrarPacienteComponent implements OnInit{
     telefone: '',
   };
 
+  consulta: Consulta = {
+    nomePaciente: '',
+    sobrenomePaciente: '',
+    dataNascimentoPaciente: new Date(),
+    idadePaciente: 0,
+    cidade: '',
+    estado: '',
+    statusPagamento: '',
+    telefone: '',
+  };
+
   ngOnInit() : void {
   }
 
-  constructor(private servicePaciente: ServicePaciente, private rota: Router, private el: ElementRef, private toastr: ToastrService) {
+  constructor(private servicePaciente: ServicePaciente, private serviceConsulta: ServiceConsultaService, private rota: Router, private el: ElementRef, private toastr: ToastrService) {
   }
 
   addPaciente(form: NgForm): void {
@@ -138,5 +149,5 @@ export class CadastrarPacienteComponent implements OnInit{
       input.value = '';
     }
   }
-  
+
 }
