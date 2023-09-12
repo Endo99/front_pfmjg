@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
-import { AgendamentoComponent } from './pages/agendamento/agendamento.component';
 import { HomeConsultaComponent } from './pages/consulta/home-consulta/home-consulta.component';
 import { HomeAgendamentoComponent } from './pages/agendamento/home-agendamento/home-agendamento.component';
 
@@ -23,9 +22,7 @@ import { HomeAgendamentoComponent } from './pages/agendamento/home-agendamento/h
     HomePacienteComponent,
     DetalhesPacienteComponent,
     ConsultaComponent,
-    AgendamentoComponent,
     HomeConsultaComponent,
-    HomeAgendamentoComponent
   ],
   imports: [
     CommonModule,

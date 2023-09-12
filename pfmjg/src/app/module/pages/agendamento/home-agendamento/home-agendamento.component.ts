@@ -1,4 +1,5 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DayPilotCalendarComponent } from '@daypilot/daypilot-lite-angular';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   template: '<daypilot-calendar #calendar></daypilot-calendar>',
   styleUrls: ['./home-agendamento.component.scss']
 })
-export class HomeAgendamentoComponent {
+export class HomeAgendamentoComponent{
 
   @ViewChild("calendar") calendar!: DayPilotCalendarComponent;
 
@@ -52,7 +53,7 @@ export class HomeAgendamentoComponent {
   ];
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private renderer: Renderer2, private toastr: ToastrService) {
+    private renderer: ɵDomRendererFactory2, private toastr: ToastrService) {
       
      }
 

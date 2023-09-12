@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ServiceAgendamento {
 
-  private readonly apiUrl = 'http://localhost:8080/pfmjg/Agendamentos';
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/agendamentos';
   constructor(private http: HttpClient) {}
 
   cadastrarAgendamento(agendamento: Agendamento): Observable<Agendamento> {

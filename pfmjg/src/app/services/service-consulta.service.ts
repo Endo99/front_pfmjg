@@ -6,7 +6,7 @@ import { Consulta } from '../models/consulta/consulta';
 @Injectable({
   providedIn: 'root'
 })
-export class serviceConsulta {
+export class ServiceConsulta {
 
   private readonly apiUrl = 'http://localhost:8080/pfmjg/consultas';
   constructor(private http: HttpClient) {}

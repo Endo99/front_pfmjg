@@ -8,7 +8,7 @@ export class Agendamento {
     quantidadeConsulta?: number;
     horarioInicio?: Date;
     horaFinal?: Date;
-    lembrete?: Date; // Notificação do evento
+    lembrete?: number; // Notificação do evento
     observacao?: String;
     
 }

@@ -11,6 +11,9 @@ import { DetalhesPacienteComponent } from './module/pages/pacientes/detalhes-pac
 import { HomeCategoriaComponent } from './module/pages/categoria/home-categoria/home-categoria.component';
 import { CadastrarCategoriaComponent } from './module/pages/categoria/cadastrar-categoria/cadastrar-categoria.component';
 import { HomeConsultaComponent } from './module/pages/consulta/home-consulta/home-consulta.component';
+import { HomeAgendamentoComponent } from './module/pages/agendamento/home-agendamento/home-agendamento.component';
+import { CadastrarAgendamentoComponent } from './module/pages/agendamento/cadastrar-agendamento/cadastrar-agendamento.component';
+
 
 
 const routes: Routes = [
@@ -19,7 +22,11 @@ const routes: Routes = [
   {path: "pacientes/cadastrar", component: CadastrarPacienteComponent},
   {path: 'pacientes/editar/:id', component: EditarPacienteComponent},
   {path: "pacientes/detalhes/:id", component: DetalhesPacienteComponent},
+  {path: "categorias/home", component: HomeCategoriaComponent},
+  {path: "categorias/cadastrar", component: CadastrarCategoriaComponent},
   {path: "consulta/home", component: HomeConsultaComponent},
+  {path: "agendamentos/home", component: HomeAgendamentoComponent},
+  {path: "agendamentos/cadastrar", component: CadastrarAgendamentoComponent},
   // { path: "**", component: NotFoundComponent },
 
 ];
