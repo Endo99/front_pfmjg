@@ -7,12 +7,24 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home-agendamento',
   templateUrl: './home-agendamento.component.html',
-  template: '<daypilot-calendar #calendar></daypilot-calendar>',
   styleUrls: ['./home-agendamento.component.scss']
 })
 export class HomeAgendamentoComponent{
 
-  @ViewChild("calendar") calendar!: DayPilotCalendarComponent;
+  view: string = 'month';
+  viewDate: Date = new Date();
+  events: any[] = [
+    {
+      title: 'Evento 1',
+      start: new Date(),
+      end: new Date(),
+    },
+    {
+      title: 'Evento 2',
+      start: new Date(),
+      end: new Date(),
+    },
+  ];
 
   readonly listMenu = [
     { 

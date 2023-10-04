@@ -12,7 +12,7 @@ export class ServiceAgendamento {
   constructor(private http: HttpClient) {}
 
   cadastrarAgendamento(agendamento: Agendamento): Observable<Agendamento> {
-    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agendamento`, agendamento);
+    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agenda`, agendamento);
   }
 
   getAgendamento(): Observable<Agendamento[]> {
@@ -22,11 +22,11 @@ export class ServiceAgendamento {
   atualizarAgendamento(idAgendamento: number, agendamento: Agendamento): Observable<Agendamento> {
     console.log('ID do Agendamento:', idAgendamento);
     console.log('Objeto Agendamento:', agendamento);
-    return this.http.put<Agendamento>(`${this.apiUrl}/editar-agendamento/${idAgendamento}`, agendamento);
+    return this.http.put<Agendamento>(`${this.apiUrl}/editar-agenda/${idAgendamento}`, agendamento);
   }
   
   excluirAgendamento(idAgendamento: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletar-agendamento/${idAgendamento}`);
+    return this.http.delete<void>(`${this.apiUrl}/deletar-agenda/${idAgendamento}`);
   }
 
   getAgendamentoByName(nomeAgendamento: string): Observable<Agendamento> {

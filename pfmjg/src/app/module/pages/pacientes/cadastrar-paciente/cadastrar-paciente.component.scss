@@ -24,7 +24,7 @@ body {
 
 
 .logo img {
-    width: 6.5vw;
+    width: 4.5vw;
     max-width: 50%;
     height: auto;
     max-height: 50%;
@@ -129,6 +129,10 @@ body {
     border-radius: 15px;
 }
 
+.btn:hover {
+    background-color: #b7e4c7;
+}
+
 .button {
     position: relative;
 }
@@ -143,6 +147,9 @@ body {
     background-color: #C3F6C3;
     border: #000 solid 0.3px;
     border-radius: 15px;
+    width: 50%;
+    min-width: 25%;
+    max-width: 50%;
 }
 
 .col select {

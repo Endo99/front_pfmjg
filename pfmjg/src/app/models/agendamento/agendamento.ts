@@ -5,7 +5,6 @@ export class Agendamento {
     idConsulta?: number;
     dataInicio?: Date;
     descricao?: String; // nome do evento
-    quantidadeConsulta?: number;
     horarioInicio?: Date;
     horaFinal?: Date;
     lembrete?: number; // Notificação do evento

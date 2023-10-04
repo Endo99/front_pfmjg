@@ -32,7 +32,6 @@ export class CadastrarPacienteComponent implements OnInit{
   
   paciente: Paciente = {
     nomePaciente: '',
-    sobrenomePaciente: '',
     dataNascimentoPaciente: new Date(),
     idadePaciente: 0,
     cidade: '',
@@ -105,9 +104,6 @@ export class CadastrarPacienteComponent implements OnInit{
     this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
   }
 
-  atualizarsobrenomePaciente(event: any) {
-    this.paciente.sobrenomePaciente = event.target.value;
-  }
 
   camposPreenchidos: { [key: string]: boolean} = {};
   

@@ -9,15 +9,9 @@ export class Consulta {
 
     agendamento?: Agendamento;
 
-    dataInicioConsulta?: Date;
-
     dataConsultaAtual?: Date;
 
-    dataConsultaAlterada?: Date;
-
-    dataConsultaAntiga?: Date;
-
-    dataUltimaConsulta?: Date;
+    dataConsultaInicio?: Date;
 
     tipoConsulta?: String;
 

@@ -30,7 +30,6 @@ export class EditarPacienteComponent {
   paciente: Paciente = {
     idPaciente: 0,
     nomePaciente: '',
-    sobrenomePaciente: '',
     dataNascimentoPaciente: new Date(),
     idadePaciente: 0,
     cidade: '',
@@ -58,9 +57,6 @@ export class EditarPacienteComponent {
     this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
   }
   
-  atualizarsobrenomePaciente(event: any) {
-    this.paciente.sobrenomePaciente = event.target.value;
-  }
 
   updPaciente(form: NgForm): void {
     const idPaciente = this.paciente.idPaciente;
@@ -73,7 +69,6 @@ export class EditarPacienteComponent {
       console.log("Entrou");
       
       console.log(this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente)
-      console.log(this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente)
       console.log(this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente)
       console.log(this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente)
       console.log(this.paciente.cidade = this.pacienteForm.value.cidade)
@@ -85,7 +80,6 @@ export class EditarPacienteComponent {
 
       this.paciente.idPaciente = idPaciente;
       this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente as string;
-      this.paciente.sobrenomePaciente = this.pacienteForm.value.sobrenomePaciente as string;
       this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente as Date;
       this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente as number;
       this.paciente.cidade = this.pacienteForm.value.cidade as string;
@@ -118,7 +112,6 @@ export class EditarPacienteComponent {
           console.log('Valores do paciente após atribuição:');
           console.log('ID do Paciente:', this.paciente.idPaciente);
           console.log('Nome do Paciente:', this.paciente.nomePaciente);
-          console.log('Sobrenome do Paciente:', this.paciente.sobrenomePaciente);
           console.log('Data de nascimento do Paciente:', this.paciente.dataNascimentoPaciente);
           console.log('Idade do Paciente:', this.paciente.idadePaciente);
           console.log('Cidade do Paciente:', this.paciente.cidade);

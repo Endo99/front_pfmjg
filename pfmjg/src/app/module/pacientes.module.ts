@@ -9,7 +9,6 @@ import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { HomeConsultaComponent } from './pages/consulta/home-consulta/home-consulta.component';
 import { HomeAgendamentoComponent } from './pages/agendamento/home-agendamento/home-agendamento.component';
 
@@ -21,8 +20,6 @@ import { HomeAgendamentoComponent } from './pages/agendamento/home-agendamento/h
     EditarPacienteComponent,
     HomePacienteComponent,
     DetalhesPacienteComponent,
-    ConsultaComponent,
-    HomeConsultaComponent,
   ],
   imports: [
     CommonModule,

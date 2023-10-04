@@ -42,7 +42,7 @@
                             <tbody>
                                 <tr  *ngFor="let paciente of pacientes">
                                     <td>
-                                        <button class="button-paciente" (click)="openPopup(paciente)"> {{ paciente.nomePaciente }} {{ paciente.sobrenomePaciente }} </button>
+                                        <button class="button-paciente" (click)="openPopup(paciente)"> {{ paciente.nomePaciente }}</button>
                                     </td>
                                     <td>{{ paciente.cidade }}</td>
                                     <td>{{ paciente.estado }}</td>

@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicePaciente } from './services/service-paciente.service';
 import { PacientesModule } from './module/pacientes.module';
-
+import { AgendamentoModule } from './module/agendamento.module';
+import { ConsultaModule } from './module/consulta.module';
+import { CategoriaModule } from './module/categoria.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +19,10 @@ import { PacientesModule } from './module/pacientes.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    PacientesModule
+    PacientesModule,
+    AgendamentoModule,
+    ConsultaModule,
+    CategoriaModule
   ],
   providers: [
     ServicePaciente

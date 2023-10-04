@@ -42,7 +42,7 @@
                             <tbody class="justify-content-center">
                                 <tr *ngFor="let paciente of pacientes" (click)="selecionarPaciente(paciente)">
                                     <td>
-                                        <button class="button-paciente" (click)="openPopup(paciente)"> {{ paciente.nomePaciente }} {{ paciente.sobrenomePaciente }} </button>
+                                        <button class="button-paciente" (click)="openPopup(paciente)"> {{ paciente.nomePaciente }}</button>
                                     </td>
                                     <td>{{ paciente.telefone }}</td>
                                     <td>{{ paciente.estado }}</td>
@@ -76,7 +76,7 @@
                 <div class="popup-overlay"></div>
                 <div *ngIf="exibirPopupExclusao" class="popup-exclusao">
                     <h2>Confirmar exclusão</h2>
-                    <p>Deseja realmente excluir o {{pacienteSelecionado?.nomePaciente}} {{pacienteSelecionado?.sobrenomePaciente}}?</p>
+                    <p>Deseja realmente excluir o {{pacienteSelecionado?.nomePaciente}}</p>
                     <button class="button-confirmar" (click)="excluirPaciente()" [routerLink]="['/pacientes']">Confirmar</button>
                     <div *ngIf="exibirMensagem" class="success-message" >
                         {{sucessMessage}}

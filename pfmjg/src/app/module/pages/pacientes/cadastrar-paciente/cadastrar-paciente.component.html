@@ -33,19 +33,11 @@
                     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2"> 
   
                       <div class="col">
-                        <label for="nomePaciente">Nome:</label>
+                        <label for="nomePaciente">Nome do Paciente:</label>
                         <input type="text" id="nomePaciente" name="nomePaciente" [(ngModel)]="paciente.nomePaciente"
                         (input)="atualizarNomePaciente($event)" required #nome="ngModel" autofocus minlength="3" maxlength="50"
                         [ngClass]="{ 'highlight-error': nome.invalid && nome.touched }">
                         <div class="warning" *ngIf="nome.invalid && nome.touched">Campo obrigatório</div>
-                      </div>
-
-                      <div class="col">
-                        <label for="sobrenomePaciente">Sobrenome:</label>
-                        <input type="text" id="sobrenomePaciente"  name="sobrenomePaciente" [(ngModel)]="paciente.sobrenomePaciente"
-                        (input)="atualizarsobrenomePaciente($event)" required #sobrenome="ngModel" minlength="3" maxlength="50"
-                        [ngClass]="{ 'highlight-error': sobrenome.invalid && sobrenome.touched }">
-                        <div class="warning" *ngIf="sobrenome.invalid && sobrenome.touched">Campo obrigatório</div>
                       </div>
 
                       <div class="col">
@@ -80,24 +72,6 @@
                         <input type="text" id="cidade"  name="cidade" [(ngModel)]="paciente.cidade" required
                         #cidade="ngModel" minlength="3" maxlength="50" [ngClass]="{ 'highlight-error': cidade.invalid && cidade.touched }">
                         <div class="warning" *ngIf="cidade.invalid && cidade.touched">Campo obrigatório</div>
-                      </div>
-
-
-                      <div class="col">
-                        <label for="statusPagamento">Status Pagamento:</label>
-                        <select id="statusPagamento" name="statusPagamento" [(ngModel)]="paciente.statusPagamento"
-                        required #status="ngModel" [ngClass]="{ 'highlight-error': status.invalid && status.touched }">
-                          <option value="" selected disabled>Escolha o status</option>
-                          <option value="Pago">Pago</option>
-                          <option value="Em Atraso">Em atraso</option>
-                          <option value="Em Andamento">Em andamento</option>
-                          <option value="Cancelado">Cancelado</option>
-                          <option value="Finalizado">Finalizado</option>
-                          <option value="Recebendo">Recebendo</option>
-                          <option value="Aguardando">Aguardando</option>
-                          <option value="Não recebeu">Não recebeu</option>
-                        </select>
-                        <div class="warning" *ngIf="status.invalid && status.touched">Campo obrigatório</div>
                       </div>
                       
                       <div class="col">

@@ -19,7 +19,6 @@ export class DetalhesPacienteComponent implements OnInit{
   paciente: Paciente = {
     idPaciente: 0,
     nomePaciente: '',
-    sobrenomePaciente: '',
     dataNascimentoPaciente: new Date(),
     idadePaciente: 0,
     cidade: '',
