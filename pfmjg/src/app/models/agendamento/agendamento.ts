@@ -1,3 +1,6 @@
+import { Consulta } from "../consulta/consulta";
+import { Paciente } from "../paciente";
+
 export class Agendamento {
 
     idAgendamento?: number;

@@ -5,13 +5,11 @@ export class Consulta {
 
     idConsulta?: number;
 
-    paciente?: Paciente;
+    paciente?: number;
 
-    agendamento?: Agendamento;
+    agendamento?: number;
 
     dataConsultaAtual?: Date;
-
-    dataConsultaInicio?: Date;
 
     tipoConsulta?: String;
 

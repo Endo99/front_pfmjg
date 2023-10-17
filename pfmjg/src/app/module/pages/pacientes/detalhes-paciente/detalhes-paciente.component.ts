@@ -23,7 +23,6 @@ export class DetalhesPacienteComponent implements OnInit{
     idadePaciente: 0,
     cidade: '',
     estado: '',
-    statusPagamento: '',
     telefone: '',
   };
 

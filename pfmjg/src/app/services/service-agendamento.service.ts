@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Agendamento } from '../models/agendamento/agendamento';
 import { Observable } from 'rxjs';
+import { Paciente } from '../models/paciente';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class ServiceAgendamento {
   private readonly apiUrl = 'http://localhost:8080/pfmjg/agendamentos';
   constructor(private http: HttpClient) {}
 
-  cadastrarAgendamento(agendamento: Agendamento): Observable<Agendamento> {
-    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agenda`, agendamento);
+  cadastrarAgendamento(agendamento: Agendamento, idPaciente: number): Observable<Agendamento> {
+    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agenda/${idPaciente}`, agendamento);
   }
 
   getAgendamento(): Observable<Agendamento[]> {
@@ -39,5 +40,9 @@ export class ServiceAgendamento {
 
   getIdAgendamento(idAgendamento: number): Observable<Agendamento> {
     return this.http.get<Agendamento>(`${this.apiUrl}/${idAgendamento}`);
+  }
+
+  getPaciente(IdAgenda: number): Observable<Agendamento> {
+    return this.http.get<Agendamento>(`${this.apiUrl}/paciente/${IdAgenda}`);
   }
 }

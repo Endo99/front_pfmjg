@@ -27,8 +27,8 @@
                     <h1>Agenda</h1>
                     <div class="background-consulta">
                         <main class="list-consulta">
-
-                            <div class="table-responsive">
+                            <div class="table-container">
+                                <h2>Segunda-feira</h2>
                                 <table class="table" >
                                     <thead class="table-head">
                                         <tr>
@@ -42,6 +42,141 @@
                                         </tr>
                                     </thead>
                                     <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-container">
+                                <h2>Terça-feira</h2>
+                                <table class="table" >
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Data da Consulta</th>
+                                            <th scope="col">Horário da Consulta</th>
+                                            <th scope="col">Tipo de Consulta</th>
+                                            <th scope="col">Status pagamento</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                              </div>
+                              <div class="table-container">
+                                <h2>Quarta-feira</h2>
+                                <table class="table" >
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Data da Consulta</th>
+                                            <th scope="col">Horário da Consulta</th>
+                                            <th scope="col">Tipo de Consulta</th>
+                                            <th scope="col">Status pagamento</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                              </div>
+                              <div class="table-container">
+                                <h2>Quinta-feira</h2>
+                                <table class="table" >
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Data da Consulta</th>
+                                            <th scope="col">Horário da Consulta</th>
+                                            <th scope="col">Tipo de Consulta</th>
+                                            <th scope="col">Status pagamento</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                              </div>
+                              <div class="table-container">
+                                <h2>Sexta-feira</h2>
+                                <table class="table" >
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Data da Consulta</th>
+                                            <th scope="col">Horário da Consulta</th>
+                                            <th scope="col">Tipo de Consulta</th>
+                                            <th scope="col">Status pagamento</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                              </div>
+                              <div class="table-container">
+                                <h2>Sábado</h2>
+                                <table class="table" >
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Data da Consulta</th>
+                                            <th scope="col">Horário da Consulta</th>
+                                            <th scope="col">Tipo de Consulta</th>
+                                            <th scope="col">Status pagamento</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                    </tbody>
+                                </table>
+                              </div>  
+                              <div class="table-container">
+                                <h2>Domingo</h2>
+                                <table class="table">
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Data da Consulta</th>
+                                            <th scope="col">Horário da Consulta</th>
+                                            <th scope="col">Tipo de Consulta</th>
+                                            <th scope="col">Status pagamento</th>
+                                            <th scope="col" class="none"></th>
+                                            <th scope="col" class="none-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="justify-content-center">
+                                        <tr>
+                                            <ng-container *ngFor="let paciente of pacientes; let i = index">
+                                                <ng-container *ngFor="let consulta of consultas; let j = index">
+                                                    <ng-container *ngFor="let agendamento of agendamentos; let k = index">
+                                                        <td>{{ paciente.nomePaciente }}</td>
+                                                        <td>{{ consulta.dataConsultaAtual }}</td>
+                                                        <td>{{ agenda.horarioInicio }}</td>
+                                                        <td>{{ consulta.tipoConsulta }}</td>
+                                                        <!-- <td>{{ paciente.statusPagamento }}</td> -->
+                                                        <td>
+                                                            <button class="button-editar button-center" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5vw" height="1.5vw" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                                                    <!-- Ícone de edição -->
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="button-excluir button-center" style="size: 3vw;" (click)="exibirPopupExclusao = true">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5vw" height="1.5vw" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                                                    <!-- Ícone de exclusão -->
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

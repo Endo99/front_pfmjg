@@ -8,33 +8,33 @@ import { Observable } from 'rxjs';
 })
 export class CategoriaService {
 
-  private readonly apiUrl = 'http://localhost:8080/pfmjg/pacientes';
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/categorias';
   constructor(private http: HttpClient) {}
 
-  cadastrarPaciente(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(`${this.apiUrl}/cadastrar-paciente`, categoria);
+  cadastrarCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http.post<Categoria>(`${this.apiUrl}/cadastrar-categoria`, categoria);
   }
 
-  getPaciente(): Observable<Categoria[]> {
+  getCategoria(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.apiUrl}/listar`);
   }
   
-  atualizarPaciente(idCategoria: number, categoria: Categoria): Observable<Categoria> {
-    console.log('ID do Paciente:', idCategoria);
-    console.log('Objeto Paciente:', categoria);
-    return this.http.put<Categoria>(`${this.apiUrl}/editar-paciente/${idCategoria}`, categoria);
+  atualizarCategoria(idCategoria: number, categoria: Categoria): Observable<Categoria> {
+    console.log('ID do Categoria:', idCategoria);
+    console.log('Objeto categoria:', categoria);
+    return this.http.put<Categoria>(`${this.apiUrl}/editar-categoria/${idCategoria}`, categoria);
   }
   
-  excluirPaciente(idCategoria: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletar-paciente/${idCategoria}`);
+  excluirCategoria(idCategoria: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/deletar-categoria/${idCategoria}`);
   }
 
-  getPacienteByName(tipoCategoria: string): Observable<Categoria> {
-    return this.http.get<Categoria>(`${this.apiUrl}/nome/${tipoCategoria}`)
+  getCategoriaByName(tipoCategoria: string): Observable<Categoria> {
+    return this.http.get<Categoria>(`${this.apiUrl}/tipo/${tipoCategoria}`)
   }
 
 
-  getIdPaciente(idCategoria: number): Observable<Categoria> {
+  getIdCategoria(idCategoria: number): Observable<Categoria> {
     return this.http.get<Categoria>(`${this.apiUrl}/${idCategoria}`);
   }
 }

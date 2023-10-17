@@ -22,25 +22,24 @@ export class CadastrarAgendamentoComponent {
 
   exibirMensagem: boolean = false;
 
+  selectedPatientId: number = 0;
+
   pacientes: Paciente[] = [];
 
-  consulta : Consulta = {
+  consulta: Consulta = {
 
-  paciente : new Paciente,
+  paciente: 0,
 
-  agendamento : new Agendamento,
+  agendamento: 0,
 
-  dataConsultaAtual : new Date,
+  dataConsultaAtual: new Date,
 
-  dataConsultaInicio : new Date,
+  tipoConsulta: '',
 
-  tipoConsulta : '',
+  formaPagamento: '',
 
-  formaPagamento : '',
-
-  mesesAcompanhado : 0,
-
-
+  mesesAcompanhado: 0,
+  
   };
 
   agenda: Agendamento = {
@@ -63,7 +62,6 @@ export class CadastrarAgendamentoComponent {
     idadePaciente: 0,
     cidade: '',
     estado: '',
-    statusPagamento: '',
     telefone: '',
 
   };
@@ -71,6 +69,7 @@ export class CadastrarAgendamentoComponent {
   constructor(private router: Router, private route: ActivatedRoute,
     private renderer: Renderer2, private toastr: ToastrService, private serviceConsulta: ServiceConsulta,
     private serviceAgendamento: ServiceAgendamento, private servicePaciente: ServicePaciente) {
+      this.agenda.idPaciente = this.paciente.idPaciente;
       
      }
 
@@ -99,13 +98,7 @@ export class CadastrarAgendamentoComponent {
   // }
   
   buscarDetalhesDoPaciente(idPaciente: number): void {
-    this.servicePaciente.getIdPaciente(idPaciente).subscribe(paciente => {
-      this.paciente = paciente;
-      // Atualize a agenda com os detalhes do paciente, por exemplo:
-      // this.agenda.idPaciente = {
-      // }
-      // Atualize outros campos da agenda conforme necessário
-    });
+    
   }
 
   addAgenda(form: NgForm): void {
@@ -114,28 +107,34 @@ export class CadastrarAgendamentoComponent {
     console.log(this.paciente) 
     console.log(this.agenda.idPaciente)
     console.log(this.agenda)
-   if (form.valid) {
+   if (form.valid && this.paciente) {
      console.log(this.agenda);     
-    this.serviceAgendamento.cadastrarAgendamento(this.agenda).subscribe(response =>
-    {
-      this.sucessMessage = "Agendamento Cadastrado!";
-      this.exibirMensagem = true;
-      console.log(response);
-      console.log(this.agenda);
-      console.log(this.exibirMensagem);
-      setTimeout(() => {
-        this.toastr.success(this.sucessMessage, 'Sucesso');
-        this.router.navigate(['agendamento']);
-      }, 2000)
-    });
+    // //  this.serviceAgendamento.cadastrarAgendamento(this.agenda, this.agenda.idPaciente).subscribe((response) => {
+      
+    // //   this.sucessMessage = "Agendamento Cadastrado!";
+    // //   this.exibirMensagem = true;
+    // //   console.log(response);
+    // //   console.log(this.agenda);
+    // //   console.log(this.exibirMensagem);
+    // //   setTimeout(() => {
+    // //     this.toastr.success(this.sucessMessage, 'Sucesso');
+    // //     this.router.navigate(['agendamento']);
+    // //   }, 2000)
+    // });
     }
     else {
-      console.log()
+      console.log("Formulário inválido.");
     }
   }
 
   ngOnInit(): void {
     this.listarPacientes();
+  }
+
+  buscarDadosPaciente(idPaciente: number): void {
+    this.servicePaciente.getIdPaciente(idPaciente).subscribe((paciente) => {
+      this.agenda.idPaciente = paciente.idPaciente;
+    });
   }
   
   listarPacientes(): void {

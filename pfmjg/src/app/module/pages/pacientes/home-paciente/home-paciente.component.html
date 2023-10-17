@@ -34,7 +34,6 @@
                                     <th scope="col">Paciente</th>
                                     <th scope="col">Telefone</th>
                                     <th scope="col">Data Consulta</th>
-                                    <th scope="col">Status Pagamento</th>
                                     <th scope="col" class="none"></th>
                                     <th scope="col" class="none-right"></th>
                                 </tr>
@@ -46,7 +45,6 @@
                                     </td>
                                     <td>{{ paciente.telefone }}</td>
                                     <td>{{ paciente.estado }}</td>
-                                    <td>{{ paciente.statusPagamento }}</td>
                                     <td>
                                         <button class="button-editar button-center" [routerLink]="['editar', paciente.idPaciente]">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.5vw" height="1.5vw" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
@@ -94,18 +92,6 @@
                   <div class="col">
                     <p class="titulo">Tipo de Consulta:<p> <p class="response">{{ selectedPaciente.tipoConsulta }}</p>
                   </div>
-                  <div class="col">
-                      <p class="titulo">Forma de pagamento:</p>
-                      <p class="response">{{ selectedPaciente.formaPagamento }}</p>
-                  </div>
-                  <div class="col">
-                      <p class="titulo">Meses acompanhado:</p>
-                      <p class="response">{{ selectedPaciente.mesesAcompanhado }}</p>
-                  </div>
-                  <div class="col">
-                      <p class="titulo">Quantidade pago:</p>
-                      <p class="response">{{ selectedPaciente.quantiaPaga }}</p>
-                </div>
                 <div class="col">
                     <p class="titulo">Telefone:</p>
                     <p class="response">{{ selectedPaciente.telefone }}</p>

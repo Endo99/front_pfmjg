@@ -22,7 +22,7 @@ import { CategoriaModule } from './module/categoria.module';
     PacientesModule,
     AgendamentoModule,
     ConsultaModule,
-    CategoriaModule
+    CategoriaModule,
   ],
   providers: [
     ServicePaciente

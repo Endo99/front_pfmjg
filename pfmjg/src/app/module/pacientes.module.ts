@@ -9,9 +9,6 @@ import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeConsultaComponent } from './pages/consulta/home-consulta/home-consulta.component';
-import { HomeAgendamentoComponent } from './pages/agendamento/home-agendamento/home-agendamento.component';
-
 
 @NgModule({
   declarations: [
@@ -28,6 +25,7 @@ import { HomeAgendamentoComponent } from './pages/agendamento/home-agendamento/h
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    
   ]
 })
 export class PacientesModule { }

@@ -1,8 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Time } from '@angular/common';
+import { Component, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DayPilotCalendarComponent } from '@daypilot/daypilot-lite-angular';
 import { ToastrService } from 'ngx-toastr';
+import { Agendamento } from 'src/app/models/agendamento/agendamento';
+import { Consulta } from 'src/app/models/consulta/consulta';
+import { Paciente } from 'src/app/models/paciente';
+import { DataService } from 'src/app/services/data.service';
+import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
 @Component({
   selector: 'app-home-agendamento',
@@ -11,20 +17,59 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeAgendamentoComponent{
 
-  view: string = 'month';
-  viewDate: Date = new Date();
-  events: any[] = [
-    {
-      title: 'Evento 1',
-      start: new Date(),
-      end: new Date(),
-    },
-    {
-      title: 'Evento 2',
-      start: new Date(),
-      end: new Date(),
-    },
-  ];
+  @Input() nomePaciente: String = ''
+
+  @Input() dataConsulta: Date = new Date();
+
+  @Input() horaConsulta: Date = new Date();
+
+  @Input() tipoConsulta: String = '';
+
+  pacientes: Paciente[] = [];
+  agendamentos: any[] = [];
+  consultas: any[] = [];
+
+  exibirPopupExclusao = false;
+  pacienteSelecionado: Paciente | null = null;
+
+  sucessMessage: string = "";
+
+  exibirMensagem: boolean = false;
+
+  selectedPaciente: any;
+
+  paciente: Paciente = {
+    idPaciente: 0,
+    cpf: '',
+    nomePaciente: '',
+    dataNascimentoPaciente: new Date(),
+    idadePaciente: 0,
+    estado: '',
+    cidade: '',
+    telefone: ''
+  }
+
+  consulta: Consulta = {
+    idConsulta: 0,
+    paciente: 0,
+    agendamento: 0,
+    tipoConsulta: '',
+    formaPagamento: '',
+  }
+
+  agenda: Agendamento = {
+    
+    idAgendamento: 0,
+    idConsulta: 0,
+    idPaciente: 0,
+    dataInicio: new Date,
+    descricao: '',
+    horaFinal: new Date,
+    horarioInicio: new Date,
+    lembrete: 0,
+
+  }
+
 
   readonly listMenu = [
     { 
@@ -65,8 +110,109 @@ export class HomeAgendamentoComponent{
   ];
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private renderer: ɵDomRendererFactory2, private toastr: ToastrService) {
+    private renderer: Renderer2, private toastr: ToastrService, private pacienteService: ServicePaciente, private el: ElementRef
+    , private dataService: DataService) {
       
      }
+
+     ngOnInit(): void {
+    
+      this.listarPacientes();
+      if (this.pacienteSelecionado) {
+        this.renderer.addClass(document.body, 'paciente-selecionado');
+      }
+
+      this.dataService.getPacientes().subscribe(data => {
+        this.pacientes = data;
+      });
+  
+      this.dataService.getAgendamentos().subscribe(data => {
+        this.agendamentos = data;
+      });
+  
+      this.dataService.getConsultas().subscribe(data => {
+        this.consultas = data;
+      });
+      
+      this.associaDadosPacientesAgendamentoConsulta();
+    }
+    
+    pacientesComDadosRelacionados: any[] = this.pacientes.map(paciente => {
+      const agendamento = this.agendamentos.find(a => a.idPaciente === paciente.idPaciente);
+      const consulta = this.consultas.find(c => c.idPaciente === paciente.idPaciente);
+    
+      return {
+        ...paciente,
+        ...agendamento,
+        ...consulta,
+      };
+    });
+
+    associaDadosPacientesAgendamentoConsulta() {
+      this.pacientesComDadosRelacionados = this.pacientes.map((paciente) => {
+        const agendamento = this.agendamentos.find((a) => a.idPaciente === paciente.idPaciente);
+        const consulta = this.consultas.find((c) => c.idPaciente === paciente.idPaciente);
+    
+        return {
+          ...paciente,
+          ...agendamento,
+          ...consulta,
+        };
+      });
+    }
+
+    listarPacientes(): void {
+        this.pacienteService.getPaciente().subscribe(data => {
+        this.pacientes = data;
+        this.sortPacientesByNome();
+      })
+    }
+
+    sortPacientesByNome() {
+      this.pacientes = this.pacientes.filter(paciente => paciente.nomePaciente !== undefined);
+      this.pacientes.sort((a, b) => {
+      const nomeA = a.nomePaciente!.toLowerCase();
+      const nomeB = b.nomePaciente!.toLowerCase();
+      if (nomeA < nomeB) {
+        return -1;
+      }
+      if (nomeA > nomeB) {
+        return 1;
+      }
+      return 0;
+    });
+    }
+    
+    voltarPagina(): void {
+      this.router.navigate(['pacientes'])
+    }
+     excluirPaciente() {
+
+
+      if (this.pacienteSelecionado && this.pacienteSelecionado.idPaciente) {
+  
+        const idPaciente = this.pacienteSelecionado.idPaciente;
+        this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
+          
+          
+          
+          this.sucessMessage = "Paciente Excluído!";
+          this.exibirMensagem = true;
+          setTimeout(() => {
+            this.toastr.success(this.sucessMessage, 'Sucesso');
+            this.router.navigate(['pacientes']);
+          }, 2000)
+          this.listarPacientes();
+  
+          this.pacienteSelecionado = null;
+          this.exibirPopupExclusao = false;
+        });
+      
+      }
+      else  {
+          console.log("Não encontrado ou erro");
+      }
+    }
+  
 
 }

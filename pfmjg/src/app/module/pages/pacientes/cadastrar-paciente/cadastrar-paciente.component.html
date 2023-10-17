@@ -54,6 +54,15 @@
                         [(ngModel)]="paciente.idadePaciente" required>
                       </div>
                       
+                      <div class="col">
+                        <label for="cpf">CPF:</label>
+                        <input type="text" id="cpf" name="cpf"
+                        [(ngModel)]="paciente.cpf" required #cpf="ngModel"
+                        [ngClass]="{ 'highlight-error': cpf.invalid && cpf.touched }" maxlength="14" (input)="formatarCPF()" (blur)="validarCPF()">
+                        <div class="warning" *ngIf="cpf.invalid && cpf.touched">Campo obrigatório</div>
+                        <span *ngIf="cpfValido" class="cpf-validation">CPF válido</span>
+                      </div>
+
                       <!-- Tenho que ver uma biblioteca do java ou angular que disponibiliza os estados e cidades do país -->
                       
                       <div class="col">

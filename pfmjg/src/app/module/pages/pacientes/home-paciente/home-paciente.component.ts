@@ -28,7 +28,6 @@ export class HomePacienteComponent implements OnInit{
   agendamento: Agendamento = {
     idAgendamento: 0,
     idPaciente: 0,
-    
   }
 
   paciente: Paciente = {
@@ -38,7 +37,6 @@ export class HomePacienteComponent implements OnInit{
     idadePaciente: 0,
     cidade: '',
     estado: '',
-    statusPagamento: '',
     telefone: '',
   };
 
