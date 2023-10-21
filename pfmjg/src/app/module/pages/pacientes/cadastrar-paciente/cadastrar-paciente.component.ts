@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { Paciente } from '../../../../models/paciente';
-import { Agendamento } from '../../../../models/agendamento/agendamento';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 import { Router } from '@angular/router';
 import { FormControl, NgForm, Validators } from '@angular/forms';

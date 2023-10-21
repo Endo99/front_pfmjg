@@ -132,7 +132,7 @@ export class EditarPacienteComponent {
           console.log('Erro ao obter os dados do paciente:', error);
         }
       );
-}
+  }
 
   calcularIdade() {
     if (this.paciente.dataNascimentoPaciente) {
@@ -140,8 +140,8 @@ export class EditarPacienteComponent {
       const dataNascimento = new Date(this.paciente.dataNascimentoPaciente);
       const diff = Math.abs(hoje.getTime() - dataNascimento.getTime());
       this.paciente.idadePaciente = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // Calcula a idade em anos considerando anos bissextos
+    }
   }
-}
 
 formatarCPF() {
   if (this.paciente.cpf) {

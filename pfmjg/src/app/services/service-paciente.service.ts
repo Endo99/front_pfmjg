@@ -39,6 +39,9 @@ export class ServicePaciente {
     return this.http.get<Paciente>(`${this.apiUrl}/${idPaciente}`);
   }
 
+  getPacienteByCPFANDIdPaciente(cpf: String, idPaciente: number) {
+    return this.http.get<Paciente>(`${this.apiUrl}/procurar/${cpf}/${idPaciente}`)
+  }
 
   // private atualizarPaciente(paciente: Paciente): Observable<Paciente> {
   //   const url = '${this.apiUrl}/${/editar-paciente-paciente.id}';

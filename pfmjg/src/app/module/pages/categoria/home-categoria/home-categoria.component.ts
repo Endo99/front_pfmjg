@@ -106,8 +106,6 @@ export class HomeCategoriaComponent {
         const idCategoria = this.categoriaSelecionado.idCategoria;
         this.categoriaService.excluirCategoria(idCategoria). subscribe( () => {
           
-          
-          
           this.sucessMessage = "Categoria Excluído!";
           this.exibirMensagem = true;
           setTimeout(() => {

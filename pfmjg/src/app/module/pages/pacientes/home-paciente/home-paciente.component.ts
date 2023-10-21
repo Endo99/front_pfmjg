@@ -93,8 +93,6 @@ export class HomePacienteComponent implements OnInit{
       const idPaciente = this.pacienteSelecionado.idPaciente;
       this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
         
-        
-        
         this.sucessMessage = "Paciente Excluído!";
         this.exibirMensagem = true;
         setTimeout(() => {

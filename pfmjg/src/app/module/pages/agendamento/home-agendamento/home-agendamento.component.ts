@@ -28,6 +28,7 @@ export class HomeAgendamentoComponent{
   pacientes: Paciente[] = [];
   agendamentos: any[] = [];
   consultas: any[] = [];
+  pacientesComDadosRelacionados: any[] = [];
 
   exibirPopupExclusao = false;
   pacienteSelecionado: Paciente | null = null;
@@ -134,25 +135,32 @@ export class HomeAgendamentoComponent{
         this.consultas = data;
       });
       
-      this.associaDadosPacientesAgendamentoConsulta();
+      this.listarDados();
     }
     
-    pacientesComDadosRelacionados: any[] = this.pacientes.map(paciente => {
-      const agendamento = this.agendamentos.find(a => a.idPaciente === paciente.idPaciente);
-      const consulta = this.consultas.find(c => c.idPaciente === paciente.idPaciente);
-    
-      return {
-        ...paciente,
-        ...agendamento,
-        ...consulta,
-      };
-    });
-
+    listarDados() {
+      // Consultar dados dos pacientes, agendamentos e consultas aqui
+      this.dataService.getPacientes().subscribe((pacientes) => {
+        this.pacientes = pacientes;
+  
+        this.dataService.getAgendamentos().subscribe((agendamentos) => {
+          this.agendamentos = agendamentos;
+  
+          this.dataService.getConsultas().subscribe((consultas) => {
+            this.consultas = consultas;
+  
+            // Associe os dados e atualize pacientesComDadosRelacionados
+            this.associaDadosPacientesAgendamentoConsulta();
+          });
+        });
+      });
+    }
+  
     associaDadosPacientesAgendamentoConsulta() {
       this.pacientesComDadosRelacionados = this.pacientes.map((paciente) => {
         const agendamento = this.agendamentos.find((a) => a.idPaciente === paciente.idPaciente);
         const consulta = this.consultas.find((c) => c.idPaciente === paciente.idPaciente);
-    
+  
         return {
           ...paciente,
           ...agendamento,
