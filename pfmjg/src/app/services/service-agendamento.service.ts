@@ -12,8 +12,8 @@ export class ServiceAgendamento {
   private readonly apiUrl = 'http://localhost:8080/pfmjg/agendamentos';
   constructor(private http: HttpClient) {}
 
-  cadastrarAgendamento(agendamento: Agendamento, idPaciente: number): Observable<Agendamento> {
-    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agenda/${idPaciente}`, agendamento);
+  cadastrarAgendamento(agendamento: Agendamento): Observable<Agendamento> {
+    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agenda`, agendamento);
   }
 
   getAgendamento(): Observable<Agendamento[]> {
@@ -30,16 +30,12 @@ export class ServiceAgendamento {
     return this.http.delete<void>(`${this.apiUrl}/deletar-agenda/${idAgendamento}`);
   }
 
-  getAgendamentoByName(nomeAgendamento: string): Observable<Agendamento> {
-    return this.http.get<Agendamento>(`${this.apiUrl}/nome/${nomeAgendamento}`)
-  }
-
   getAllAgendamentoIds(): Observable<number[]> {
     return this.http.get<number[]>(`${this.apiUrl}/ids`);
   }
 
   getIdAgendamento(idAgendamento: number): Observable<Agendamento> {
-    return this.http.get<Agendamento>(`${this.apiUrl}/${idAgendamento}`);
+    return this.http.get<Agendamento>(`${this.apiUrl}/id/${idAgendamento}`);
   }
 
   getPaciente(IdAgenda: number): Observable<Agendamento> {

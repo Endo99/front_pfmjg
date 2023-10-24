@@ -14,6 +14,11 @@ import { HomeConsultaComponent } from './module/pages/consulta/home-consulta/hom
 import { HomeAgendamentoComponent } from './module/pages/agendamento/home-agendamento/home-agendamento.component';
 import { CadastrarAgendamentoComponent } from './module/pages/agendamento/cadastrar-agendamento/cadastrar-agendamento.component';
 import { EditarCategoriaComponent } from './module/pages/categoria/editar-categoria/editar-categoria.component';
+import { CadastrarConsultaComponent } from './module/pages/consulta/cadastrar-consulta/cadastrar-consulta.component';
+import { EditarAgendamentoComponent } from './module/pages/agendamento/editar-agendamento/editar-agendamento.component';
+import { CadastrarControleCaixaComponent } from './module/pages/controle-caixa/cadastrar-controle-caixa/cadastrar-controle-caixa.component';
+import { EditarControleCaixaComponent } from './module/pages/controle-caixa/editar-controle-caixa/editar-controle-caixa.component';
+import { HomeControleCaixaComponent } from './module/pages/controle-caixa/home-controle-caixa/home-controle-caixa.component';
 
 
 
@@ -28,9 +33,13 @@ const routes: Routes = [
   {path: "categorias/editar/:id", component: EditarCategoriaComponent},
   {path: "consultas", component: HomeConsultaComponent},
   {path: "consultas/editar/:id", component: CadastrarAgendamentoComponent},
+  {path: "consultas/cadastrar", component: CadastrarConsultaComponent},
   {path: "agendamentos", component: HomeAgendamentoComponent},
   {path: "agendamentos/cadastrar", component: CadastrarAgendamentoComponent},
-  {path: "agendamentos/editar/:id", component: CadastrarAgendamentoComponent},
+  {path: "agendamentos/editar/:id", component: EditarAgendamentoComponent},
+  {path: "controles-caixas/cadastrar", component: CadastrarControleCaixaComponent},
+  {path: "controles-caixas/editar/:id", component: EditarControleCaixaComponent},
+  {path: "controles-caixas", component: HomeControleCaixaComponent},
   // { path: "**", component: NotFoundComponent },
 
 ];

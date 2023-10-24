@@ -137,6 +137,6 @@ export class HomeCategoriaComponent {
   
     closePopup() {
       this.categoriaSelecionado = null;
-      this.router.navigate(['/categorias/home']);
+      this.router.navigate(['/categorias']);
     }
 }

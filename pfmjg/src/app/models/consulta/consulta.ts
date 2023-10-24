@@ -5,7 +5,7 @@ export class Consulta {
 
     idConsulta?: number;
 
-    paciente?: number;
+    paciente?: Paciente;
 
     agendamento?: number;
 
@@ -14,7 +14,5 @@ export class Consulta {
     tipoConsulta?: String;
 
     formaPagamento?: String;
-
-    mesesAcompanhado?: number;
 
 }

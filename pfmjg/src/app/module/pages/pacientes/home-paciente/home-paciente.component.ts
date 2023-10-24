@@ -27,7 +27,7 @@ export class HomePacienteComponent implements OnInit{
 
   agendamento: Agendamento = {
     idAgendamento: 0,
-    idPaciente: 0,
+    paciente: new Paciente,
   }
 
   paciente: Paciente = {

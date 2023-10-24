@@ -12,14 +12,14 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getPacientes(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/pacientes`);
+    return this.http.get<any>(`${this.baseUrl}/pacientes/listar`);
   }
 
   getAgendamentos(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/agendamentos`);
+    return this.http.get<any>(`${this.baseUrl}/agendamentos/listar`);
   }
 
   getConsultas(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/consultas`);
+    return this.http.get<any>(`${this.baseUrl}/consultas/listar`);
   }
 }

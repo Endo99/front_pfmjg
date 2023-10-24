@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Agendamento } from 'src/app/models/agendamento/agendamento';
 import { Consulta } from 'src/app/models/consulta/consulta';
+import { PacienteDTO } from 'src/app/models/dto/paciente-dto';
 import { Paciente } from 'src/app/models/paciente';
 import { ServiceAgendamento } from 'src/app/services/service-agendamento.service';
 import { ServiceConsulta } from 'src/app/services/service-consulta.service';
@@ -22,13 +23,14 @@ export class CadastrarAgendamentoComponent {
 
   exibirMensagem: boolean = false;
 
-  selectedPatientId: number = 0;
+  selectedPatientId: string = '';
+  
 
   pacientes: Paciente[] = [];
 
   consulta: Consulta = {
 
-  paciente: 0,
+  paciente: new Paciente,
 
   agendamento: 0,
 
@@ -37,8 +39,6 @@ export class CadastrarAgendamentoComponent {
   tipoConsulta: '',
 
   formaPagamento: '',
-
-  mesesAcompanhado: 0,
   
   };
 
@@ -48,9 +48,7 @@ export class CadastrarAgendamentoComponent {
     descricao: '',
     horaFinal: new Date,
     horarioInicio: new Date,
-    lembrete: 0,
-    idConsulta: 0,
-    idPaciente: 0,
+    paciente: new Paciente,
     
   };
   
@@ -69,58 +67,32 @@ export class CadastrarAgendamentoComponent {
   constructor(private router: Router, private route: ActivatedRoute,
     private renderer: Renderer2, private toastr: ToastrService, private serviceConsulta: ServiceConsulta,
     private serviceAgendamento: ServiceAgendamento, private servicePaciente: ServicePaciente) {
-      this.agenda.idPaciente = this.paciente.idPaciente;
       
      }
-
-  //    atualizarInfoPaciente(idPacienteSelecionado: number): void {
-  //     // Encontre o paciente selecionado com base no ID
-  //     const pacienteSelecionado = this.pacientes.find(paciente => paciente.idPaciente === idPacienteSelecionado);
-  
-  //     // Verifique se o paciente foi encontrado
-  //     if (pacienteSelecionado) {
-  //         // Atualize o objeto agenda com as informações do paciente selecionado
-  //         this.agenda.idPaciente = pacienteSelecionado.idPaciente;
-  //         this.agenda.dataNascimentoPaciente = pacienteSelecionado.dataNascimentoPaciente;
-  //         this.agenda.idadePaciente = pacienteSelecionado.idadePaciente;
-  //         this.agenda.cidade = pacienteSelecionado.cidade;
-  //         this.agenda.estado = pacienteSelecionado.estado;
-  //         this.agenda.telefone = pacienteSelecionado.telefone;
-  //     } else {
-  //         // Limpe as informações do paciente no objeto agenda se nenhum paciente for selecionado
-  //         this.agenda.idPaciente = 0;
-  //         this.agenda.dataNascimentoPaciente = new Date();
-  //         this.agenda.idadePaciente = 0;
-  //         this.agenda.cidade = '';
-  //         this.agenda.estado = '';
-  //         this.agenda.telefone = '';
-  //     }
-  // }
-  
-  buscarDetalhesDoPaciente(idPaciente: number): void {
-    
-  }
 
   addAgenda(form: NgForm): void {
     console.log(this.exibirMensagem)
     console.log(this.paciente.idPaciente)
-    console.log(this.paciente) 
-    console.log(this.agenda.idPaciente)
-    console.log(this.agenda)
+    console.log("Paciente",this.paciente) 
+    console.log("ID Paciente agenda", this.agenda.paciente?.idPaciente)
+    console.log("Agenda",this.agenda)
    if (form.valid && this.paciente) {
      console.log(this.agenda);     
-    // //  this.serviceAgendamento.cadastrarAgendamento(this.agenda, this.agenda.idPaciente).subscribe((response) => {
-      
-    // //   this.sucessMessage = "Agendamento Cadastrado!";
-    // //   this.exibirMensagem = true;
-    // //   console.log(response);
-    // //   console.log(this.agenda);
-    // //   console.log(this.exibirMensagem);
-    // //   setTimeout(() => {
-    // //     this.toastr.success(this.sucessMessage, 'Sucesso');
-    // //     this.router.navigate(['agendamento']);
-    // //   }, 2000)
-    // });
+      this.serviceAgendamento.cadastrarAgendamento(this.agenda).subscribe((response) => {
+        if ( this.agenda.paciente != null) {
+          this.sucessMessage = "Agendamento Cadastrado!";
+          this.exibirMensagem = true;
+          console.log(response);
+          console.log(this.agenda);
+          console.log(this.exibirMensagem);
+          setTimeout(() => {
+            this.toastr.success(this.sucessMessage, 'Sucesso');
+            this.router.navigate(['agendamento']);
+          }, 2000)
+        } else {  
+          console.log("Algum dado faltante ou id não encontrado")
+        }
+    });
     }
     else {
       console.log("Formulário inválido.");
@@ -129,12 +101,6 @@ export class CadastrarAgendamentoComponent {
 
   ngOnInit(): void {
     this.listarPacientes();
-  }
-
-  buscarDadosPaciente(idPaciente: number): void {
-    this.servicePaciente.getIdPaciente(idPaciente).subscribe((paciente) => {
-      this.agenda.idPaciente = paciente.idPaciente;
-    });
   }
   
   listarPacientes(): void {
@@ -197,8 +163,42 @@ export class CadastrarAgendamentoComponent {
   // ];
 
 
-     voltarPagina(): void {
-      this.router.navigate(['agendamentos'])
-    }
+  buscarDetalhesDoPaciente(cpf: string): void {
+    this.servicePaciente.getPacientePorCPF(cpf).subscribe((paciente) => {
+      console.log(cpf)
+      console.log(paciente)
+      if (paciente) {
+        
+        this.paciente.idPaciente = paciente.idPaciente;
+        this.paciente.cpf = paciente.cpf;
+        this.paciente.nomePaciente = paciente.nomePaciente;
+        this.paciente.dataNascimentoPaciente = paciente.dataNascimentoPaciente;
+        this.paciente.idadePaciente = paciente.idadePaciente;
+        this.paciente.cidade = paciente.cidade;
+        this.paciente.estado = paciente.estado;
+        this.paciente.telefone = paciente.telefone;
+
+        console.log(this.paciente.cidade)
+        console.log(this.paciente.cpf)
+        console.log(this.paciente.dataNascimentoPaciente)
+        console.log(this.paciente.estado)
+        console.log(this.paciente.idadePaciente)
+        console.log(this.paciente.nomePaciente)
+        console.log(this.paciente.idPaciente)
+        console.log(this.paciente.telefone)
+  
+        this.selectedPatientId = cpf;
+        console.log(this.selectedPatientId)
+        
+        this.agenda.paciente = paciente; // Você pode atribuir diretamente o objeto paciente à agenda.
+        console.log(this.agenda.paciente)
+      }
+      console.log(this.paciente)
+    });
+  }
+  
+  voltarPagina(): void {
+    this.router.navigate(['agendamentos'])
+  }
 
 }

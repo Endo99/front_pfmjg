@@ -1,1 +1,107 @@
-<p>editar-agendamento works!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <link rel="stylesheet" href="./editar-agendamento.component.scss">
+  </head>
+  <body>
+    <div class="top-bar">
+        <header id="bar">
+            <div class="logo">
+                <img src="/assets/icons/LOGO_JOHW.svg" alt="">
+            
+            </div>
+            <div class="menu">
+                <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" onclick="">
+                    <section id="menu-bento-aberto">
+                        <img src="/src/assets/icons/">
+                        <div class="lista-menu">
+                            <div class="container text-center">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                                    <ul class="lista-item">
+                                        <!-- <li *ngFor="let item of listMenu">
+                                            <a type="button" class="btn btn-primary" onclick="">
+                                                <ng-container *ngIf="item.iconSvg">
+                                                    <img [src]="item.iconSvg" alt="">
+                                                </ng-container>
+                                            </a>
+                                            <span class="col">{{item.legenda.toUpperCase()}}</span>
+                                        </li> -->
+                                    </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </section>
+            </div>
+            <div class="user">
+            
+            </div>
+
+            <section class="body-agenda">
+                <div class="view-agenda">
+                  <legend>
+                  <h1>Editar informações de {{agenda.descricao}}</h1>
+                  </legend>
+                    <div class="background-agenda">
+                        <form #agendaForm="ngForm" (ngSubmit)="updAgd(agendaForm)">
+                            <div class="container text-center" >
+                                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2"> 
+              
+                                  <div class="col">
+                                    <label for="descricao">Descrição:</label>
+                                    <input type="text" id="descricao" name="descricao" [(ngModel)]="agenda.descricao"
+                                    required autofocus minlength="3" maxlength="50" placeholder="Digite uma descrição..."
+                                    removePlaceholderOnFocus
+                                    >
+                                  </div>
+
+                                  <div class="col">
+                                    <label for="dataInicio">Data:</label>
+                                    <input class="data" type="date" id="dataInicio"  name="dataInicio" [(ngModel)]="agenda.dataInicio"
+                                    required placeholder="01/01/2000"
+                                    removePlaceholderOnFocus>
+                                  </div>
+            
+                                  <div class="col">
+                                    <label for="idPaciente">Paciente</label>
+                                    <select id="idPaciente" name="idPaciente" [(ngModel)]="selectedPatientId" (change)="buscarDetalhesDoPaciente(selectedPatientId)" required>
+                                        <option value="" selected disabled>Selecione o paciente</option>
+                                        <option *ngFor="let paciente of pacientes" [value]="paciente.cpf">{{ paciente.nomePaciente }}</option>
+                                      </select>
+                                  </div>
+            
+                                  <div class="col">
+                                    <label for="horaInicio">Horário início:</label>
+                                    <input class="time" type="time" id="horaInicio" name="horaInicio" placeholder="12:00"
+                                    removePlaceholderOnFocus
+                                    [(ngModel)]="agenda.horarioInicio" required>
+                                  </div>
+                                  
+                                  <div class="col">
+                                    <label for="horaFinal">Horário término:</label>
+                                    <input type="time" id="horaFinal" name="horaFinal" placeholder="13:00"
+                                    removePlaceholderOnFocus [(ngModel)]="agenda.horaFinal" required>
+                                  </div>
+            
+                                </div>
+                              </div>
+                              <div class="button">
+                                <input type="submit" class="btn btn-primary" value="Cadastrar">
+                                <div *ngIf="exibirMensagem" class="success-message" >
+                                    {{sucessMessage}}
+                                </div>
+                                <input type="button" class="btn btn-primary red" value="Cancelar" (click)="voltarPagina()">
+                              </div>
+
+                        </form>
+                    </div>
+                </div>
+            </section>
+            
+        </header>
+    </div>
+
+
+    </body>
+</html>

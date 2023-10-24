@@ -52,7 +52,7 @@ export class HomeAgendamentoComponent{
 
   consulta: Consulta = {
     idConsulta: 0,
-    paciente: 0,
+    paciente: new Paciente,
     agendamento: 0,
     tipoConsulta: '',
     formaPagamento: '',
@@ -61,13 +61,11 @@ export class HomeAgendamentoComponent{
   agenda: Agendamento = {
     
     idAgendamento: 0,
-    idConsulta: 0,
-    idPaciente: 0,
+    paciente: new Paciente,
     dataInicio: new Date,
     descricao: '',
     horaFinal: new Date,
     horarioInicio: new Date,
-    lembrete: 0,
 
   }
 

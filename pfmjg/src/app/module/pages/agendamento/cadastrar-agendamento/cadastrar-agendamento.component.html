@@ -65,10 +65,9 @@
             
                                   <div class="col">
                                     <label for="idPaciente">Paciente</label>
-                                      <select id="idPaciente" name="idPaciente" [(ngModel)]="selectedPatientId" (change)="buscarDetalhesDoPaciente(selectedPatientId)" required
-                                      placeholder="Selecione o paciente" removePlaceholderOnFocus>
+                                    <select id="idPaciente" name="idPaciente" [(ngModel)]="selectedPatientId" (change)="buscarDetalhesDoPaciente(selectedPatientId)" required>
                                         <option value="" selected disabled>Selecione o paciente</option>
-                                        <option *ngFor="let paciente of pacientes" [value]="paciente.idPaciente">{{ paciente.nomePaciente }}</option>
+                                        <option *ngFor="let paciente of pacientes" [value]="paciente.cpf">{{ paciente.nomePaciente }}</option>
                                       </select>
                                   </div>
             

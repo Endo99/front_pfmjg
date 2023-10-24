@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, first, delay } from 'rxjs';
 import { Paciente } from '../models/paciente';
+import { PacienteDTO } from '../models/dto/paciente-dto';
 
 @Injectable(
 )
 export class ServicePaciente {
   private readonly apiUrl = 'http://localhost:8080/pfmjg/pacientes';
+
+  private readonly otherAPIUrl = 'http://localhost:8080/pfmjg/api';
   constructor(private http: HttpClient) {}
 
   cadastrarPaciente(paciente: Paciente): Observable<Paciente> {
@@ -43,6 +46,13 @@ export class ServicePaciente {
     return this.http.get<Paciente>(`${this.apiUrl}/procurar/${cpf}/${idPaciente}`)
   }
 
+  getNomeAndCPF() {
+    return this.http.get<Paciente>(`${this.otherAPIUrl}/listar-cpf-nome`)
+  }
+
+  getPacientePorCPF(cpf: string): Observable<PacienteDTO> {
+    return this.http.get<PacienteDTO>(`${this.apiUrl}/detalhes/${cpf}`);
+  }
   // private atualizarPaciente(paciente: Paciente): Observable<Paciente> {
   //   const url = '${this.apiUrl}/${/editar-paciente-paciente.id}';
   //   return this.http.put<Paciente>(url, paciente);

@@ -81,7 +81,7 @@ export class CadastrarCategoriaComponent {
         console.log(this.exibirMensagem);
         setTimeout(() => {
           this.toastr.success(this.sucessMessage, 'Sucesso');
-          this.router.navigate(['categorias/home']);
+          this.router.navigate(['categorias']);
         }, 2000)
       });
       }
@@ -91,6 +91,6 @@ export class CadastrarCategoriaComponent {
     }
 
     voltarPagina(): void {
-      this.router.navigate(['categorias/home'])
+      this.router.navigate(['categorias'])
     }
 }
