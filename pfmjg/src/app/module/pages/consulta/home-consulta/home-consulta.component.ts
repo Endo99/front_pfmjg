@@ -26,7 +26,7 @@ export class HomeConsultaComponent {
 
   consulta: Consulta = {
     idConsulta: 0,
-    paciente: new Paciente,
+    paciente: new Paciente(),
     agendamento: 0,
     dataConsultaAtual: new Date(),
     tipoConsulta: '',

@@ -44,6 +44,7 @@ export class CadastrarAgendamentoComponent {
 
   agenda: Agendamento = {
 
+    idAgendamento: 0,
     dataInicio: new Date,
     descricao: '',
     horaFinal: new Date,
@@ -54,13 +55,14 @@ export class CadastrarAgendamentoComponent {
   
   paciente: Paciente = {
     
-    idPaciente: 0,
     nomePaciente: '',
     dataNascimentoPaciente: new Date,
     idadePaciente: 0,
     cidade: '',
     estado: '',
     telefone: '',
+    cpf: '',
+    agendamento: new Agendamento,
 
   };
 
@@ -169,14 +171,14 @@ export class CadastrarAgendamentoComponent {
       console.log(paciente)
       if (paciente) {
         
-        this.paciente.idPaciente = paciente.idPaciente;
-        this.paciente.cpf = paciente.cpf;
-        this.paciente.nomePaciente = paciente.nomePaciente;
-        this.paciente.dataNascimentoPaciente = paciente.dataNascimentoPaciente;
-        this.paciente.idadePaciente = paciente.idadePaciente;
-        this.paciente.cidade = paciente.cidade;
-        this.paciente.estado = paciente.estado;
-        this.paciente.telefone = paciente.telefone;
+        this.paciente.idPaciente = paciente.idPaciente as number;
+        this.paciente.cpf = paciente.cpf as string;
+        this.paciente.nomePaciente = paciente.nomePaciente as string;
+        this.paciente.dataNascimentoPaciente = paciente.dataNascimentoPaciente as Date;
+        this.paciente.idadePaciente = paciente.idadePaciente as number;
+        this.paciente.cidade = paciente.cidade as string;
+        this.paciente.estado = paciente.estado as string;
+        this.paciente.telefone = paciente.telefone as string;
 
         console.log(this.paciente.cidade)
         console.log(this.paciente.cpf)

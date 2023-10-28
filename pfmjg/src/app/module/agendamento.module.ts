@@ -29,5 +29,6 @@ import { DayPilotModule } from '@daypilot/daypilot-lite-angular';
     CadastrarAgendamentoComponent,
     EditarAgendamentoComponent
   ],
+  
 })
 export class AgendamentoModule { }

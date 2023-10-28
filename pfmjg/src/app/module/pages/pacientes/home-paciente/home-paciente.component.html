@@ -44,7 +44,8 @@
                                         <button class="button-paciente" (click)="openPopup(paciente)"> {{ paciente.nomePaciente }}</button>
                                     </td>
                                     <td>{{ paciente.telefone }}</td>
-                                    <td>{{ paciente.estado }}</td>
+                                    <td>{{ paciente.cidade }}</td>
+
                                     <td>
                                         <button class="button-editar button-center" [routerLink]="['editar', paciente.idPaciente]">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.5vw" height="1.5vw" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">

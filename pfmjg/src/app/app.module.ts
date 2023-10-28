@@ -10,6 +10,7 @@ import { PacientesModule } from './module/pacientes.module';
 import { AgendamentoModule } from './module/agendamento.module';
 import { ConsultaModule } from './module/consulta.module';
 import { CategoriaModule } from './module/categoria.module';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { CategoriaModule } from './module/categoria.module';
     CategoriaModule,
   ],
   providers: [
-    ServicePaciente
+    ServicePaciente,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

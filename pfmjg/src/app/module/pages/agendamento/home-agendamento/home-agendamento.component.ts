@@ -1,4 +1,4 @@
-import { Time } from '@angular/common';
+import { DatePipe, Time } from '@angular/common';
 import { Component, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,8 +6,12 @@ import { DayPilotCalendarComponent } from '@daypilot/daypilot-lite-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Agendamento } from 'src/app/models/agendamento/agendamento';
 import { Consulta } from 'src/app/models/consulta/consulta';
+import { DadosRelationadosDTO } from 'src/app/models/dadosRelacionados/dados-relationados-dto';
 import { Paciente } from 'src/app/models/paciente';
+import { DadosRelacionadosService } from 'src/app/services/dados-relacionados.service';
 import { DataService } from 'src/app/services/data.service';
+import { ServiceAgendamento } from 'src/app/services/service-agendamento.service';
+import { ServiceConsulta } from 'src/app/services/service-consulta.service';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
 @Component({
@@ -15,7 +19,7 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
   templateUrl: './home-agendamento.component.html',
   styleUrls: ['./home-agendamento.component.scss']
 })
-export class HomeAgendamentoComponent{
+export class HomeAgendamentoComponent {
 
   @Input() nomePaciente: String = ''
 
@@ -39,8 +43,10 @@ export class HomeAgendamentoComponent{
 
   selectedPaciente: any;
 
+  dataConsultaFormatada: string | null = null;
+  horaConsultaFormatada: string | null = null;
+
   paciente: Paciente = {
-    idPaciente: 0,
     cpf: '',
     nomePaciente: '',
     dataNascimentoPaciente: new Date(),
@@ -59,7 +65,7 @@ export class HomeAgendamentoComponent{
   }
 
   agenda: Agendamento = {
-    
+
     idAgendamento: 0,
     paciente: new Paciente,
     dataInicio: new Date,
@@ -69,9 +75,16 @@ export class HomeAgendamentoComponent{
 
   }
 
+  dadosRelacionados: DadosRelationadosDTO = {
+    nomePaciente: '',
+    tipoConsulta: '',
+    dataConsulta: '',
+    horaAgendamento: ''
+  }
+
 
   readonly listMenu = [
-    { 
+    {
       legenda: "Home",
       iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16"><path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"/></svg>',
       alt: "Figura de uma casa"
@@ -110,73 +123,143 @@ export class HomeAgendamentoComponent{
 
   constructor(private router: Router, private route: ActivatedRoute,
     private renderer: Renderer2, private toastr: ToastrService, private pacienteService: ServicePaciente, private el: ElementRef
-    , private dataService: DataService) {
-      
-     }
+    , private dataService: DataService, private datePipe: DatePipe, private dadosRelacionadosService: DadosRelacionadosService,
+    private agendamentoService: ServiceAgendamento, private consultaService: ServiceConsulta) {
+    this.dataConsultaFormatada = this.formatDataConsulta(this.dataConsulta);
+    this.horaConsultaFormatada = this.formatHoraConsulta(this.horaConsulta);
+  }
 
-     ngOnInit(): void {
-    
-      this.listarPacientes();
-      if (this.pacienteSelecionado) {
-        this.renderer.addClass(document.body, 'paciente-selecionado');
-      }
+  ngOnInit(): void {
 
-      this.dataService.getPacientes().subscribe(data => {
-        this.pacientes = data;
-      });
-  
-      this.dataService.getAgendamentos().subscribe(data => {
-        this.agendamentos = data;
-      });
-  
-      this.dataService.getConsultas().subscribe(data => {
-        this.consultas = data;
-      });
-      
-      this.listarDados();
+    this.listarPacientes();
+    if (this.pacienteSelecionado) {
+      this.renderer.addClass(document.body, 'paciente-selecionado');
     }
-    
-    listarDados() {
-      // Consultar dados dos pacientes, agendamentos e consultas aqui
-      this.dataService.getPacientes().subscribe((pacientes) => {
-        this.pacientes = pacientes;
-  
-        this.dataService.getAgendamentos().subscribe((agendamentos) => {
-          this.agendamentos = agendamentos;
-  
-          this.dataService.getConsultas().subscribe((consultas) => {
-            this.consultas = consultas;
-  
-            // Associe os dados e atualize pacientesComDadosRelacionados
-            this.associaDadosPacientesAgendamentoConsulta();
+
+    this.dataService.getPacientes().subscribe(data => {
+      this.pacientes = data;
+    });
+
+    this.dataService.getAgendamentos().subscribe(data => {
+      this.agendamentos = data;
+    });
+
+    this.dataService.getConsultas().subscribe(data => {
+      this.consultas = data;
+    });
+
+    this.listarDados();
+  }
+
+  private formatDataConsulta(dataConsulta: Date): string | null {
+    if (dataConsulta) {
+      return this.datePipe.transform(dataConsulta, 'dd/MM/yyyy') || null;
+    }
+    return null;
+  }
+
+  private formatHoraConsulta(horaConsulta: Date): string | null {
+    if (horaConsulta) {
+      return this.datePipe.transform(horaConsulta, 'HH:mm') || null;
+    }
+    return null;
+  }
+
+  listarDados() {
+    // Consultar dados dos pacientes, agendamentos e consultas aqui
+    this.pacienteService.getPaciente().subscribe((pacientes) => {
+      this.agendamentoService.getAgendamento().subscribe((agendamentos) => {
+        this.consultaService.getConsulta().subscribe((consultas) => {
+          this.dadosRelacionadosService.getDadosRelacionados().subscribe((dadosRelacionados) => {
+            // Agora você tem os dados de pacientes, agendamentos, consultas e dados relacionados
+            // Você pode prosseguir para associar esses dados
+            this.associarDadosRelacionadosAosPacientes(pacientes, agendamentos, consultas, dadosRelacionados);
           });
         });
       });
-    }
-  
-    associaDadosPacientesAgendamentoConsulta() {
-      this.pacientesComDadosRelacionados = this.pacientes.map((paciente) => {
-        const agendamento = this.agendamentos.find((a) => a.idPaciente === paciente.idPaciente);
-        const consulta = this.consultas.find((c) => c.idPaciente === paciente.idPaciente);
-  
-        return {
-          ...paciente,
-          ...agendamento,
-          ...consulta,
-        };
-      });
-    }
+    });
+  }
 
-    listarPacientes(): void {
-        this.pacienteService.getPaciente().subscribe(data => {
-        this.pacientes = data;
-        this.sortPacientesByNome();
-      })
-    }
+  associarDadosRelacionadosAosPacientes(
+    pacientes: Paciente[],
+    agendamentos: Agendamento[],
+    consultas: Consulta[],
+    dadosRelacionados: DadosRelationadosDTO
+  ) {
+    // Mapear os pacientes por ID para facilitar a associação
+    const pacientesMap = new Map<number, Paciente>();
+    pacientes.forEach((paciente) => {
+      if (paciente.idPaciente !== undefined) {
+        pacientesMap.set(paciente.idPaciente, paciente);
+      }
+    });
 
-    sortPacientesByNome() {
-      this.pacientes = this.pacientes.filter(paciente => paciente.nomePaciente !== undefined);
-      this.pacientes.sort((a, b) => {
+    // Associar agendamentos aos pacientes
+    agendamentos.forEach((agendamento) => {
+      console.log("Agendamento")
+      console.log(agendamento)
+      if (agendamento.paciente?.idPaciente && pacientesMap.has(agendamento.paciente.idPaciente)) {
+        console.log("Entrou no if do agendamento")
+        const pacienteEncontrado = pacientesMap.get(agendamento.paciente.idPaciente);
+        if (pacienteEncontrado) {
+          pacienteEncontrado.agendamento = agendamento;
+          console.log(pacienteEncontrado.agendamento)
+        }
+      }
+    });
+
+    // Associar consultas aos pacientes
+    consultas.forEach((consulta) => {
+      if (consulta.paciente?.idPaciente && pacientesMap.has(consulta.paciente.idPaciente)) {
+        const pacienteEncontrado = pacientesMap.get(consulta.paciente.idPaciente);
+        if (pacienteEncontrado) {
+          pacienteEncontrado.consulta = consulta;
+        }
+      }
+    });
+
+    console.log(dadosRelacionados)
+    console.log(dadosRelacionados.dados)
+    // Associar dados relacionados aos pacientes, se houver um campo de identificação em comum
+    // if (dadosRelacionados && Array.isArray(dadosRelacionados.dados)) {
+    //   const dados = dadosRelacionados.dados;
+
+    //   dados.forEach((dadoRelacionado) => {
+    //     const idPacienteRelacionado = dadoRelacionado.idPaciente;
+    
+    //     // Verifique se o paciente existe com base no idPaciente
+    //     if (pacientesMap.has(idPacienteRelacionado)) {
+    //       const pacienteExistente = pacientesMap.get(idPacienteRelacionado);
+    
+    //       // Certifique-se de que pacienteExistente não seja indefinido antes de atribuir dados a ele
+    //       if (pacienteExistente) {
+    //         // Aqui você pode associar os dados relacionados ao paciente existente
+    //         // Suponha que DadosRelationadosDTO tenha um campo chamado "informacaoExtra" que você deseja associar ao paciente
+    //         pacienteExistente.informacaoExtra = dadoRelacionado.informacaoExtra;
+    //       }
+    //     }
+    //   });
+    // }
+
+    // Atualizar a lista de pacientes com todas as informações associadas
+    this.pacientesComDadosRelacionados = Array.from(pacientesMap.values());
+    console.log(this.pacientesComDadosRelacionados[0]);
+    console.log(this.pacientesComDadosRelacionados[1]);
+    console.log(this.pacientesComDadosRelacionados[2]);
+  }
+  // Associar dados de agendamentos
+
+
+  listarPacientes(): void {
+    this.pacienteService.getPaciente().subscribe(data => {
+      this.pacientes = data;
+      this.sortPacientesByNome();
+    })
+  }
+
+  sortPacientesByNome() {
+    this.pacientes = this.pacientes.filter(paciente => paciente.nomePaciente !== undefined);
+    this.pacientes.sort((a, b) => {
       const nomeA = a.nomePaciente!.toLowerCase();
       const nomeB = b.nomePaciente!.toLowerCase();
       if (nomeA < nomeB) {
@@ -187,38 +270,38 @@ export class HomeAgendamentoComponent{
       }
       return 0;
     });
-    }
-    
-    voltarPagina(): void {
-      this.router.navigate(['pacientes'])
-    }
-     excluirPaciente() {
+  }
+
+  voltarPagina(): void {
+    this.router.navigate(['pacientes'])
+  }
+  excluirPaciente() {
 
 
-      if (this.pacienteSelecionado && this.pacienteSelecionado.idPaciente) {
-  
-        const idPaciente = this.pacienteSelecionado.idPaciente;
-        this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
-          
-          
-          
-          this.sucessMessage = "Paciente Excluído!";
-          this.exibirMensagem = true;
-          setTimeout(() => {
-            this.toastr.success(this.sucessMessage, 'Sucesso');
-            this.router.navigate(['pacientes']);
-          }, 2000)
-          this.listarPacientes();
-  
-          this.pacienteSelecionado = null;
-          this.exibirPopupExclusao = false;
-        });
-      
-      }
-      else  {
-          console.log("Não encontrado ou erro");
-      }
+    if (this.pacienteSelecionado && this.pacienteSelecionado.idPaciente) {
+
+      const idPaciente = this.pacienteSelecionado.idPaciente;
+      this.pacienteService.excluirPaciente(idPaciente).subscribe(() => {
+
+
+
+        this.sucessMessage = "Paciente Excluído!";
+        this.exibirMensagem = true;
+        setTimeout(() => {
+          this.toastr.success(this.sucessMessage, 'Sucesso');
+          this.router.navigate(['pacientes']);
+        }, 2000)
+        this.listarPacientes();
+
+        this.pacienteSelecionado = null;
+        this.exibirPopupExclusao = false;
+      });
+
     }
-  
+    else {
+      console.log("Não encontrado ou erro");
+    }
+  }
+
 
 }

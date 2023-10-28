@@ -96,12 +96,14 @@
 
                                     <div class="col">
                                         <label for="formaPagamento">Forma de Pagamento:</label>
-                                        <input type="text" id="formaPagamento" name="formaPagamento"
-                                            [(ngModel)]="consulta.formaPagamento" required #formaPagamento="ngModel"
-                                            autofocus minlength="3" maxlength="50"
-                                            [ngClass]="{ 'highlight-error': formaPagamento.invalid && formaPagamento.touched }">
+                                        <select id="formaPagamento" name="formaPagamento" [(ngModel)]="consulta.formaPagamento" required
+                                                #formaPagamento="ngModel" [ngClass]="{ 'highlight-error': formaPagamento.invalid && formaPagamento.touched }">
+                                          <option value="" disabled>Selecione a forma de pagamento</option>
+                                          <option *ngFor="let forma of formasDePagamento" [value]="forma">{{forma}}</option>
+                                        </select>
                                         <div class="warning" *ngIf="formaPagamento.invalid && formaPagamento.touched">
-                                            Campo obrigatório</div>
+                                          Campo obrigatório
+                                        </div>
                                     </div>
 
                                 </div>

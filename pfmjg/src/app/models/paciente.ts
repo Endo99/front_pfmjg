@@ -1,3 +1,6 @@
+import { Agendamento } from "./agendamento/agendamento";
+import { Consulta } from "./consulta/consulta";
+
 // interface IPaciente {}
 export class Paciente {
 
@@ -9,5 +12,8 @@ export class Paciente {
     cidade?: string;
     estado?: string;
     telefone?: string;
+    agendamento?: Agendamento;
+    consulta?: Consulta;
+    informacaoExtra?: string;
 
 }

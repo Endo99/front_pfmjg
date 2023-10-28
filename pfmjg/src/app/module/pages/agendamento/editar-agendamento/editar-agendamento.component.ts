@@ -44,23 +44,25 @@ export class EditarAgendamentoComponent {
 
   agenda: Agendamento = {
 
+    idAgendamento: 0,
     dataInicio: new Date,
     descricao: '',
     horaFinal: new Date,
     horarioInicio: new Date,
     paciente: new Paciente,
+    observacao: ''
     
   };
   
   paciente: Paciente = {
     
-    idPaciente: 0,
     nomePaciente: '',
     dataNascimentoPaciente: new Date,
     idadePaciente: 0,
     cidade: '',
     estado: '',
     telefone: '',
+    cpf: ''
 
   };
 
@@ -97,6 +99,7 @@ export class EditarAgendamentoComponent {
         this.agenda.horaFinal = this.agendaForm.value.horaFinal;
         this.agenda.observacao = this.agendaForm.value.observacao;
         this.agenda.paciente = this.agendaForm.value.paciente;
+        this.agenda.observacao = this.agendaForm.value.observacao;
         
     
         this.serviceAgendamento.atualizarAgendamento(idAgenda, this.agenda).subscribe(() => {

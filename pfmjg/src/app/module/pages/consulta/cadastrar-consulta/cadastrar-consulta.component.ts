@@ -23,6 +23,8 @@ export class CadastrarConsultaComponent {
 
   exibirMensagem: boolean = false;
 
+  formasDePagamento: string[] = ["Dinheiro", "Cartão de Crédito", "Cartão de Débito", "PIX"];
+
   pacientes: Paciente[] = [];
 
   consulatId: number = 0;
