@@ -28,4 +28,8 @@ export class ControleCaixaService {
   deletarControleCaixa(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/deletar/${id}`);
   }
+
+  getIdControle(idControle: number): Observable<ControleCaixa> {
+    return this.http.get<ControleCaixa>(`${this.baseUrl}/id/${idControle}`);
+  }
 }

@@ -30,8 +30,10 @@ export class HomeAgendamentoComponent {
   @Input() tipoConsulta: String = '';
 
   pacientes: Paciente[] = [];
-  agendamentos: any[] = [];
-  consultas: any[] = [];
+  agendamentos: Agendamento[] = [];
+  consultas: Consulta[] = [];
+  dadosRelacionados: DadosRelationadosDTO[] = [];
+
   pacientesComDadosRelacionados: any[] = [];
 
   exibirPopupExclusao = false;
@@ -75,10 +77,10 @@ export class HomeAgendamentoComponent {
 
   }
 
-  dadosRelacionados: DadosRelationadosDTO = {
+  dadoRelacionado: DadosRelationadosDTO = {
     nomePaciente: '',
     tipoConsulta: '',
-    dataConsulta: '',
+    dataConsulta: new Date(),
     horaAgendamento: ''
   }
 
@@ -131,26 +133,8 @@ export class HomeAgendamentoComponent {
 
   ngOnInit(): void {
 
-    this.listarPacientes();
-    if (this.pacienteSelecionado) {
-      this.renderer.addClass(document.body, 'paciente-selecionado');
-    }
-
-    this.dataService.getPacientes().subscribe(data => {
-      this.pacientes = data;
-    });
-
-    this.dataService.getAgendamentos().subscribe(data => {
-      this.agendamentos = data;
-    });
-
-    this.dataService.getConsultas().subscribe(data => {
-      this.consultas = data;
-    });
-
-    console.log(this.dataService)
-
     this.listarDados();
+
   }
 
   private formatDataConsulta(dataConsulta: Date): string | null {
@@ -168,12 +152,12 @@ export class HomeAgendamentoComponent {
   }
 
   listarDados() {
-    // Consultar dados dos pacientes, agendamentos e consultas aqui
+    // Consultar dados dos pacientes, agendamentos, consultas e dados relacionados aqui
     this.pacienteService.getPaciente().subscribe((pacientes) => {
       this.agendamentoService.getAgendamento().subscribe((agendamentos) => {
         this.consultaService.getConsulta().subscribe((consultas) => {
           this.dadosRelacionadosService.getDadosRelacionados().subscribe((dadosRelacionados) => {
-            // Agora você tem os dados de pacientes, agendamentos, consultas e dados relacionados
+            // Agora que você tem os dados de pacientes, agendamentos, consultas e dados relacionados
             // Você pode prosseguir para associar esses dados
             this.associarDadosRelacionadosAosPacientes(pacientes, agendamentos, consultas, dadosRelacionados);
           });
@@ -181,117 +165,75 @@ export class HomeAgendamentoComponent {
       });
     });
   }
-  
-  
-  
+
   associarDadosRelacionadosAosPacientes(
     pacientes: Paciente[],
     agendamentos: Agendamento[],
     consultas: Consulta[],
-    dadosRelacionados: DadosRelationadosDTO
-    ) {
-      console.log(this.dadosRelacionadosService.getDadosRelacionados().subscribe((dados) => {
-        
-      }))
-      // Mapear os pacientes por ID para facilitar a associação
-    const pacientesMap = new Map<number, Paciente>();
-    pacientes.forEach((paciente) => {
-      if (paciente.idPaciente !== undefined) {
-        pacientesMap.set(paciente.idPaciente, paciente);
-      }
-    });
-
+    dadosRelacionados: DadosRelationadosDTO[]
+  ) {
     // Associar agendamentos aos pacientes
     agendamentos.forEach((agendamento) => {
-      if (agendamento.paciente?.idPaciente && pacientesMap.has(agendamento.paciente.idPaciente)) {
-        const pacienteEncontrado = pacientesMap.get(agendamento.paciente.idPaciente);
-        if (pacienteEncontrado) {
-          pacienteEncontrado.agendamento = agendamento;
-        }
+      const paciente = pacientes.find(p => p.idPaciente === agendamento.paciente?.idPaciente);
+      if (paciente) {
+        paciente.agendamento = agendamento;
       }
     });
-    console.log(agendamentos)
-
 
     // Associar consultas aos pacientes
     consultas.forEach((consulta) => {
-      if (consulta.paciente?.idPaciente && pacientesMap.has(consulta.paciente.idPaciente)) {
-        const pacienteEncontrado = pacientesMap.get(consulta.paciente.idPaciente);
-        if (pacienteEncontrado) {
-          pacienteEncontrado.consulta = consulta;
-        }
+      const paciente = pacientes.find(p => p.idPaciente === consulta.paciente?.idPaciente);
+      if (paciente) {
+        paciente.consulta = consulta;
       }
     });
-    console.log(consultas)
-    // Associar dados relacionados aos pacientes, se houver um campo de identificação em comum
-    if (dadosRelacionados && Array.isArray(dadosRelacionados.dados)) {
-      const dados = dadosRelacionados.dados;
 
-      dados.forEach((dadoRelacionado) => {
-        const idPacienteRelacionado = dadoRelacionado.idPaciente;
-    
-        // Verifique se o paciente existe com base no idPaciente
-        if (pacientesMap.has(idPacienteRelacionado)) {
-          const pacienteExistente = pacientesMap.get(idPacienteRelacionado);
-    
-          // Certifique-se de que pacienteExistente não seja indefinido antes de atribuir dados a ele
-          if (pacienteExistente) {
-            // Aqui você pode associar os dados relacionados ao paciente existente
-            // Suponha que DadosRelationadosDTO tenha um campo chamado "informacaoExtra" que você deseja associar ao paciente
-            pacienteExistente.informacaoExtra = dadoRelacionado.informacaoExtra;
-          }
+    // Associar dados relacionados aos pacientes
+    dadosRelacionados.forEach(dado => {
+      const paciente = pacientes.find(p => p.idPaciente === dado.idPaciente);
+      if (paciente) {
+        // Associar os campos relevantes da classe DadosRelationadosDTO à classe Paciente
+        paciente.nomePaciente = dado.nomePaciente;
+
+        // Verificar e associar propriedades aninhadas
+        if (!paciente.consulta) {
+          paciente.consulta = {}; // Inicialize o objeto se estiver indefinido
         }
-      });
-    }
+        paciente.consulta.tipoConsulta = dado.tipoConsulta;
 
-    // Atualizar a lista de pacientes com todas as informações associadas
-    this.pacientesComDadosRelacionados = Array.from(pacientesMap.values());
+        if (!paciente.consulta.dataConsultaAtual) {
+          paciente.consulta.dataConsultaAtual = dado.dataConsulta;
+        }
+
+        if (!paciente.agendamento) {
+          paciente.agendamento = {}; // Inicialize o objeto se estiver indefinido
+        }
+        paciente.agendamento.horarioInicio = dado.horaAgendamento;
+      }
+    });
   }
   // Associar dados de agendamentos
 
 
-  listarPacientes(): void {
-    this.pacienteService.getPaciente().subscribe(data => {
-      this.pacientes = data;
-      this.sortPacientesByNome();
-    })
-  }
-
-  sortPacientesByNome() {
-    this.pacientes = this.pacientes.filter(paciente => paciente.nomePaciente !== undefined);
-    this.pacientes.sort((a, b) => {
-      const nomeA = a.nomePaciente!.toLowerCase();
-      const nomeB = b.nomePaciente!.toLowerCase();
-      if (nomeA < nomeB) {
-        return -1;
-      }
-      if (nomeA > nomeB) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-
   voltarPagina(): void {
     this.router.navigate(['pacientes'])
   }
-  excluirPaciente() {
+
+  excluirAgenda() {
 
 
     if (this.pacienteSelecionado && this.pacienteSelecionado.idPaciente) {
 
-      const idPaciente = this.pacienteSelecionado.idPaciente;
-      this.pacienteService.excluirPaciente(idPaciente).subscribe(() => {
+      const idAgenda = this.pacienteSelecionado.idPaciente;
+      this.agendamentoService.excluirAgendamento(idAgenda).subscribe(() => {
 
-
-
-        this.sucessMessage = "Paciente Excluído!";
+        this.sucessMessage = "Agenda Excluído!";
         this.exibirMensagem = true;
         setTimeout(() => {
           this.toastr.success(this.sucessMessage, 'Sucesso');
-          this.router.navigate(['pacientes']);
+          this.router.navigate(['agendamentos']);
         }, 2000)
-        this.listarPacientes();
+        this.listarDados();
 
         this.pacienteSelecionado = null;
         this.exibirPopupExclusao = false;
@@ -302,6 +244,5 @@ export class HomeAgendamentoComponent {
       console.log("Não encontrado ou erro");
     }
   }
-
 
 }

@@ -1,8 +1,8 @@
 export class DadosRelationadosDTO {
 
-    nomePaciente?: String;
-    tipoConsulta?: String;
-    dataConsulta?: String;
-    horaAgendamento?: String;
-    dados?: string;
+    idPaciente?: number;
+    nomePaciente?: string;
+    tipoConsulta?: string;
+    dataConsulta?: Date;
+    horaAgendamento?: string;
 }

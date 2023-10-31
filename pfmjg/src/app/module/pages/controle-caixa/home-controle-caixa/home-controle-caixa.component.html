@@ -62,7 +62,7 @@
                                     <tr *ngFor="let controle of controles">
 
                                         <td>{{ controle.descricaoControle }}</td>
-                                        <td>{{ controle.paciente }}</td>
+                                        <td>{{ controle.paciente?.nomePaciente }}</td>
                                         <td>{{ controle.data }}</td>
                                         <td>{{ controle.preco }}</td>
                                         <td>{{ controle.formaPagamento }}</td>

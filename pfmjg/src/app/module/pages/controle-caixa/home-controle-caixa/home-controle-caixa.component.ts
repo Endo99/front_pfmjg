@@ -51,6 +51,7 @@ export class HomeControleCaixaComponent {
   ngOnInit(): void {
     
     this.listarControles();
+    this.listarPacientes();
   }
   
   constructor(private router: Router, private route: ActivatedRoute,
@@ -98,7 +99,7 @@ export class HomeControleCaixaComponent {
       }
     }
   
-    selecionarPaciente(controle: ControleCaixa): void {
+    selecionarControle(controle: ControleCaixa): void {
       this.controleSelecionado = controle;
     }
   
@@ -113,4 +114,9 @@ export class HomeControleCaixaComponent {
       this.selectedControle = null;
       this.router.navigate(['/consultas']);
     }
+
+    voltarPagina(): void {
+      this.router.navigate(['consultas'])
+    }
+  
 }

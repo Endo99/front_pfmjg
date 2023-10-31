@@ -12,9 +12,9 @@ export class DadosRelacionadosService {
 
   constructor(private http: HttpClient) { }
 
-  getDadosRelacionados(): Observable<DadosRelationadosDTO> {
+  getDadosRelacionados(): Observable<DadosRelationadosDTO[]> {
     
-    return this.http.get<DadosRelationadosDTO>(`${this.baseUrl}/dados-relacionados`);
+    return this.http.get<DadosRelationadosDTO[]>(`${this.baseUrl}/dados-relacionados`);
   }
 
 }
