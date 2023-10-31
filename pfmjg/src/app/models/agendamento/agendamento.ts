@@ -7,8 +7,8 @@ export class Agendamento {
     paciente?: Paciente;
     dataInicio?: Date;
     descricao?: String; // nome do evento
-    horarioInicio?: Date;
-    horaFinal?: Date;
+    horarioInicio?: string;
+    horaFinal?: string;
     observacao?: String;
     
 }

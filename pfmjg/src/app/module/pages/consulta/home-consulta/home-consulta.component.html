@@ -58,7 +58,7 @@
                                 <tbody class="justify-content-center">
                                     <tr *ngFor="let consulta of consultas">
 
-                                        <td>{{ consulta.paciente }}</td>
+                                        <td>{{ consulta.paciente?.nomePaciente }}</td>
                                         <td>{{ consulta.dataConsultaAtual }}</td>
                                         <td>{{ consulta.tipoConsulta }}</td>
                                         <td>{{ consulta.formaPagamento }}</td>

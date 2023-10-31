@@ -32,7 +32,7 @@ export class EditarAgendamentoComponent {
 
   paciente: new Paciente,
 
-  agendamento: 0,
+  agendamento: new Agendamento,
 
   dataConsultaAtual: new Date,
 
@@ -47,8 +47,8 @@ export class EditarAgendamentoComponent {
     idAgendamento: 0,
     dataInicio: new Date,
     descricao: '',
-    horaFinal: new Date,
-    horarioInicio: new Date,
+    horaFinal: '',
+    horarioInicio: '',
     paciente: new Paciente,
     observacao: ''
     

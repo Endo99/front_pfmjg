@@ -7,7 +7,7 @@ export class Consulta {
 
     paciente?: Paciente;
 
-    agendamento?: number;
+    agendamento?: Agendamento;
 
     dataConsultaAtual?: Date;
 

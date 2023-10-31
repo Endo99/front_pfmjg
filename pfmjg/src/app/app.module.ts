@@ -11,6 +11,8 @@ import { AgendamentoModule } from './module/agendamento.module';
 import { ConsultaModule } from './module/consulta.module';
 import { CategoriaModule } from './module/categoria.module';
 import { DatePipe } from '@angular/common';
+import { ControleCaixa } from './models/controle-caixa/controle-caixa';
+import { ControleCaixaModule } from './module/controle-caixa.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +26,7 @@ import { DatePipe } from '@angular/common';
     AgendamentoModule,
     ConsultaModule,
     CategoriaModule,
+    ControleCaixaModule,
   ],
   providers: [
     ServicePaciente,

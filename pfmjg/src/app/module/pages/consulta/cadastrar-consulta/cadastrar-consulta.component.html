@@ -51,13 +51,17 @@
                                 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2">
 
                                     <div class="col">
-                                        <label for="agenda">Agenda:</label>
-                                        <input type="text" id="agenda" name="agenda" [(ngModel)]="consulta.agendamento"
-                                            required #agenda="ngModel" autofocus minlength="3" maxlength="50" autofocus
-                                            [ngClass]="{ 'highlight-error': agenda.invalid && agenda.touched }">
-                                        <div class="warning" *ngIf="agenda.invalid && agenda.touched">Campo obrigatório
-                                        </div>
-                                    </div>
+                                        <label for="agenda">Agenda</label>
+                                        <select id="agenda" name="agenda" [(ngModel)]="selectedAgendamentoDesc" required #agenda="ngModel"
+                                        (change)="buscarDetalhesDoAgendamento(selectedAgendamentoDesc)"
+                                          [ngClass]="{ 'highlight-error': agenda.invalid && agenda.touched }">
+                                          <option value="" selected disabled>Selecione a agenda</option>
+                                          <option *ngFor="let agenda of agendamentos" [value]="agenda.descricao">
+                                            {{ agenda.descricao }} <!-- Substitua por um atributo apropriado do Agendamento -->
+                                          </option>
+                                        </select>
+                                        <div class="warning" *ngIf="agenda.invalid && agenda.touched">Campo obrigatório</div>
+                                      </div>
 
                                     <div class="col">
                                         <label for="idPaciente">Paciente</label>
@@ -67,7 +71,7 @@
                                             [ngClass]="{ 'highlight-error': paciente.invalid && paciente.touched }">
                                             <option value="" selected disabled>Selecione o paciente</option>
                                             <option *ngFor="let paciente of pacientes" [value]="paciente.cpf">{{
-                                                paciente.nomePaciente }}</option>
+                                                paciente.nomePaciente }} {{selectedPatientId}}</option>
                                         </select>
                                         <div class="warning" *ngIf="paciente.invalid && paciente.touched">Campo
                                             obrigatório</div>

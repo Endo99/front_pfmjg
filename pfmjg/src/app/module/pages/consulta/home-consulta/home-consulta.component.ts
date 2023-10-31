@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Agendamento } from 'src/app/models/agendamento/agendamento';
 import { Consulta } from 'src/app/models/consulta/consulta';
 import { Paciente } from 'src/app/models/paciente';
 import { ServiceConsulta } from 'src/app/services/service-consulta.service';
@@ -18,6 +19,8 @@ export class HomeConsultaComponent {
   exibirPopupExclusao = false;
   consultaSelecionado: Consulta | null = null;
 
+  selectedConsulta: any
+
   sucessMessage: string = "";
 
   exibirMensagem: boolean = false;
@@ -27,7 +30,7 @@ export class HomeConsultaComponent {
   consulta: Consulta = {
     idConsulta: 0,
     paciente: new Paciente(),
-    agendamento: 0,
+    agendamento: new Agendamento,
     dataConsultaAtual: new Date(),
     tipoConsulta: '',
     formaPagamento: '',
@@ -113,19 +116,19 @@ export class HomeConsultaComponent {
       }
     }
   
-    selecionarPaciente(categoria: Consulta): void {
-      this.consultaSelecionado = categoria;
+    selecionarPaciente(consulta: Consulta): void {
+      this.consultaSelecionado = consulta;
     }
   
-    openPopup(categoria: any) {
+    openPopup(consulta: any) {
       console.log("Clicou");
-      console.log(this.consultaSelecionado = categoria);
-      this.consultaSelecionado = categoria;
+      console.log(this.consultaSelecionado = consulta);
+      this.selectedConsulta = consulta;
     
     }
   
     closePopup() {
-      this.consultaSelecionado = null;
+      this.selectedConsulta = null;
       this.router.navigate(['/consultas']);
     }
 

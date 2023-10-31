@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Agendamento } from '../models/agendamento/agendamento';
 import { Observable } from 'rxjs';
 import { Paciente } from '../models/paciente';
+import { AgendaDto } from '../models/dto/agenda-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,10 @@ export class ServiceAgendamento {
 
   getPaciente(IdAgenda: number): Observable<Agendamento> {
     return this.http.get<Agendamento>(`${this.apiUrl}/paciente/${IdAgenda}`);
+  }
+
+  getDetalhesDaAgendaPorDescricao(descricao: string): Observable<AgendaDto> {
+    const url = `${this.apiUrl}/detalhes/${descricao}`;
+    return this.http.get<AgendaDto>(url);
   }
 }

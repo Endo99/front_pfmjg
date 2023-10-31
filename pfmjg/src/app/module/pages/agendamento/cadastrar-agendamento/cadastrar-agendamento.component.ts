@@ -32,7 +32,7 @@ export class CadastrarAgendamentoComponent {
 
   paciente: new Paciente,
 
-  agendamento: 0,
+  // agendamento: Agendamento,
 
   dataConsultaAtual: new Date,
 
@@ -47,8 +47,8 @@ export class CadastrarAgendamentoComponent {
     idAgendamento: 0,
     dataInicio: new Date,
     descricao: '',
-    horaFinal: new Date,
-    horarioInicio: new Date,
+    horaFinal: '',
+    horarioInicio: '',
     paciente: new Paciente,
     
   };
@@ -89,7 +89,7 @@ export class CadastrarAgendamentoComponent {
           console.log(this.exibirMensagem);
           setTimeout(() => {
             this.toastr.success(this.sucessMessage, 'Sucesso');
-            this.router.navigate(['agendamento']);
+            this.router.navigate(['agendamentos']);
           }, 2000)
         } else {  
           console.log("Algum dado faltante ou id não encontrado")
@@ -166,6 +166,8 @@ export class CadastrarAgendamentoComponent {
 
 
   buscarDetalhesDoPaciente(cpf: string): void {
+    console.log(this.selectedPatientId)
+    console.log(cpf)
     this.servicePaciente.getPacientePorCPF(cpf).subscribe((paciente) => {
       console.log(cpf)
       console.log(paciente)

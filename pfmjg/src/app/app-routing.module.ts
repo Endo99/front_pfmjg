@@ -37,9 +37,9 @@ const routes: Routes = [
   {path: "agendamentos", component: HomeAgendamentoComponent},
   {path: "agendamentos/cadastrar", component: CadastrarAgendamentoComponent},
   {path: "agendamentos/editar/:id", component: EditarAgendamentoComponent},
-  {path: "controles-caixas/cadastrar", component: CadastrarControleCaixaComponent},
-  {path: "controles-caixas/editar/:id", component: EditarControleCaixaComponent},
-  {path: "controles-caixas", component: HomeControleCaixaComponent},
+  {path: "controles/cadastrar", component: CadastrarControleCaixaComponent},
+  {path: "controles/editar/:id", component: EditarControleCaixaComponent},
+  {path: "controles", component: HomeControleCaixaComponent},
   // { path: "**", component: NotFoundComponent },
 
 ];
