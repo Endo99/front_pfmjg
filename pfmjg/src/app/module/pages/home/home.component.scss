@@ -68,46 +68,64 @@ html {
     height: 6vw;
 }
 
-// #menu-bento-aberto {
-//     background-color: #E5E5E0
-// }
+
+#menu-bento-aberto {
+    background-color: #E5E5E0;
+    padding: 4.5vw;
+}
 
 
-// #menu-bento-aberto {
-//     border-radius: 5%;
-//     position:relative;
-// }
+#menu-bento-aberto {
+    margin: 0;
+    border-radius: 15%;
+}
 
-// .lista-item {
-//     display: grid;
-//     grid-template-columns: repeat(2, 1fr);
-//     grid-gap: 1vw;
-//     flex-direction: column;
-//     list-style: none;
-//     text-decoration: none;
-//     padding: 5%;
-// }
-
-// .lista-item li {
-//     display: flex;
-//     background-color: #E5E5E0;
-//     height: 7vw;
-//     border-radius: 5%;
-// }
-  
-// .lista-item li{
-//     display: block;
-//     margin: .3vw 0 0.6vw;
-// }
-
-// .col {
-//     display: block;
-//     font-weight: bold;
-//     color: #000;
-// }
-
-// li button {
-//     background-color: transparent;
-//     border: none;
+.lista-item {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 6.5vw;
+    flex-direction: column;
+    list-style: none;
+    text-decoration: none;
     
-// }
+    padding: 1%;
+}
+
+.lista-item li {
+    margin: 0;
+    display: flex;
+    height: 4.5vw;
+}
+
+.lista-item li{
+    display: flex;
+    margin: .5vw 0 .5vw 0;
+}
+
+.bi, p {
+    height: 5vw;
+    width: 5vw;
+    color: #09FE04;
+}
+
+button {
+    background-color: #E5E5E0;
+    border: none;
+    display: flex; // Adiciona display: flex para alinhar os itens centralmente
+    margin-right: 100vw
+}
+
+button:last-child {
+    margin-right: 0; // Remove o espaçamento para o último botão
+}
+
+button p {
+    text-align: center;
+    margin-top: auto; // Alinha o texto ao centro verticalmente
+    margin-bottom: auto; // Alinha o texto ao centro verticalmente
+}
+
+button:hover p, button:hover svg {
+    cursor: pointer;
+    color: #000;
+}

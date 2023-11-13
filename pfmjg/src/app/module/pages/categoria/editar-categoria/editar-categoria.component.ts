@@ -19,13 +19,13 @@ export class EditarCategoriaComponent {
 
   cpfValido: boolean = false;
 
+  isClick: Boolean = false;
 
   categoriaId: number = 0;
 
   categoria: Categoria = {
     idCategoria: 0,
     descricao: '',
-    tipoCategoria: '',
   };
   
   constructor(private serviceCategoria: CategoriaService, private rotaAtiva: ActivatedRoute,
@@ -36,11 +36,34 @@ export class EditarCategoriaComponent {
   ngOnInit() : void {
     this.rotaAtiva.params.subscribe(params => {
       this.categoriaId = +params['id'];
-      console.log('ID do Paciente:', this.categoriaId);
-      this.carregarDetalhesPaciente();
     })
   }
   
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendamentos" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
+  }
 
   updCategoria(form: NgForm): void {
     const idCategoria = this.categoria.idCategoria;
@@ -50,7 +73,6 @@ export class EditarCategoriaComponent {
       // Preencha os valores do objeto paciente com os valores do formulário
 
       this.categoria.descricao = this.categoriaForm.value.descricao as string;
-      this.categoria.tipoCategoria = this.categoriaForm.value.tipoCategoria as string;
   
       this.serviceCategoria.atualizarCategoria(idCategoria, this.categoria).subscribe(() => {
         this.sucessMessage = "Categoria Atualizada!";
@@ -66,29 +88,9 @@ export class EditarCategoriaComponent {
       console.log('Categoria não definido ou formulário inválido');
     }
   }
-  
-  
-    carregarDetalhesPaciente() {
-      this.serviceCategoria.getIdCategoria(this.categoriaId).subscribe(
-        categoria => {
-          this.categoria = categoria;
-
-        },
-        error => {
-          console.log('Erro ao obter os dados da categoria:', error);
-        }
-      );
-  }
 
   voltarPagina(): void {
     this.rota.navigate(['categorias'])
   }
 
-@HostListener('input')
-onInput() {
-  const input = this.el.nativeElement;
-  if (input.value < 0) {
-    input.value = '';
-  }
-}
 }

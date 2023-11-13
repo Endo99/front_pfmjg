@@ -16,6 +16,8 @@ export class EditarPacienteComponent {
 
   sucessMessage: string = "";
 
+  isClick: Boolean = false;
+
   exibirMensagem: boolean = false;
 
   regex = new FormControl();
@@ -31,12 +33,12 @@ export class EditarPacienteComponent {
 
   paciente: Paciente = {
     idPaciente: 0,
-    nomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    nome: '',
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
     telefone: '',
+    situacao: '',
   };
   
   constructor(private servicePaciente: ServicePaciente, private rotaAtiva: ActivatedRoute,
@@ -51,47 +53,49 @@ export class EditarPacienteComponent {
       this.carregarDetalhesPaciente();
     })
   }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendamentos" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
+  }
   
   
 
   atualizarNomePaciente(event: any) {
-    this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
+    this.paciente.nome = (event.target as HTMLInputElement).value;
   }
   
 
   updPaciente(form: NgForm): void {
     const idPaciente = this.paciente.idPaciente;
-    console.log(form.value)
-    console.log("Valores recebidos:")
-    console.log('ID do Paciente:', idPaciente);
-    console.log('Nome do Paciente:', this.paciente.nomePaciente);
-    console.log('Data de nascimento do Paciente:', this.paciente.dataNascimentoPaciente);
-    console.log('Idade do Paciente:', this.paciente.idadePaciente);
-    console.log('CPF do Paciente:', this.paciente.cpf);
-    console.log('Cidade do Paciente:', this.paciente.cidade);
-    console.log('Estado do Paciente:', this.paciente.estado);
-    console.log('Telefone do Paciente:', this.paciente.telefone);
-    console.log('Valores do Formulário:', this.pacienteForm.value);
-    console.log(this.pacienteForm.valid);
-    // Verifique se o objeto paciente está definido e se o formulário é válido
     if (this.paciente && this.pacienteForm.valid && idPaciente !== undefined) {
-      // Preencha os valores do objeto paciente com os valores do formulário
-      console.log("Entrou");
-      
-      console.log(this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente)
-      console.log(this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente)
-      console.log(this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente)
-      console.log(this.paciente.cpf = this.pacienteForm.value.cpf)
-      console.log(this.paciente.cidade = this.pacienteForm.value.cidade)
-      console.log(this.paciente.estado = this.pacienteForm.value.estado)
-      console.log(this.paciente.telefone = this.pacienteForm.value.telefone)
-      
+      // Preencha os valores do objeto paciente com os valore
       
 
       this.paciente.idPaciente = idPaciente;
-      this.paciente.nomePaciente = this.pacienteForm.value.nomePaciente as string;
-      this.paciente.dataNascimentoPaciente = this.pacienteForm.value.dataNascimentoPaciente as Date;
-      this.paciente.idadePaciente = this.pacienteForm.value.idadePaciente as number;
+      this.paciente.nome = this.pacienteForm.value.nomePaciente as string;
+      this.paciente.dataNascimento = this.pacienteForm.value.dataNascimentoPaciente as Date;
       this.paciente.cpf = this.pacienteForm.value.cpf as string;
       this.paciente.cidade = this.pacienteForm.value.cidade as string;
       this.paciente.estado = this.pacienteForm.value.estado as string;
@@ -118,29 +122,12 @@ export class EditarPacienteComponent {
         paciente => {
           console.log('Dados do paciente obtidos:', paciente);
           this.paciente = paciente;
-          
-          console.log('Valores do paciente após atribuição:');
-          console.log('ID do Paciente:', this.paciente.idPaciente);
-          console.log('Nome do Paciente:', this.paciente.nomePaciente);
-          console.log('Data de nascimento do Paciente:', this.paciente.dataNascimentoPaciente);
-          console.log('Idade do Paciente:', this.paciente.idadePaciente);
-          console.log('Cidade do Paciente:', this.paciente.cidade);
-          console.log('Estado do Paciente:', this.paciente.estado);
 
         },
         error => {
           console.log('Erro ao obter os dados do paciente:', error);
         }
       );
-  }
-
-  calcularIdade() {
-    if (this.paciente.dataNascimentoPaciente) {
-      const hoje = new Date();
-      const dataNascimento = new Date(this.paciente.dataNascimentoPaciente);
-      const diff = Math.abs(hoje.getTime() - dataNascimento.getTime());
-      this.paciente.idadePaciente = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // Calcula a idade em anos considerando anos bissextos
-    }
   }
 
 formatarCPF() {

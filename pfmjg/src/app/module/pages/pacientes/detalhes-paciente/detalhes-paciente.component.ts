@@ -18,12 +18,12 @@ export class DetalhesPacienteComponent implements OnInit{
 
   paciente: Paciente = {
     idPaciente: 0,
-    nomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    nome: '',
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
     telefone: '',
+    situacao: ''
   };
 
   constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute) { }

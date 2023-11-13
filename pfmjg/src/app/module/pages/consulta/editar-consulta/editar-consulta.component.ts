@@ -18,6 +18,8 @@ export class EditarConsultaComponent {
 
   @ViewChild('consultaForm') consultaForm!: NgForm;
 
+  isClick: Boolean = false;
+
   sucessMessage: string = "";
 
   exibirMensagem: boolean = false;
@@ -48,12 +50,12 @@ export class EditarConsultaComponent {
   paciente: Paciente = {
     idPaciente: undefined,
     cpf: '',
-    nomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    nome: '',
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
-    telefone: ''
+    telefone: '',
+    situacao: ''
   };
 
   agenda: Agendamento = {
@@ -73,14 +75,53 @@ export class EditarConsultaComponent {
   }
 
   ngOnInit(): void {
-    this.rotaAtiva.params.subscribe(params => {
+    this.rotaAtiva.params.subscribe((params) => {
       this.consulatId = +params['id'];
-    })
+      if (this.consulatId) {
+        this.carregarConsultaParaEdicao(this.consulatId);
+      }
+    });
     this.listarPacientes();
     this.listarAgendamentos();
   }
 
-  
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendamentos" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
+  }
+
+  carregarConsultaParaEdicao(id: number): void {
+    this.serviceConsulta.getIdConsulta(id).subscribe((consulta) => {
+      if (consulta) {
+        this.consulta = consulta;
+        this.selectedAgendamentoDesc = (consulta.agendamento?.descricao || '') as string;
+        this.selectedPatientId = (consulta.paciente?.cpf || '') as string;
+
+      }
+    });
+  }
+
 
   listarPacientes() {
     this.pacienteService.getPaciente().subscribe(pacientes => {
@@ -143,9 +184,8 @@ export class EditarConsultaComponent {
       if (paciente) {
         this.paciente.idPaciente = paciente.idPaciente;
         this.paciente.cpf = paciente.cpf;
-        this.paciente.nomePaciente = paciente.nomePaciente;
-        this.paciente.dataNascimentoPaciente = paciente.dataNascimentoPaciente;
-        this.paciente.idadePaciente = paciente.idadePaciente;
+        this.paciente.nome = paciente.nomePaciente;
+        this.paciente.dataNascimento = paciente.dataNascimentoPaciente;
         this.paciente.cidade = paciente.cidade;
         this.paciente.estado = paciente.estado;
         this.paciente.telefone = paciente.telefone;
@@ -160,7 +200,7 @@ export class EditarConsultaComponent {
   }
 
   voltarPagina(): void {
-    this.rota.navigate(['consultas'])
+    this.rota.navigate(['/consultas'])
   }
 
 

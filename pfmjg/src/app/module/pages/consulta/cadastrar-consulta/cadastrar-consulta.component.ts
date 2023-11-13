@@ -1,13 +1,11 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
-import { FormControl, NgForm, Validators } from '@angular/forms';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Agendamento } from 'src/app/models/agendamento/agendamento';
-import { Categoria } from 'src/app/models/categoria/categoria';
 import { Consulta } from 'src/app/models/consulta/consulta';
 import { Paciente } from 'src/app/models/paciente';
 import { ServiceAgendamento } from 'src/app/services/service-agendamento.service';
-import { CategoriaService } from 'src/app/services/service-categoria.service';
 import { ServiceConsulta } from 'src/app/services/service-consulta.service';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
@@ -20,6 +18,8 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
 export class CadastrarConsultaComponent {
 
   @ViewChild('consultaForm') consultaForm!: NgForm;
+
+  isClick: Boolean = false;
 
   sucessMessage: string = "";
 
@@ -51,12 +51,12 @@ export class CadastrarConsultaComponent {
   paciente: Paciente = {
     idPaciente: undefined,
     cpf: '',
-    nomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    nome: '',
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
-    telefone: ''
+    telefone: '',
+    situacao: '',
   };
 
   agenda: Agendamento = {
@@ -81,6 +81,32 @@ export class CadastrarConsultaComponent {
     })
     this.listarPacientes();
     this.listarAgendamentos();
+  }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendamentos" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
   }
 
   listarPacientes() {
@@ -144,9 +170,8 @@ export class CadastrarConsultaComponent {
       if (paciente) {
         this.paciente.idPaciente = paciente.idPaciente;
         this.paciente.cpf = paciente.cpf;
-        this.paciente.nomePaciente = paciente.nomePaciente;
-        this.paciente.dataNascimentoPaciente = paciente.dataNascimentoPaciente;
-        this.paciente.idadePaciente = paciente.idadePaciente;
+        this.paciente.nome = paciente.nomePaciente;
+        this.paciente.dataNascimento = paciente.dataNascimentoPaciente;
         this.paciente.cidade = paciente.cidade;
         this.paciente.estado = paciente.estado;
         this.paciente.telefone = paciente.telefone;

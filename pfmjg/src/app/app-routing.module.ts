@@ -16,11 +16,9 @@ import { CadastrarAgendamentoComponent } from './module/pages/agendamento/cadast
 import { EditarCategoriaComponent } from './module/pages/categoria/editar-categoria/editar-categoria.component';
 import { CadastrarConsultaComponent } from './module/pages/consulta/cadastrar-consulta/cadastrar-consulta.component';
 import { EditarAgendamentoComponent } from './module/pages/agendamento/editar-agendamento/editar-agendamento.component';
-import { CadastrarControleCaixaComponent } from './module/pages/controle-caixa/cadastrar-controle-caixa/cadastrar-controle-caixa.component';
-import { EditarControleCaixaComponent } from './module/pages/controle-caixa/editar-controle-caixa/editar-controle-caixa.component';
-import { HomeControleCaixaComponent } from './module/pages/controle-caixa/home-controle-caixa/home-controle-caixa.component';
-
-
+import { CadastrarNutricionista } from './module/pages/nutricionista/cadastrar-nutricionista/cadastrar-nutricionista.component';
+import { EditarNutrucionistaComponent } from './module/pages/nutricionista/editar-nutricionista/editar-nutricionista.component';
+import { HomeNutricionistaComponent } from './module/pages/nutricionista/home-nutricionista/home-nutricionista.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -37,9 +35,9 @@ const routes: Routes = [
   {path: "agendamentos", component: HomeAgendamentoComponent},
   {path: "agendamentos/cadastrar", component: CadastrarAgendamentoComponent},
   {path: "agendamentos/editar/:id", component: EditarAgendamentoComponent},
-  {path: "controles/cadastrar", component: CadastrarControleCaixaComponent},
-  {path: "controles/editar/:id", component: EditarControleCaixaComponent},
-  {path: "controles", component: HomeControleCaixaComponent},
+  {path: "nutricionistas/cadastrar", component: CadastrarNutricionista},
+  {path: "nutricionistas/:id/alterar", component: EditarNutrucionistaComponent},
+  {path: "nutricionistas", component: HomeNutricionistaComponent},
   // { path: "**", component: NotFoundComponent },
 
 ];

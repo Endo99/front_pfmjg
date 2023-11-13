@@ -8,25 +8,25 @@ import { Observable } from 'rxjs';
 })
 export class CategoriaService {
 
-  private readonly apiUrl = 'http://localhost:8080/pfmjg/categorias';
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/api/categoria';
   constructor(private http: HttpClient) {}
 
   cadastrarCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(`${this.apiUrl}/cadastrar-categoria`, categoria);
+    return this.http.post<Categoria>(`${this.apiUrl}`, categoria);
   }
 
   getCategoria(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${this.apiUrl}/listar`);
+    return this.http.get<Categoria[]>(`${this.apiUrl}`);
   }
   
   atualizarCategoria(idCategoria: number, categoria: Categoria): Observable<Categoria> {
     console.log('ID do Categoria:', idCategoria);
     console.log('Objeto categoria:', categoria);
-    return this.http.put<Categoria>(`${this.apiUrl}/editar-categoria/${idCategoria}`, categoria);
+    return this.http.put<Categoria>(`${this.apiUrl}/${idCategoria}/alterar`, categoria);
   }
   
   excluirCategoria(idCategoria: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletar-categoria/${idCategoria}`);
+    return this.http.delete<void>(`${this.apiUrl}/${idCategoria}/deletar`);
   }
 
   getCategoriaByName(tipoCategoria: string): Observable<Categoria> {
@@ -35,6 +35,6 @@ export class CategoriaService {
 
 
   getIdCategoria(idCategoria: number): Observable<Categoria> {
-    return this.http.get<Categoria>(`${this.apiUrl}/${idCategoria}`);
+    return this.http.get<Categoria>(`${this.apiUrl}/${idCategoria}/buscar`);
   }
 }

@@ -4,25 +4,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Agendamento } from 'src/app/models/agendamento/agendamento';
 import { Categoria } from 'src/app/models/categoria/categoria';
-import { Consulta } from 'src/app/models/consulta/consulta';
-import { Conta } from 'src/app/models/conta/conta';
-import { ControleCaixa } from 'src/app/models/controle-caixa/controle-caixa';
+import { Nutricionista } from 'src/app/models/nutricionista/nutricionista';
 import { Paciente } from 'src/app/models/paciente';
-import { ContaService } from 'src/app/services/conta.service';
-import { ControleCaixaService } from 'src/app/services/controle-caixa.service';
-import { ServiceAgendamento } from 'src/app/services/service-agendamento.service';
+import { NutricionistaService } from 'src/app/services/nutricionista.service';
 import { CategoriaService } from 'src/app/services/service-categoria.service';
-import { ServiceConsulta } from 'src/app/services/service-consulta.service';
 import { ServicePaciente } from 'src/app/services/service-paciente.service';
 
 @Component({
   selector: 'app-cadastrar-controle-caixa',
-  templateUrl: './cadastrar-controle-caixa.component.html',
-  styleUrls: ['./cadastrar-controle-caixa.component.scss']
+  templateUrl: './cadastrar-nutricionista.component.html',
+  styleUrls: ['./cadastrar-nutricionista.component.scss']
 })
-export class CadastrarControleCaixaComponent {
+export class CadastrarNutricionista {
 
   @ViewChild('controleForm') controleForm!: NgForm;
+
+  selectedCat: string = '';
+
+  isClick: Boolean = false;
 
   sucessMessage: string = "";
 
@@ -33,10 +32,6 @@ export class CadastrarControleCaixaComponent {
   agendamentos: Agendamento[] = [];
 
   formasDePagamento: string[] = ["Dinheiro", "Cartão de Crédito", "Cartão de Débito", "PIX"];
-
-  pacientes: Paciente[] = [];
-
-  contas: Conta[] = [];
 
   categorias: Categoria[] = [];
 
@@ -50,15 +45,15 @@ export class CadastrarControleCaixaComponent {
 
   tiposDeConsulta: string[] = ['Presencial', 'Online'];
 
-  controleCaixa: ControleCaixa = {
+  nutricionista: Nutricionista = {
     
-    paciente: new Paciente,
-    conta: [],
-    data: new Date,
-    produtoOuCliente: '',
-    preco: 0,
-    formaPagamento: '',
-    descricaoControle: '',
+    id: 0,
+    nome: '',
+    cpf: '',
+    telefone: '',
+    situacao: '',
+    categoria: new Categoria(),
+    descricao: ''
     
   };
 
@@ -66,20 +61,18 @@ export class CadastrarControleCaixaComponent {
 
     idCategoria: 0,
     descricao: '',
-    tipoCategoria: '',
-    controle: new ControleCaixa
 
   }
 
   paciente: Paciente = {
     idPaciente: undefined,
     cpf: '',
-    nomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    nome: '',
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
-    telefone: ''
+    telefone: '',
+    situacao: '',
   };
 
   agenda: Agendamento = {
@@ -94,7 +87,7 @@ export class CadastrarControleCaixaComponent {
 
   constructor(private rotaAtiva: ActivatedRoute, private rota: Router,
     private toastr: ToastrService, private pacienteService: ServicePaciente,
-    private controleCaixaService: ControleCaixaService, private categoriaService: CategoriaService ) {
+    private nutricionistaService: NutricionistaService, private categoriaService: CategoriaService ) {
 
   }
 
@@ -102,17 +95,42 @@ export class CadastrarControleCaixaComponent {
     this.rotaAtiva.params.subscribe(params => {
       this.consulatId = +params['id'];
     })
-    this.listarPacientes();
     this.listarCategorias()
+  }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendamentos" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
   }
 
   addControle(form: NgForm) {
     if (form.valid) {
-          this.controleCaixaService.cadastrarControleCaixaAConta(this.controleCaixa).subscribe(response => {
+          this.nutricionistaService.cadastrarNutricionistaAConta(this.nutricionista).subscribe(response => {
             this.sucessMessage = "Controle Cadastrado!";
             this.exibirMensagem = true;
-            console.log(this.controleCaixa)
-            // this.controleCaixa.conta = [];
+            console.log(this.nutricionista)
+            // this.Nutricionista.conta = [];
             setTimeout(() => {
               this.toastr.success(this.sucessMessage, 'Sucesso');
               this.rota.navigate(['controles']);
@@ -124,48 +142,11 @@ export class CadastrarControleCaixaComponent {
         }
   }
 
-  listarPacientes() {
-    this.pacienteService.getPaciente().subscribe(pacientes => {
-      this.pacientes = pacientes;
-    });
-  }
-
   listarCategorias() {
     this.categoriaService.getCategoria().subscribe(categorias => {
       this.categorias = categorias;
     });
   }
-
-  onChangeTipo(produtoOuCliente: string) {
-    if (produtoOuCliente === 'Produto') {
-      this.pacienteInativo = true;
-      this.controleCaixa.produtoOuCliente = produtoOuCliente
-    } else {
-      this.pacienteInativo = false;
-      this.controleCaixa.produtoOuCliente = produtoOuCliente
-    }
-  }
-  // addConsulta(form: NgForm): void {
-  //   console.log(this.exibirMensagem)
-  //   console.log(this.consulta.idConsulta)
-  //   console.log(this.consulta)
-  //   if (form.valid) {
-  //     this.serviceConsulta.cadastrarConsulta(this.consulta).subscribe(response => {
-  //       this.sucessMessage = "Consulta Cadastrado!";
-  //       this.exibirMensagem = true;
-  //       console.log(response);
-  //       console.log(this.consulta);
-  //       console.log(this.exibirMensagem);
-  //       setTimeout(() => {
-  //         this.toastr.success(this.sucessMessage, 'Sucesso');
-  //         this.rota.navigate(['consultas']);
-  //       }, 2000)
-  //     });
-  //   }
-  //   else {
-  //     console.log()
-  //   }
-  // }
 
   buscarDetalhesDoPaciente(cpf: string): void {
     console.log(this.pacienteService.getPacientePorCPF(cpf));
@@ -173,15 +154,14 @@ export class CadastrarControleCaixaComponent {
       if (paciente) {
         this.paciente.idPaciente = paciente.idPaciente;
         this.paciente.cpf = paciente.cpf;
-        this.paciente.nomePaciente = paciente.nomePaciente;
-        this.paciente.dataNascimentoPaciente = paciente.dataNascimentoPaciente;
-        this.paciente.idadePaciente = paciente.idadePaciente;
+        this.paciente.nome = paciente.nomePaciente;
+        this.paciente.dataNascimento = paciente.dataNascimentoPaciente;
         this.paciente.cidade = paciente.cidade;
         this.paciente.estado = paciente.estado;
         this.paciente.telefone = paciente.telefone;
-        this.controleCaixa.paciente = paciente;
+        this.nutricionista.categoria = this.categoria;
 
-        console.log(this.controleCaixa)
+        console.log(this.nutricionista)
 
         this.selectedPatientId = cpf;
       }

@@ -7,27 +7,27 @@ import { PacienteDTO } from '../models/dto/paciente-dto';
 @Injectable(
 )
 export class ServicePaciente {
-  private readonly apiUrl = 'http://localhost:8080/pfmjg/pacientes';
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/api/paciente';
 
   private readonly otherAPIUrl = 'http://localhost:8080/pfmjg/api';
   constructor(private http: HttpClient) {}
 
   cadastrarPaciente(paciente: Paciente): Observable<Paciente> {
-    return this.http.post<Paciente>(`${this.apiUrl}/cadastrar-paciente`, paciente);
+    return this.http.post<Paciente>(`${this.apiUrl}`, paciente);
   }
 
   getPaciente(): Observable<Paciente[]> {
-    return this.http.get<Paciente[]>(`${this.apiUrl}/listar`);
+    return this.http.get<Paciente[]>(`${this.apiUrl}`);
   }
   
   atualizarPaciente(idPaciente: number, paciente: Paciente): Observable<Paciente> {
     console.log('ID do Paciente:', idPaciente);
     console.log('Objeto Paciente:', paciente);
-    return this.http.put<Paciente>(`${this.apiUrl}/editar-paciente/${idPaciente}`, paciente);
+    return this.http.put<Paciente>(`${this.apiUrl}/${idPaciente}/alterar`, paciente);
   }
   
   excluirPaciente(idPaciente: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletar-paciente/${idPaciente}`);
+    return this.http.delete<void>(`${this.apiUrl}/${idPaciente}/deletar`);
   }
 
   getPacienteByName(nomePaciente: string): Observable<Paciente> {
@@ -39,7 +39,15 @@ export class ServicePaciente {
   }
 
   getIdPaciente(idPaciente: number): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.apiUrl}/${idPaciente}`);
+    return this.http.get<Paciente>(`${this.apiUrl}/${idPaciente}/buscar`);
+  }
+
+  getAtivarPac(idPaciente: number) {
+    return this.http.get<Paciente>(`${this.apiUrl}/${idPaciente}/ativar`)
+  }
+
+  getIntivarPac(idPaciente: number) {
+    return this.http.get<Paciente>(`${this.apiUrl}/${idPaciente}/inativar`)
   }
 
   getPacienteByCPFANDIdPaciente(cpf: String, idPaciente: number) {

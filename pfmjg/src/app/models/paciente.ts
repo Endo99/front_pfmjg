@@ -6,14 +6,11 @@ export class Paciente {
 
     idPaciente?: number;
     cpf?: string;
-    nomePaciente?: string;
-    dataNascimentoPaciente?: Date;
-    idadePaciente?: number;
+    nome?: string;
+    dataNascimento?: Date;
     cidade?: string;
     estado?: string;
     telefone?: string;
-    agendamento?: Agendamento;
-    consulta?: Consulta;
-    informacaoExtra?: string;
+    situacao?: string;
 
 }

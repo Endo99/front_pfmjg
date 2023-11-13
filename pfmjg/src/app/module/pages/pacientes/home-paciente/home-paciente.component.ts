@@ -10,7 +10,7 @@ import { ServicePaciente } from 'src/app/services/service-paciente.service';
   templateUrl: './home-paciente.component.html',
   styleUrls: ['./home-paciente.component.scss']
 })
-export class HomePacienteComponent implements OnInit{
+export class HomePacienteComponent implements OnInit {
 
   exibirPopupExclusao = false;
   pacienteSelecionado: Paciente | null = null;
@@ -25,6 +25,8 @@ export class HomePacienteComponent implements OnInit{
 
   id: string = '';
 
+  isClick: Boolean = false;
+
   agendamento: Agendamento = {
     idAgendamento: 0,
     paciente: new Paciente,
@@ -32,33 +34,33 @@ export class HomePacienteComponent implements OnInit{
 
   paciente: Paciente = {
     idPaciente: 0,
-    nomePaciente: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    nome: '',
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
     telefone: '',
+    situacao: ''
   };
 
   constructor(private pacienteService: ServicePaciente, private router: Router, private route: ActivatedRoute,
     private renderer: Renderer2, private toastr: ToastrService) {
-     }
+  }
 
   ngOnInit(): void {
-    
+
     this.listarPacientes();
     if (this.pacienteSelecionado) {
       this.renderer.addClass(document.body, 'paciente-selecionado');
     }
   }
-  
+
   listarPacientes(): void {
-      this.pacienteService.getPaciente().subscribe(data => {
+    this.pacienteService.getPaciente().subscribe(data => {
       this.pacientes = data;
       this.sortPacientesByNome();
     })
   }
-  
+
   buscarPaciente(id: string): void {
     this.pacienteService.getIdPaciente(parseInt(id)).subscribe(
       paciente => {
@@ -91,8 +93,8 @@ export class HomePacienteComponent implements OnInit{
     if (this.pacienteSelecionado && this.pacienteSelecionado.idPaciente) {
 
       const idPaciente = this.pacienteSelecionado.idPaciente;
-      this.pacienteService.excluirPaciente(idPaciente). subscribe( () => {
-        
+      this.pacienteService.excluirPaciente(idPaciente).subscribe(() => {
+
         this.sucessMessage = "Paciente Excluído!";
         this.exibirMensagem = true;
         setTimeout(() => {
@@ -104,10 +106,10 @@ export class HomePacienteComponent implements OnInit{
         this.pacienteSelecionado = null;
         this.exibirPopupExclusao = false;
       });
-    
+
     }
-    else  {
-        console.log("Não encontrado ou erro");
+    else {
+      console.log("Não encontrado ou erro");
     }
   }
 
@@ -119,7 +121,7 @@ export class HomePacienteComponent implements OnInit{
     console.log("Clicou");
     console.log(this.selectedPaciente = paciente);
     this.selectedPaciente = paciente;
-  
+
   }
 
   closePopup() {
@@ -128,22 +130,48 @@ export class HomePacienteComponent implements OnInit{
   }
 
   sortPacientesByNome() {
-    this.pacientes = this.pacientes.filter(paciente => paciente.nomePaciente !== undefined);
+    this.pacientes = this.pacientes.filter(paciente => paciente.nome !== undefined);
     this.pacientes.sort((a, b) => {
-    const nomeA = a.nomePaciente!.toLowerCase();
-    const nomeB = b.nomePaciente!.toLowerCase();
-    if (nomeA < nomeB) {
-      return -1;
-    }
-    if (nomeA > nomeB) {
-      return 1;
-    }
-    return 0;
-  });
+      const nomeA = a.nome!.toLowerCase();
+      const nomeB = b.nome!.toLowerCase();
+      if (nomeA < nomeB) {
+        return -1;
+      }
+      if (nomeA > nomeB) {
+        return 1;
+      }
+      return 0;
+    });
   }
-  
+
   voltarPagina(): void {
     this.router.navigate(['pacientes'])
+  }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendamentos" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas" },
+    { nome: "Categoria", rota: "/categorias" },
+    { nome: "Paciente", rota: "/pacientes" },
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.router.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
   }
 
 }

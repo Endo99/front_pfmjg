@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>HOME</title>
-    <link rel="stylesheet" href="./cadastrar-categoria.component.scss">
-  </head>
-  <body>
+    <link rel="stylesheet" href="./cadastrar-nutricionista.component.scss">
+</head>
+
+<body>
     <div class="top-bar">
         <header id="bar">
             <div class="logo">
                 <img src="/assets/icons/LOGO_JOHW.svg" alt="">
-            
+
             </div>
             <div class="menu">
                 <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" (click)="clicarMenuBento()">
@@ -109,44 +111,80 @@
                 </section>
             </div>
             <div class="user">
-            
+
             </div>
 
-            <section class="body-categoria">
-                <div class="view-categoria">
-                    <div class="background-categoria">
-                        <form #categoriaForm="ngForm" (ngSubmit)="addCategoria(categoriaForm)">
+            <section class="body-controle">
+                <div class="view-controle">
+                    <div class="background-controle">
+                        <form #controleForm="ngForm" (ngSubmit)="addControle(controleForm)">
                             <legend>
-                            <h1>Cadastrar Categoria</h1>
+                                <h1>Cadastrar Nutricionista</h1>
                             </legend>
-                            <div class="container text-center" >
-                                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2"> 
-              
-                                  <div class="col">
-                                    <label for="descricao">Descrição:</label>
-                                    <input type="text" id="descricao" name="descricao" [(ngModel)]="categoria.descricao"
-                                    required #descricao="ngModel" autofocus minlength="3" maxlength="50"
-                                    [ngClass]="{ 'highlight-error': descricao.invalid && descricao.touched }">
-                                    <div class="warning" *ngIf="descricao.invalid && descricao.touched">Campo obrigatório</div>
-                                  </div>
+                            <div class="container text-center">
+                                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2">
+
+                                    <div class="col">
+                                        <label for="nomeNutricionista">Nome:</label>
+                                        <input type="text" id="nomeNutricionista" [(ngModel)]="nutricionista.nome" name="nomeNutricionista"
+                                        required>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="cpf">CPF:</label>
+                                        <input type="text" id="cpf" [(ngModel)]="nutricionista.cpf" name="cpf"
+                                        required>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="tel">Telefone:</label>
+                                        <input type="text" id="tel" [(ngModel)]="nutricionista.telefone" name="tel"
+                                        required>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="sit">Situação:</label>
+                                        <input type="text" id="sit" [(ngModel)]="nutricionista.situacao" name="sit"
+                                        required>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="descricaoNutricionista">Descrição do Nutricionista:</label>
+                                        <input type="text" id="descricaoNutricionista" [(ngModel)]="nutricionista.descricao" name="descricaoNutricionista"
+                                        required>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="categ">Categoria</label>
+                                        <select class="form-select" size="3" aria-label="Size 3 select example"
+                                        id="categ" name="categ" [(ngModel)]="selectedCat" required #categ="ngModel">
+                                          <option value="" selected disabled>Selecione a categoria</option>
+                                          <option *ngFor="let categoria of categorias" [value]="categoria.descricao">
+                                            {{ categoria.descricao }} <!-- Substitua por um atributo apropriado do Agendamento -->
+                                          </option>
+                                        </select>
+                                      </div>
+
                                 </div>
-                              </div>
-                              <div class="button">
+                            </div>
+                            <div class="button">
                                 <input type="submit" class="btn btn-primary" value="Cadastrar">
-                                <div *ngIf="exibirMensagem" class="success-message" >
+                                <div *ngIf="exibirMensagem" class="success-message">
                                     {{sucessMessage}}
                                 </div>
-                                <input type="button" class="btn btn-primary red" value="Cancelar" (click)="voltarPagina()">
-                              </div>
+                                <input type="button" class="btn btn-primary red" value="Cancelar"
+                                    (click)="voltarPagina()">
+                            </div>
 
                         </form>
                     </div>
                 </div>
             </section>
-            
+
         </header>
     </div>
 
 
-    </body>
+</body>
+
 </html>

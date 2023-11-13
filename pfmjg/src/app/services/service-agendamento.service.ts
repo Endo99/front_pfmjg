@@ -10,11 +10,11 @@ import { AgendaDto } from '../models/dto/agenda-dto';
 })
 export class ServiceAgendamento {
 
-  private readonly apiUrl = 'http://localhost:8080/pfmjg/agendamentos';
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/api/agendamento';
   constructor(private http: HttpClient) {}
 
   cadastrarAgendamento(agendamento: Agendamento): Observable<Agendamento> {
-    return this.http.post<Agendamento>(`${this.apiUrl}/cadastrar-agenda`, agendamento);
+    return this.http.post<Agendamento>(`${this.apiUrl}/`, agendamento);
   }
 
   getAgendamento(): Observable<Agendamento[]> {
@@ -24,11 +24,11 @@ export class ServiceAgendamento {
   atualizarAgendamento(idAgendamento: number, agendamento: Agendamento): Observable<Agendamento> {
     console.log('ID do Agendamento:', idAgendamento);
     console.log('Objeto Agendamento:', agendamento);
-    return this.http.put<Agendamento>(`${this.apiUrl}/editar-agenda/${idAgendamento}`, agendamento);
+    return this.http.put<Agendamento>(`${this.apiUrl}/${idAgendamento}/alterar`, agendamento);
   }
   
   excluirAgendamento(idAgendamento: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletar-agenda/${idAgendamento}`);
+    return this.http.delete<void>(`${this.apiUrl}/${idAgendamento}/deletar`);
   }
 
   getAllAgendamentoIds(): Observable<number[]> {

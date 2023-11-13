@@ -13,14 +13,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CadastrarPacienteComponent implements OnInit{
 
+  isClick: Boolean = false;
+
   paciente: Paciente = {
-    nomePaciente: '',
+    nome: '',
     cpf: '',
-    dataNascimentoPaciente: new Date(),
-    idadePaciente: 0,
+    dataNascimento: new Date(),
     cidade: '',
     estado: '',
     telefone: '',
+    situacao: '',
   };
 
   @ViewChild('pacienteForm') pacienteForm!: NgForm;
@@ -48,6 +50,32 @@ export class CadastrarPacienteComponent implements OnInit{
     this.paciente.cpf = '';
     }
 
+    pages = [
+      { nome: "Home", rota: "" },
+      { nome: "Agenda", rota: "/agendamentos" },
+      { nome: "Consulta", rota: "/consultas" },
+      { nome: "Nutricionista", rota: "/nutricionistas"},
+      { nome: "Categoria", rota: "/categorias"},
+      { nome: "Paciente", rota: "/pacientes"},
+      // Adicione outras páginas conforme necessário
+    ];
+  
+  
+    direcionarPagina(pagina: string) {
+      // Encontre a página correspondente no array de páginas
+      const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+  
+      if (paginaEncontrada) {
+        console.log("Entrou e clicou");
+        // Redirecione para a rota correspondente
+        this.rota.navigate([paginaEncontrada.rota]);
+      }
+    }
+  
+    clicarMenuBento() {
+      this.isClick = !this.isClick;
+    }
+
   addPaciente(form: NgForm): void {
     console.log(this.paciente)
     console.log(form)
@@ -70,15 +98,6 @@ export class CadastrarPacienteComponent implements OnInit{
     }
     else {
       console.log()
-    }
-  }
-
-  calcularIdade() {
-    if (this.paciente.dataNascimentoPaciente) {
-      const hoje = new Date();
-      const dataNascimento = new Date(this.paciente.dataNascimentoPaciente);
-      const diff = Math.abs(hoje.getTime() - dataNascimento.getTime());
-      this.paciente.idadePaciente = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // Calcula a idade em anos considerando anos bissextos
     }
   }
 
@@ -182,7 +201,7 @@ export class CadastrarPacienteComponent implements OnInit{
   // }
 
   atualizarNomePaciente(event: Event) {
-    this.paciente.nomePaciente = (event.target as HTMLInputElement).value;
+    this.paciente.nome = (event.target as HTMLInputElement).value;
   }
 
 
