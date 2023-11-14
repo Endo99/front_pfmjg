@@ -47,10 +47,15 @@ export class EditarPacienteComponent {
   }
 
   ngOnInit() : void {
+    console.log(this.paciente)
     this.rotaAtiva.params.subscribe(params => {
+      console.log(+params['id'])
       this.pacienteId = +params['id'];
       console.log('ID do Paciente:', this.pacienteId);
-      this.carregarDetalhesPaciente();
+      console.log(this.servicePaciente.getIdPaciente(this.pacienteId))
+      if (this.pacienteId) {
+        this.carregarDetalhesPaciente();
+      }
     })
   }
 
@@ -118,8 +123,11 @@ export class EditarPacienteComponent {
   
   
     carregarDetalhesPaciente() {
+      console.log(this.paciente)
+      console.log(this.servicePaciente.getIdPaciente(this.pacienteId))
       this.servicePaciente.getIdPaciente(this.pacienteId).subscribe(
         paciente => {
+
           console.log('Dados do paciente obtidos:', paciente);
           this.paciente = paciente;
 

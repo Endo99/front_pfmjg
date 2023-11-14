@@ -19,6 +19,7 @@ import { EditarAgendamentoComponent } from './module/pages/agendamento/editar-ag
 import { CadastrarNutricionista } from './module/pages/nutricionista/cadastrar-nutricionista/cadastrar-nutricionista.component';
 import { EditarNutrucionistaComponent } from './module/pages/nutricionista/editar-nutricionista/editar-nutricionista.component';
 import { HomeNutricionistaComponent } from './module/pages/nutricionista/home-nutricionista/home-nutricionista.component';
+import { ErrorComponent } from './module/pages/error/error.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: "nutricionistas/cadastrar", component: CadastrarNutricionista},
   {path: "nutricionistas/:id/alterar", component: EditarNutrucionistaComponent},
   {path: "nutricionistas", component: HomeNutricionistaComponent},
+  {path: "page-error", component: ErrorComponent}
   // { path: "**", component: NotFoundComponent },
 
 ];
