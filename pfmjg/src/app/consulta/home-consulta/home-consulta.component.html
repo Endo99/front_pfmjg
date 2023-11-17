@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paciente</title>
+    <link rel="stylesheet" href="./home-consulta.component.scss">
+</head>
+
+<body [class.paciente-selecionado]="isClick">
+    <div class="top-bar">
+        <header id="bar">
+            <div class="logo">
+                <img src="./assets/icons/LOGO_JOHW.svg" alt="">
+
+            </div>
+            <div class="menu">
+                <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" (click)="clicarMenuBento()">
+                <section id="menu-bento-aberto" *ngIf="isClick">
+                    <div class="lista-menu">
+                        <div class="container text-center">
+                            <div>
+                                <mat-grid-list cols="2" rowHeight="2:1">
+
+                                    <ul class="lista-item">
+                                        <mat-grid-tile>
+                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Home')">
+                                                <mat-icon class="icon custom-icon">home</mat-icon>
+                                                <p>
+                                                    Home
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Agendar')">
+                                                <mat-icon class="icon custom-icon">today</mat-icon>
+                                                <p>
+                                                    Agendar
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Consulta')">
+                                                <mat-icon class="icon custom-icon">assignment_ind</mat-icon>
+                                                <p>
+                                                    Consulta
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Categoria')">
+                                                <mat-icon class="icon custom-icon">library_books</mat-icon>
+                                                <p>
+                                                    Categoria
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Nutricionista')">
+                                                <mat-icon class="icon custom-icon">work_outline</mat-icon>
+                                                <p>
+                                                    Nutricionista
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Paciente')">
+                                                <mat-icon class="icon custom-icon">people_outline</mat-icon>
+                                                <p>
+                                                    Paciente
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+                                    </ul>
+                                </mat-grid-list>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </header>
+    </div>
+    <section class="body-consulta">
+        <div class="view-consulta">
+            <div class="background-consulta">
+                <main class="list-consulta">
+                    <mat-card class="table">
+
+                        <mat-card-content color="primary">Consultas</mat-card-content>
+
+                        <div *ngIf="consulta$ | async as consulta; else loading">
+                            <table mat-table [dataSource]="consulta" class="mat-elevation-z8">
+
+                                <ng-container class="field" matColumnDef="data">
+                                    <th mat-header-cell *matHeaderCellDef> Data </th>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.data}} </td>
+                                </ng-container>
+
+                                <ng-container class="field" matColumnDef="horaInicial">
+                                    <th mat-header-cell *matHeaderCellDef> Hora </th>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.hora}} </td>
+                                </ng-container>
+
+                                <ng-container class="field" matColumnDef="periodo">
+                                    <th mat-header-cell *matHeaderCellDef> Tempo de Duração </th>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.periodo}} </td>
+                                </ng-container>
+
+                                <ng-container class="field" matColumnDef="situacao">
+                                    <th mat-header-cell *matHeaderCellDef> Situacao </th>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.situacao}} </td>
+                                </ng-container>
+
+                                <ng-container class="field" matColumnDef="pacienteNome">
+                                    <th mat-header-cell *matHeaderCellDef> Paciente </th>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.pacienteNome}} </td>
+                                </ng-container>
+
+                                <ng-container class="field" matColumnDef="agendaNutricionista">
+                                    <th mat-header-cell *matHeaderCellDef> Nutricionista </th>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.agendaNutricionista}} </td>
+                                </ng-container>
+
+                                <!-- Actions Column -->
+                                <ng-container class="field" matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef class="action-column">
+                                        <button class="actions" mat-mini-fab color="accent" aria-label="Adicionar um curso"
+                                            (click)="onAdd()" class="action-column-header">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </mat-header-cell>
+
+                                    <mat-cell *matCellDef="let course" class="action-column">
+                                        <button class="actions" mat-icon-button color="primary" aria-label="Editar Curso"
+                                            (click)="onEdit(course)">
+                                            <mat-icon class="actions-icon">edit</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button color="warn" aria-label="Remover Curso"
+                                            (click)="onDelete(course)">
+                                            <mat-icon class="actions-icon">delete</mat-icon>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+
+                        <ng-template #loading>
+                            <div class="loading-spinner">
+                                <mat-spinner></mat-spinner>
+                            </div>
+                        </ng-template>
+                    </mat-card>
+                </main>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

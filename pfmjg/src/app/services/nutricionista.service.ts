@@ -1,43 +1,31 @@
-
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Nutricionista } from '../models/nutricionista/nutricionista';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { first, tap } from 'rxjs/operators';
+import { Nutricionista } from '../model/nutricionista';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NutricionistaService {
 
-  private baseUrl = 'http://localhost:8080/pfmjg/api/nutricionista'; // Substitua pela URL do seu backend
+  private readonly apiUrl = 'http://localhost:8080/pfmjg/api/nutricionista';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  listarNutricionista(): Observable<Nutricionista[]> {
-    return this.http.get<Nutricionista[]>(`${this.baseUrl}`);
+  list() {
+    return this.httpClient.get<Nutricionista[]>(`${this.apiUrl}?situacao=ATIVO`)
+    .pipe(
+      first(),
+      tap(nutricionista => console.log(nutricionista))
+    );
   }
 
-  cadastrarNutricionistaAConta(nutricionista: Nutricionista): Observable<Nutricionista> {
-    return this.http.post<Nutricionista>(`${this.baseUrl}`, nutricionista);
+  save(record: Nutricionista) {
+    console.log(record);
+    return this.httpClient.post<Nutricionista>(`${this.apiUrl}`, record).pipe(first());
   }
 
-  editarNutricionista(id: number, nutricionista: Nutricionista): Observable<Nutricionista> {
-    return this.http.put<Nutricionista>(`${this.baseUrl}/${id}/alterar`, nutricionista);
-  }
-
-  deletarNutricionista(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/deletar/${id}`);
-  }
-
-  ativarNutricionista(id: number): Observable<Nutricionista> {
-    return this.http.get<Nutricionista>(`${this.baseUrl}/${id}/ativar/`);
-  }
-
-  desativarNutricionista(id: number): Observable<Nutricionista> {
-    return this.http.get<Nutricionista>(`${this.baseUrl}/${id}/inativar/`);
-  }
-
-  getById(id: number): Observable<Nutricionista> {
-    return this.http.get<Nutricionista>(`${this.baseUrl}/${id}/buscar`);
+  remove(id:number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`,id).pipe(first());
   }
 }

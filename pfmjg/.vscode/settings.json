@@ -1,44 +1,22 @@
 {
     "workbench.colorCustomizations": {
-<<<<<<< HEAD
-        "activityBar.activeBackground": "#04f483",
-        "activityBar.background": "#04f483",
+        "activityBar.activeBackground": "#4aeb96",
+        "activityBar.background": "#4aeb96",
         "activityBar.foreground": "#15202b",
         "activityBar.inactiveForeground": "#15202b99",
-        "activityBarBadge.background": "#b462fc",
+        "activityBarBadge.background": "#ac6fef",
         "activityBarBadge.foreground": "#15202b",
-        "commandCenter.border": "#e7e7e799",
-        "sash.hoverBorder": "#04f483",
-        "statusBar.background": "#03c268",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#04f483",
-        "statusBarItem.remoteBackground": "#03c268",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#03c268",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#03c26899",
-        "titleBar.inactiveForeground": "#e7e7e799"
+        "commandCenter.border": "#15202b99",
+        "sash.hoverBorder": "#4aeb96",
+        "statusBar.background": "#1ce67c",
+        "statusBar.foreground": "#15202b",
+        "statusBarItem.hoverBackground": "#15ba63",
+        "statusBarItem.remoteBackground": "#1ce67c",
+        "statusBarItem.remoteForeground": "#15202b",
+        "titleBar.activeBackground": "#1ce67c",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveBackground": "#1ce67c99",
+        "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.color": "#03c268"
-=======
-        "activityBar.activeBackground": "#a334de",
-        "activityBar.background": "#a334de",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#523a0d",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "commandCenter.border": "#e7e7e799",
-        "sash.hoverBorder": "#a334de",
-        "statusBar.background": "#881fc0",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#a334de",
-        "statusBarItem.remoteBackground": "#881fc0",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#881fc0",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#881fc099",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.color": "#881fc0"
->>>>>>> parent of 69a39f9 (Puxando os dados!)
+    "peacock.color": "#1ce67c"
 }

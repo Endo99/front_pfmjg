@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <link rel="stylesheet" href="./home.component.scss">
+</head>
+
+<body>
+    <div class="top-bar">
+        <header id="bar">
+            <div class="logo">
+                <img src="/assets/icons/LOGO_JOHW.svg" alt="">
+            </div>
+            <div class="menu">
+                <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" (click)="clicarMenuBento()">
+                <section id="menu-bento-aberto" *ngIf="isClick">
+                    <div class="lista-menu">
+                        <div class="container text-center">
+                            <div>
+                                <mat-grid-list cols="2" rowHeight="2:1">
+
+                                    <ul class="lista-item">
+                                        <mat-grid-tile>
+                                            <button mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Home')">
+                                                <mat-icon class="icon custom-icon">home</mat-icon>
+                                                <p>
+                                                    Home
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Agendar')">
+                                                <mat-icon class="icon custom-icon">today</mat-icon>
+                                                <p>
+                                                    Agendar
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Consulta')">
+                                                <mat-icon class="icon custom-icon">assignment_ind</mat-icon>
+                                                <p>
+                                                    Consulta
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Categoria')">
+                                                <mat-icon class="icon custom-icon">library_books</mat-icon>
+                                                <p>
+                                                    Categoria
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Nutricionista')">
+                                                <mat-icon class="icon custom-icon">work_outline</mat-icon>
+                                                <p>
+                                                    Nutricionista
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+
+                                        <mat-grid-tile>
+                                            <button mat-icon-button matTooltip="Basic"
+                                                (click)="direcionarPagina('Paciente')">
+                                                <mat-icon class="icon custom-icon">people_outline</mat-icon>
+                                                <p>
+                                                    Paciente
+                                                </p>
+                                            </button>
+                                        </mat-grid-tile>
+                                    </ul>
+                                </mat-grid-list>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="user">
+
+            </div>
+        </header>
+    </div>
+
+
+</body>
+
+</html>

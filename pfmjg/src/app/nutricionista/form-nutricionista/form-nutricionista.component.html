@@ -1,0 +1,50 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="form" class="form-grid">
+            <div class="campos-formulario">
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="CPF" formControlName="cpf">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="Nome" formControlName="nome">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="Descricao" formControlName="descricao">
+                </mat-form-field>
+
+                <mat-form-field class="example-chip-list">
+                    <mat-label>Seleção de Categorias</mat-label>
+
+                    <mat-chip-list #chipList aria-label="Categorias Selecionadas">
+                        <mat-chip *ngFor="let categoria of categoriasSelecionadas" [removable]="true"
+                            (removed)="removeCategoria(categoria)">
+                            {{ categoria.descricao }}
+                            <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+
+                    <input placeholder="Adicionar Categoria..." formControlName="categoriaCtrl"
+                        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="addCategoria($event)" [matAutocomplete]="auto" />
+
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCategoria($event)">
+                        <mat-option *ngFor="let categoria of filteredCategorias | async" [value]="categoria">
+                            {{ categoria.descricao }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="Telefone" formControlName="telefone">
+                </mat-form-field>
+
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
+        <button mat-raised-button (click)="onCancel()">Cancelar</button>
+    </mat-card-actions>
+</mat-card>
