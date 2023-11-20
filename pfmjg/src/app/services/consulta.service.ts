@@ -23,8 +23,21 @@ export class ConsultaService {
   }
 
   save(record: Consulta) {
+    console.log(record.id);
+    if (record.id) {
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  create(record: Consulta) {
     console.log(record);
     return this.httpClient.post<Consulta>(`${this.apiUrl}`, record).pipe(first());
+  }
+
+  update(record: Consulta) {
+    console.log(record);
+    return this.httpClient.put<Consulta>(`${this.apiUrl}/${record.id}/alterar`, record).pipe(first());
   }
 
   buscarDatas() {
@@ -32,25 +45,29 @@ export class ConsultaService {
       .pipe(first());
   }
 
-  buscarAgendaPorData(data:Date) {
+  buscarAgendaPorData(data: Date) {
     return this.httpClient.get<Agenda[]>(`${this.apiUrl}/${data}/list-agenda`)
       .pipe(first());
   }
 
-  buscarHorariosLivres(id:number, data:Date) {
+  buscarHorariosLivres(id: number, data: Date) {
     return this.httpClient.get<Time[]>(`${this.apiUrl}/${data}/${id}/horarios-livres`)
       .pipe(first());
   }
 
-  cancelar(id:number) {
-    return this.httpClient.put(`${this.apiUrl}/${id}/cancelar`,id).pipe(first());
+  cancelar(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/cancelar`, id).pipe(first());
   }
 
-  finalizar(id:number) {
-    return this.httpClient.put(`${this.apiUrl}/${id}/finalizar`,id).pipe(first());
+  finalizar(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/finalizar`, id).pipe(first());
   }
 
-  checkIn(id:number) {
-    return this.httpClient.put(`${this.apiUrl}/${id}/checkIn`,id).pipe(first());
+  checkIn(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/checkIn`, id).pipe(first());
+  }
+
+  buscarPorId(id: number) {
+    return this.httpClient.get<Consulta>(`${this.apiUrl}/${id}/buscar`).pipe(first());
   }
 }

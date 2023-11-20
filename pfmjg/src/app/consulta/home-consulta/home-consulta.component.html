@@ -136,20 +136,20 @@
                                 <!-- Actions Column -->
                                 <ng-container class="field" matColumnDef="actions">
                                     <mat-header-cell *matHeaderCellDef class="action-column">
-                                        <button class="actions" mat-mini-fab color="accent" aria-label="Adicionar um curso"
+                                        <button class="actions" mat-mini-fab color="accent" aria-label="Adicionar um consulta"
                                             (click)="onAdd()" class="action-column-header">
                                             <mat-icon>add</mat-icon>
                                         </button>
                                     </mat-header-cell>
 
-                                    <mat-cell *matCellDef="let course" class="action-column">
-                                        <button class="actions" mat-icon-button color="primary" aria-label="Editar Curso"
-                                            (click)="onEdit(course)">
+                                    <mat-cell *matCellDef="let consulta" class="action-column">
+                                        <button class="actions" mat-icon-button color="primary" aria-label="Editar consulta"
+                                            (click)="onEdit(consulta)">
                                             <mat-icon class="actions-icon">edit</mat-icon>
                                         </button>
 
-                                        <button mat-icon-button color="warn" aria-label="Remover Curso"
-                                            (click)="onDelete(course)">
+                                        <button mat-icon-button color="warn" aria-label="Remover consulta"
+                                            (click)="onDelete(consulta)">
                                             <mat-icon class="actions-icon">delete</mat-icon>
                                         </button>
                                     </mat-cell>

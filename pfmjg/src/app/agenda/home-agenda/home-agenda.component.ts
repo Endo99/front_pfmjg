@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from 'src/app/errors/error-dialog/error-dialog.component';
 import { Agenda } from 'src/app/model/agenda';
 import { AgendaService } from 'src/app/services/agenda.service';
@@ -25,15 +27,27 @@ export class HomeAgendaComponent implements OnInit {
     { nome: "Paciente", rota: "/pacientes" },
   ];
 
-  agenda$: Observable<Agenda[]>;
-  displayedColumns = ['nutricionistaNome', 'dataInicial', 'dataFinal', 'horaDiaInicial', 'horaDiaFinal', 'tempoPadrao', 'situacao', 'actions'];
+  agenda$: Observable<Agenda[]> | null = null;
+  displayedColumns = ['nutricionistaNome',
+    'dataInicial',
+    'dataFinal',
+    'horaDiaInicial',
+    'horaDiaFinal',
+    'tempoPadrao',
+    'situacao',
+    'actions'];
 
   constructor(
     private agendaService: AgendaService,
     private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
+    this.refresh();
+  }
+
+  refresh() {
     this.agenda$ = this.agendaService.list()
       .pipe(
         catchError(error => {
@@ -58,11 +72,36 @@ export class HomeAgendaComponent implements OnInit {
   }
 
   onEdit(agenda: Agenda) {
-    //this.edit.emit(course);
+    this.router.navigate(['editar', agenda.id], { relativeTo: this.route })
   }
 
   onDelete(agenda: Agenda) {
-    //this.remove.emit(course);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem que deseja excluir esse item ?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.agendaService.remove(agenda.id).subscribe(
+          result => {
+            this.refresh();
+            this.snackBar.open('Item removido com sucesso!', 'X', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          },
+          error => {
+            this.snackBar.open('Erro ao tentar remover item!', '', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          }
+        );
+      }
+    });
   }
 
   direcionarPagina(pagina: string) {

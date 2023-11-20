@@ -71,7 +71,7 @@ export class HomeNutricionistaComponent implements OnInit {
   }
 
   onEdit(nutricionista: Nutricionista) {
-    //this.edit.emit(course);
+    this.router.navigate(['editar', nutricionista.id], { relativeTo: this.route })
   }
   
   onDelete(nutricionista: Nutricionista) {

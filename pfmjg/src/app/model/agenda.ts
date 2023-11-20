@@ -4,9 +4,9 @@ export interface Agenda {
     id: number;
     dataInicial: Date;
     dataFinal: Date;
-    horaDiaInicial: Time;
-    horaDiaFinal: Time;
-    tempoPadrao: Time;
+    horaDiaInicial: Time | null;
+    horaDiaFinal: Time | null;
+    tempoPadrao: Time | null;
     situacao: string;
     nutricionistaNome: string;
 }

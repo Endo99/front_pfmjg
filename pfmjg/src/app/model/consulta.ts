@@ -4,9 +4,9 @@ export interface Consulta {
     id: number;
     data: Date;
     dataFinal: Date;
-    horaInicial: Time;
-    horaFinal: Time;
-    periodo: Time;
+    horaInicial: Time | null;
+    horaFinal: Time | null;
+    periodo: Time | null;
     situacao: string;
     pacienteNome: string;
     agendaNutricionista: string;

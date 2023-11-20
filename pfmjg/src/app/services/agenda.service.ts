@@ -21,11 +21,28 @@ export class AgendaService {
   }
 
   save(record: Agenda) {
+    console.log(record.id);
+    if (record.id) {
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  create(record: Agenda) {
     console.log(record);
     return this.httpClient.post<Agenda>(`${this.apiUrl}`, record).pipe(first());
   }
 
-  remove(id:number) {
-    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`,id).pipe(first());
+  update(record: Agenda) {
+    console.log(record);
+    return this.httpClient.put<Agenda>(`${this.apiUrl}/${record.id}/alterar`, record).pipe(first());
+  }
+
+  remove(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`, id).pipe(first());
+  }
+
+  buscarPorId(id: number) {
+    return this.httpClient.get<Agenda>(`${this.apiUrl}/${id}/buscar`).pipe(first());
   }
 }

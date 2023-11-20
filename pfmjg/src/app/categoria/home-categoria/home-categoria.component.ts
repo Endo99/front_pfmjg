@@ -61,11 +61,11 @@ export class HomeCategoriaComponent implements OnInit {
   }
 
   onAdd() {
-    this.router.navigate(['novo'], { relativeTo: this.route })
+    this.router.navigate(['cadastrar'], { relativeTo: this.route })
   }
 
   onEdit(categoria: Categoria) {
-    //this.edit.emit(course);
+    this.router.navigate(['editar', categoria.id], { relativeTo: this.route })
   }
 
   onDelete(categoria: Categoria) {

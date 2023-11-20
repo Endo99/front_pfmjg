@@ -8,6 +8,7 @@ import { Agenda } from 'src/app/model/agenda';
 import { Subscription } from 'rxjs';
 import { PacienteService } from 'src/app/services/paciente.service';
 import { AgendaService } from 'src/app/services/agenda.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-consulta',
@@ -15,6 +16,8 @@ import { AgendaService } from 'src/app/services/agenda.service';
   styleUrls: ['./form-consulta.component.scss']
 })
 export class FormConsultaComponent implements OnInit {
+
+  isClick: Boolean = false;
 
   form: FormGroup;
 
@@ -33,7 +36,8 @@ export class FormConsultaComponent implements OnInit {
     private snackBar: MatSnackBar,
     private location: Location,
     private pacienteService: PacienteService,
-    private agendaService: AgendaService
+    private agendaService: AgendaService,
+    private rota: Router
   ) {
     this.buscarPacientes();
     this.buscarDias();
@@ -56,6 +60,32 @@ export class FormConsultaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendas" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
   }
 
   onSubmit() {
@@ -137,7 +167,7 @@ export class FormConsultaComponent implements OnInit {
 
 
   onCancel() {
-    this.location.back();
+    this.rota.navigate(['/categorias'])
   }
 
   private success() {

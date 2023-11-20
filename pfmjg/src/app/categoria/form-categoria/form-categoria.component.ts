@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Categoria } from 'src/app/model/categoria';
 
 @Component({
   selector: 'app-form-categoria',
@@ -11,20 +13,56 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 })
 export class FormCategoriaComponent implements OnInit {
 
+  isClick: Boolean = false;
+
   form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private service: CategoriaService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private rota: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
+      id: [null],
       descricao: [null]
     });
   }
 
   ngOnInit(): void {
+    const categoria: Categoria = this.route.snapshot.data['categoria'];
+    this.form.setValue({
+      id: categoria.id,
+      descricao: categoria.descricao
+    })
+  }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendas" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas" },
+    { nome: "Categoria", rota: "/categorias" },
+    { nome: "Paciente", rota: "/pacientes" },
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
   }
 
   onSubmit() {
@@ -43,9 +81,8 @@ export class FormCategoriaComponent implements OnInit {
     );
   }
 
-
   onCancel() {
-    this.location.back();
+    this.rota.navigate(['/categorias'])
   }
 
   private success() {

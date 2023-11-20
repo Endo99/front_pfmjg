@@ -1,45 +1,186 @@
-mat-card {
-    max-width: 80%;
-    margin: 2em auto;
+* {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    
+}
+
+body {
+    background-color:  #E5E5E0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vw;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+.top-bar{
+    background-image: linear-gradient(to right, #fffffc, #e9ecef , #000, #09FE04);
+    height: 5vw;
+    min-height: 5vw;
+    z-index: 0;
+    max-height: 30%;
+}
+
+
+.logo img {
+    width: 4.5vw;
+    max-width: 50%;
+    height: auto;
+    max-height: 50%;
+    cursor: pointer;
+}
+
+.top-bar #bar .logo img {
+    display: block;
+    margin: 0 auto;
+}
+
+
+#bar .menu img {
+    width: 6.5vw;
+    min-width: 5vw;
+    max-width: 50%;
+    cursor: pointer;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.button-menu {
+    left: 93vw;
+}
+
+#menu-bento{
+    left: 93vw;
+}
+
+.menu img{
+    height: 6vw;
+}
+
+.view-consulta h1{
+    font-size: 1.0vw;
+    padding: 2vw 0;
     text-align: center;
+    margin: 0;
 }
 
-mat-form-field {
-    flex: 1 1 calc(33.33% - 10px);
-    padding: 15px;
+.background-consulta {
+    margin: 1.5% 3% 0% 3%;
+    border-radius: 15px;
+    border: 6px solid #29F217;
 }
 
-.form-grid {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.full-width {
-    width: 100%;
-}
-
-.min-width {
-    width: 100%;
+.view-consulta .background-consulta {
+    background-color: rgba(41, 242, 23, 0.2);
+    font-size: 1.2vw;
+    padding: 1.5vw;
 }
 
 .campos-formulario {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2vw; /* Espaçamento entre as colunas */
+}
+
+.btn {
+    background-color: #29F217;
+    letter-spacing: 0.1vw;
+    top: 3vw;
+    padding: 0.7vw;
+    width: 30%;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2vw;
+    border: #000 solid 0.3px;
+    border-radius: 15px;
+}
+
+.btn:hover {
+    background-color: #b7e4c7;
+}
+
+.button {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center; /* Ajusta o espaçamento entre os botões */
+    align-items: center; /* Centraliza os botões verticalmente */
+    margin-top: 1.5vw; /* Adiciona um espaço entre o formulário e os botões */
+}
+
+
+.success-message {
+    background-color: rgba(9,254,4, 0.3);
+    border: #000 2px solid;
+    border-radius: 20px;
+    text-align: center;
+    padding: 1vw;
+    left: 42%;
+    bottom: 25%;
+    position: fixed;
+    font-weight: bold;
+    transform: translateY(-500%);
+}
+
+.red {
+    background-color: #dc2f02;
+    letter-spacing: 0.1vw;
+    top: 3vw;
+    padding: 0.7vw;
+    width: 30%;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2vw;
+    border: #000 solid 0.3px;
+    border-radius: 15px;
+}
+
+.red:hover {
+    background-color: #f8ad9d;
+    cursor: pointer;
+}
+
+.half-width, mat-label {
+    color: #000;
+    font-size: 1.0vw;
+}
+
+.half-width {
+    width: 100%;
+    border: #000 2px solid;
 }
 
 input {
-    width: 50%;
+    text-align: center;
 }
 
-button.example-custom-date-class {
-    background: orange;
-    border-radius: 100%;
+input::placeholder {
+    color: #000;
 }
+
+mat-card, form {
+    padding: 2%;
+    color: #000;
+}
+
+mat-card {
+    border: 2px solid #000;
+    background-color: rgba(255, 255, 255,  0.5);
+}
+
+mat-card-content, form, input {
+    color: #000;
+}
+
+mat-select, mat-option::placeholder {
+    color: #000;
+    text-align: center;
+}
+
+.half-width, mat-select::placeholder {
+    text-align: center;
+}
+

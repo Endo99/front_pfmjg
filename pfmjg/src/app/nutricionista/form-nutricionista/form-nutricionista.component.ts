@@ -7,6 +7,8 @@ import { Observable, Subscription, of } from 'rxjs';
 import { startWith, map, catchError } from 'rxjs/operators';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/model/categoria';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Nutricionista } from 'src/app/model/nutricionista';
 
 @Component({
   selector: 'app-form-nutricionista',
@@ -14,6 +16,9 @@ import { Categoria } from 'src/app/model/categoria';
   styleUrls: ['./form-nutricionista.component.scss']
 })
 export class FormNutricionistaComponent {
+
+  isClick: Boolean = false;
+
   form: FormGroup;
   categoriaCtrl = new FormControl();
   categorias: Categoria[] = [];
@@ -30,11 +35,14 @@ export class FormNutricionistaComponent {
     private service: NutricionistaService,
     private categoriaService: CategoriaService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private rota: Router,
+    private route: ActivatedRoute
   ) {
     this.buscarCategorias();
 
     this.form = this.formBuilder.group({
+      id: [null],
       cpf: [null],
       nome: [null],
       descricao: [null],
@@ -48,6 +56,47 @@ export class FormNutricionistaComponent {
         categoria ? this._filterCategoria(categoria) : this.categorias.slice()
       )
     );
+  }
+
+  ngOnInit(): void {
+    const nutricionista: Nutricionista = this.route.snapshot.data['nutricionista'];
+    console.log("po9pular camposs")
+    console.log(nutricionista)
+    console.log("po9pular camposs")
+    this.form.setValue({
+      id: nutricionista.id,
+      cpf: nutricionista.cpf,
+      nome: nutricionista.nome,
+      descricao: nutricionista.descricao,
+      categoriasIds: nutricionista.categoriasIds,
+      telefone: nutricionista.telefone
+    })
+  }
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendas" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas" },
+    { nome: "Categoria", rota: "/categorias" },
+    { nome: "Paciente", rota: "/pacientes" },
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
   }
 
   onSubmit() {
@@ -86,7 +135,7 @@ export class FormNutricionistaComponent {
   }
 
   onCancel() {
-    this.location.back();
+    this.rota.navigate(['/nutricionistas'])
   }
 
   private success() {

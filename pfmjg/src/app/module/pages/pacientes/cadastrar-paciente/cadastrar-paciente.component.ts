@@ -182,24 +182,6 @@ export class CadastrarPacienteComponent implements OnInit{
     this.rota.navigate(['pacientes'])
   }
 
-  // atualizarStatus(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.statusPag = escolhido;
-  // }
-
-  // atualizarTipoPagamento(valor: string): void {
-  //   if (valor) {
-  //     this.paciente.tipoPag = valor;
-  // }
-  // }
-
-  // atualizarQtdMes(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const escolhido = selectElement.value;
-  //   this.paciente.qtdaMesAcom = parseInt(escolhido);
-  // }
-
   atualizarNomePaciente(event: Event) {
     this.paciente.nome = (event.target as HTMLInputElement).value;
   }

@@ -41,6 +41,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 // import { MatDateRangePickerModule } from 'mat-date-range-picker';
 
 
@@ -90,7 +92,7 @@ import { MatDatepickerToggle } from '@angular/material/datepicker';
     MatCheckboxModule,
     CommonModule,
     FormsModule,
-  
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

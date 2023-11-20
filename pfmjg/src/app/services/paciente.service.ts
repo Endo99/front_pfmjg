@@ -14,18 +14,35 @@ export class PacienteService {
 
   list() {
     return this.httpClient.get<Paciente[]>(`${this.apiUrl}?situacao=ATIVO`)
-    .pipe(
-      first(),
-      tap(pacientes => console.log(pacientes))
-    );
+      .pipe(
+        first(),
+        tap(pacientes => console.log(pacientes))
+      );
   }
 
   save(record: Paciente) {
+    console.log(record.id);
+    if (record.id) {
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  create(record: Paciente) {
     console.log(record);
     return this.httpClient.post<Paciente>(`${this.apiUrl}`, record).pipe(first());
   }
 
-  remove(id:number) {
-    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`,id).pipe(first());
+  update(record: Paciente) {
+    console.log(record);
+    return this.httpClient.put<Paciente>(`${this.apiUrl}/${record.id}/alterar`, record).pipe(first());
+  }
+
+  remove(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`, id).pipe(first());
+  }
+
+  buscarPorId(id: number) {
+    return this.httpClient.get<Paciente>(`${this.apiUrl}/${id}/buscar`).pipe(first());
   }
 }

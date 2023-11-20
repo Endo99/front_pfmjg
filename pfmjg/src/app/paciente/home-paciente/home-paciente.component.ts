@@ -6,6 +6,9 @@ import { catchError } from 'rxjs/operators';
 import { ErrorDialogComponent } from 'src/app/errors/error-dialog/error-dialog.component';
 import { Paciente } from 'src/app/model/paciente';
 import { PacienteService } from 'src/app/services/paciente.service';
+import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-home-paciente',
@@ -27,15 +30,21 @@ export class HomePacienteComponent implements OnInit {
     { nome: "Paciente", rota: "/pacientes" },
   ];
 
-  pacientes$: Observable<Paciente[]>;
-  displayedColumns = ['nome', 'cpf', 'idade', 'cidade', 'estado', 'telefone', 'situacao','actions'];
+  pacientes$: Observable<Paciente[]> | null = null;
+  displayedColumns = ['nome', 'cpf', 'idade', 'cidade', 'estado', 'telefone', 'situacao', 'actions'];
 
   constructor(
     private pacienteService: PacienteService,
     private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private snackBar: MatSnackBar
   ) {
+    this.refresh();
+  }
+
+  refresh() {
     this.pacientes$ = this.pacienteService.list()
       .pipe(
         catchError(error => {
@@ -54,17 +63,42 @@ export class HomePacienteComponent implements OnInit {
       data: errorMsg,
     });
   }
-  
+
   onAdd() {
-    this.router.navigate(['cadastrar'], {relativeTo: this.route} )
+    this.router.navigate(['cadastrar'], { relativeTo: this.route })
   }
 
   onEdit(paciente: Paciente) {
-    //this.edit.emit(course);
+    this.router.navigate(['editar', paciente.id], { relativeTo: this.route })
   }
 
   onDelete(paciente: Paciente) {
-    //this.remove.emit(course);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem que deseja excluir esse item ?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.pacienteService.remove(paciente.id).subscribe(
+          result => {
+            this.refresh();
+            this.snackBar.open('Item removido com sucesso!', 'X', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          },
+          error => {
+            this.snackBar.open('Erro ao tentar remover item!', '', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          }
+        );
+      }
+    });
   }
 
   direcionarPagina(pagina: string) {
@@ -76,21 +110,21 @@ export class HomePacienteComponent implements OnInit {
     }
   }
 
-  
+
   onFilterCheck() {
     // Se o status for 'ativo', 'inativo' ou vazio, envie para o servidor
-  //   if (['ativo', 'inativo', ''].includes(this.status)) {
-  //     this.pacientes$ = this.pacienteService.list({ status: this.status })
-  //         .pipe(
-  //             catchError(error => {
-  //                 this.onError('Erro ao carregar itens');
-  //                 console.log(error);
-  //                 return of([]);
-  //             })
-  //         );
-  // } else {
-  //     console.log("Status inválido");
-  // }
+    //   if (['ativo', 'inativo', ''].includes(this.status)) {
+    //     this.pacientes$ = this.pacienteService.list({ status: this.status })
+    //         .pipe(
+    //             catchError(error => {
+    //                 this.onError('Erro ao carregar itens');
+    //                 console.log(error);
+    //                 return of([]);
+    //             })
+    //         );
+    // } else {
+    //     console.log("Status inválido");
+    // }
 
   }
 

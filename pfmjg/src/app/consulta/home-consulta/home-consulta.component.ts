@@ -58,7 +58,7 @@ export class HomeConsultaComponent implements OnInit {
   }
 
   onEdit(consulta: Consulta) {
-    //this.edit.emit(course);
+    this.router.navigate(['editar', consulta.id], { relativeTo: this.route })
   }
 
   onDelete(consulta: Consulta) {

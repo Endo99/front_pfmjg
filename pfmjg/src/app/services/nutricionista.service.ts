@@ -14,18 +14,35 @@ export class NutricionistaService {
 
   list() {
     return this.httpClient.get<Nutricionista[]>(`${this.apiUrl}?situacao=ATIVO`)
-    .pipe(
-      first(),
-      tap(nutricionista => console.log(nutricionista))
-    );
+      .pipe(
+        first(),
+        tap(nutricionista => console.log(nutricionista))
+      );
   }
 
   save(record: Nutricionista) {
+    console.log(record.id);
+    if (record.id) {
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  create(record: Nutricionista) {
     console.log(record);
     return this.httpClient.post<Nutricionista>(`${this.apiUrl}`, record).pipe(first());
   }
 
-  remove(id:number) {
-    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`,id).pipe(first());
+  update(record: Nutricionista) {
+    console.log(record);
+    return this.httpClient.put<Nutricionista>(`${this.apiUrl}/${record.id}/alterar`, record).pipe(first());
+  }
+
+  remove(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/inativar`, id).pipe(first());
+  }
+
+  buscarPorId(id: number) {
+    return this.httpClient.get<Nutricionista>(`${this.apiUrl}/${id}/buscar`).pipe(first());
   }
 }

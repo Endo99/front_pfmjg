@@ -6,6 +6,7 @@ import { AgendaService } from 'src/app/services/agenda.service';
 import { Nutricionista } from 'src/app/model/nutricionista';
 import { NutricionistaService } from 'src/app/services/nutricionista.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-agenda',
@@ -14,17 +15,46 @@ import { Subscription } from 'rxjs';
 })
 export class FormAgendaComponent implements OnInit {
 
+  isClick: Boolean = false;
+
   form: FormGroup;
 
   nutricionistas: Nutricionista[] = [];
   private nutricionistaSubscription: Subscription | undefined;
+
+  pages = [
+    { nome: "Home", rota: "" },
+    { nome: "Agenda", rota: "/agendas" },
+    { nome: "Consulta", rota: "/consultas" },
+    { nome: "Nutricionista", rota: "/nutricionistas"},
+    { nome: "Categoria", rota: "/categorias"},
+    { nome: "Paciente", rota: "/pacientes"},
+    // Adicione outras páginas conforme necessário
+  ];
+
+
+  direcionarPagina(pagina: string) {
+    // Encontre a página correspondente no array de páginas
+    const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
+
+    if (paginaEncontrada) {
+      console.log("Entrou e clicou");
+      // Redirecione para a rota correspondente
+      this.rota.navigate([paginaEncontrada.rota]);
+    }
+  }
+
+  clicarMenuBento() {
+    this.isClick = !this.isClick;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
     private service: AgendaService,
     private nutricionistaService: NutricionistaService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private rota: Router
   ) {
     this.buscarNutricionista();
 
@@ -78,7 +108,7 @@ export class FormAgendaComponent implements OnInit {
   }
 
   onCancel() {
-    this.location.back();
+    this.rota.navigate(['/agendas'])
   }
 
   private success() {
@@ -94,4 +124,5 @@ export class FormAgendaComponent implements OnInit {
     if (!date) return '';
     return date.toISOString().slice(0, 10);
   };
+
 }
