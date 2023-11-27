@@ -10,4 +10,6 @@ export interface Consulta {
     situacao: string;
     pacienteNome: string;
     agendaNutricionista: string;
+    pacienteId: number;
+    agendaId: number;
 }

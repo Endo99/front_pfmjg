@@ -12,6 +12,7 @@ body {
   height: 100vh;
   width: 100%;
   z-index: 0;
+  overflow-y: auto;
 
   &.paciente-selecionado {
     z-index: 1;
@@ -53,82 +54,44 @@ body {
 
 .menu {
   position: absolute;
-  top: 0;
+  top: 1.5vw;
   bottom: 0;
   z-index: 1;
 }
 
-.button-menu {
-  left: 93vw;
-}
-
 #menu-bento {
   left: 93vw;
-}
-
-.menu img {
-  height: 6vw;
-}
-
-#menu-bento-aberto {
-  background-color: #E5E5E0;
-  padding: 5vw;
-  border-radius: 15%;
-  margin-left: 2vw;
-  text-align: center;
-  position: absolute;
-  z-index: 3;
-}
-
-.grid p {
-  font-size: 2vw;
-}
-
-.lista-item {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 80vw;
-  flex-direction: column;
-  list-style: none;
-  text-decoration: none;
-  text-align: center;
-}
-
-.container:hover {
-  background-color: #E5E5E0;
-}
-
-.button-icon {
-  width: 5vw;
-  height: 5vw;
-  background-color: #E5E5E0;
   border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-right: 30%;
-  color: #09FE04;
+  background-color: transparent;
 }
 
-.button-icon p {
-  font-size: 2vw;
-  margin-top: 1.5vw;
-  margin-left: 4vw;
-  text-align: center;
+.menu mat-icon {
+  font-size: 4.8vw;
 }
 
-.lista-item .button-icon .custom-icon {
-  font-size: 5vw;
-  /* Ajuste o valor conforme necessário */
-}
-
-.button-icon:last-child {
-  margin-right: 0;
-}
-
-.button-icon:hover {
+.menu mat-icon:hover {
   cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+mat-menu, .icon  {
+  background-color: transparent;
+  color:#09FE04;
+  font-size: 2vw;
+}
+
+
+mat-menu, .icon:hover  {
+  color: #000
+}
+
+::ng-deep .mat-menu-content {
+  background-color: #E5E5E0;
+}
+
+mat-menu, span {
+  font-size: 1vw;
   color: #000;
 }
 
@@ -137,6 +100,7 @@ body {
   align-items: center;
   position: relative;
   z-index: -1;
+  overflow: hidden;
 }
 
 .view-pacientes h1 {
@@ -209,14 +173,12 @@ mat-card mat-card-content {
   background-color: #e9ecef;
 }
 
-
 .text-center mat-label {
   color: #000
 }
 
 .text-center mat-label input {
   color: #000;
-
 }
 
 .text-center input {
@@ -302,14 +264,17 @@ mat-header-cell button:hover {
   font-size: 2.5vw;
 }
 
-.checkbox {
-  display: inline-block;
-  padding: 2%;
-  color: #000;
-  text-align: center;
+.check-box, mat-checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px; /* Adicione margem entre os checkboxes */
 }
 
-;
+.inativo {
+  margin-right: 40%;
+  margin-bottom: 2%;
+}
 
 .checkbox,
 label {
@@ -318,7 +283,7 @@ label {
 
 mat-radio-group,
 .ativo {
-  margin-top: 6%;
+  margin-top: 1%;
   color: #09FE04;
   margin-bottom: 4%;
 }

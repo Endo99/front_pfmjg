@@ -19,11 +19,13 @@ export class HomePacienteComponent implements OnInit {
 
   isClick: Boolean = false;
 
-  status: string = '';
+  ativo: boolean = true;
+  inativo: boolean = false;
+  status: string = 'ATIVO';
 
   pages = [
     { nome: "Home", rota: "" },
-    { nome: "Agendar", rota: "/agendas" },
+    { nome: "Agenda", rota: "/agendas" },
     { nome: "Consulta", rota: "/consultas" },
     { nome: "Nutricionista", rota: "/nutricionistas" },
     { nome: "Categoria", rota: "/categorias" },
@@ -45,7 +47,8 @@ export class HomePacienteComponent implements OnInit {
   }
 
   refresh() {
-    this.pacientes$ = this.pacienteService.list()
+    console.log('status = ' + this.status);
+    this.pacientes$ = this.pacienteService.list(this.status)
       .pipe(
         catchError(error => {
           this.onError('Erro ao carregar itens');
@@ -101,6 +104,35 @@ export class HomePacienteComponent implements OnInit {
     });
   }
 
+  onReativar(paciente: Paciente) {
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem certeza que deseja reativar esse item ?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.pacienteService.ativar(paciente.id).subscribe(
+          result => {
+            this.refresh();
+            this.snackBar.open('Item reativado com sucesso!', 'X', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          },
+          error => {
+            this.snackBar.open('Erro ao tentar reativar item!', '', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          }
+        );
+      }
+    });
+  }
+
   direcionarPagina(pagina: string) {
     const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
 
@@ -110,25 +142,20 @@ export class HomePacienteComponent implements OnInit {
     }
   }
 
-
-  onFilterCheck() {
-    // Se o status for 'ativo', 'inativo' ou vazio, envie para o servidor
-    //   if (['ativo', 'inativo', ''].includes(this.status)) {
-    //     this.pacientes$ = this.pacienteService.list({ status: this.status })
-    //         .pipe(
-    //             catchError(error => {
-    //                 this.onError('Erro ao carregar itens');
-    //                 console.log(error);
-    //                 return of([]);
-    //             })
-    //         );
-    // } else {
-    //     console.log("Status inválido");
-    // }
-
-  }
-
   clicarMenuBento() {
     this.isClick = !this.isClick;
+  }
+
+  updateSituacao() {
+    if (this.ativo && this.inativo) {
+      this.status = 'ATIVO,INATIVO';
+    } else if (this.ativo) {
+      this.status = 'ATIVO';
+    } else if (this.inativo) {
+      this.status = 'INATIVO';
+    } else {
+      this.status = '';
+    }
+    this.refresh();
   }
 }

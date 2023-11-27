@@ -12,90 +12,70 @@
     <div class="top-bar">
         <header id="bar">
             <div class="logo">
-                <img src="./assets/icons/LOGO_JOHW.svg" alt="">
+                <img src="./assets/icons/LOGO_JOHW.svg" alt="" (click)="direcionarPagina('Home')">
 
             </div>
             <div class="menu">
-                <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" (click)="clicarMenuBento()">
-                <section id="menu-bento-aberto" *ngIf="isClick">
-                    <div class="lista-menu">
-                        <div class="container text-center">
-                            <div>
-                                <mat-grid-list cols="2" rowHeight="2:1">
+                <button id="menu-bento" mat-icon-button [matMenuTriggerFor]="menuButton" alt=""
+                    (click)="clicarMenuBento()">
+                    <mat-icon class="icon-menu">apps</mat-icon>
+                </button>
+                <mat-menu class="menu-content" #menuButton="matMenu">
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Home')">
+                            <mat-icon class="icon">home</mat-icon>
+                            <span>
+                                Home
+                            </span>
+                        </button>
 
-                                    <ul class="lista-item">
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Home')">
-                                                <mat-icon class="icon custom-icon">home</mat-icon>
-                                                <p>
-                                                    Home
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Agenda')">
+                            <mat-icon class="icon">today</mat-icon>
+                            <span>
+                                Agenda
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Agendar')">
-                                                <mat-icon class="icon custom-icon">today</mat-icon>
-                                                <p>
-                                                    Agendar
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Consulta')">
+                            <mat-icon class="icon">assignment_ind</mat-icon>
+                            <span>
+                                Consulta
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Consulta')">
-                                                <mat-icon class="icon custom-icon">assignment_ind</mat-icon>
-                                                <p>
-                                                    Consulta
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Categoria')">
+                            <mat-icon class="icon">library_books</mat-icon>
+                            <span>
+                                Categoria
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Categoria')">
-                                                <mat-icon class="icon custom-icon">library_books</mat-icon>
-                                                <p>
-                                                    Categoria
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Nutricionista')">
+                            <mat-icon class="icon">work_outline</mat-icon>
+                            <span>
+                                Nutricionista
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Nutricionista')">
-                                                <mat-icon class="icon custom-icon">work_outline</mat-icon>
-                                                <p>
-                                                    Nutricionista
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
-
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Paciente')">
-                                                <mat-icon class="icon custom-icon">people_outline</mat-icon>
-                                                <p>
-                                                    Paciente
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
-                                    </ul>
-                                </mat-grid-list>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Paciente')">
+                            <mat-icon class="icon">people_outline</mat-icon>
+                            <span>
+                                Paciente
+                            </span>
+                        </button>
+                </mat-menu>
             </div>
         </header>
     </div>
-    <section class="body-consulta">
-        <div class="view-consulta">
-            <div class="background-consulta">
-                <main class="list-consulta">
+    <section class="body-categoria">
+        <div class="view-categoria">
+            <div class="background-categoria">
+                <main class="list-categoria">
                     <mat-card class="table">
                         <mat-card-content color="primary">Categorias</mat-card-content>
 

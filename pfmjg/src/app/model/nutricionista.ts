@@ -1,3 +1,5 @@
+import { Categoria } from "./categoria";
+
 export interface Nutricionista {
     id: number;
     cpf: String;
@@ -7,4 +9,5 @@ export interface Nutricionista {
     situacao: string;
     categoriasDescricao: string[];
     categoriasIds: number[];
+    categorias: Categoria[];
 }

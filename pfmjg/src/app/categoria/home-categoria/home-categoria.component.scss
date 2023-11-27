@@ -12,11 +12,12 @@ body {
     height: 100vh;
     width: 100%;
     z-index: 0;
+    overflow-y: auto;
 
     &.paciente-selecionado {
         z-index: 1;
 
-        &.body-nutricionista {
+        &.body-categoria {
             z-index: -1;
         }
     }
@@ -53,93 +54,60 @@ body {
 
 .menu {
     position: absolute;
-    top: 0;
+    top: 1.5vw;
     bottom: 0;
     z-index: 1;
 }
 
-.button-menu {
-    left: 93vw;
-}
-
 #menu-bento {
     left: 93vw;
+    border: none;
+    background-color: transparent;
 }
 
-.menu img {
-    height: 6vw;
+.menu mat-icon {
+    font-size: 4.8vw;
 }
 
-#menu-bento-aberto {
-    background-color: #E5E5E0;
-    padding: 5vw;
-    border-radius: 15%;
-    margin-left: 2vw;
-    text-align: center;
-    position: absolute;
-    z-index: 3;
+.menu mat-icon:hover {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
 
-.grid p {
+mat-menu, .icon  {
+    background-color: transparent;
+    color:#09FE04;
     font-size: 2vw;
 }
 
-.lista-item {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 80vw;
-    flex-direction: column;
-    list-style: none;
-    text-decoration: none;
-    text-align: center;
+
+mat-menu, .icon:hover  {
+    color: #000
+}
+
+::ng-deep .mat-menu-content {
+    background-color: #E5E5E0;
+}
+
+mat-menu, span {
+    font-size: 1vw;
+    color: #000;
 }
 
 .container:hover {
     background-color: #E5E5E0;
 }
 
-.button-icon {
-    width: 5vw;
-    height: 5vw;
-    background-color: #E5E5E0;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 30%;
-    color: #09FE04;
-}
-
-.button-icon p {
-    font-size: 2vw;
-    margin-top: 1.5vw;
-    margin-left: 4vw;
-    text-align: center;
-}
-
-.lista-item .button-icon .custom-icon {
-    font-size: 5vw;
-    /* Ajuste o valor conforme necessário */
-}
-
-.button-icon:last-child {
-    margin-right: 0;
-}
-
-.button-icon:hover {
-    cursor: pointer;
-    color: #000;
-}
-
-.body-consulta {
+.body-categoria {
     justify-content: center;
     align-items: center;
     position: relative;
     z-index: -1;
+    overflow: hidden;
 }
 
-.view-consulta h1 {
+.view-categoria h1 {
     font-size: 1.5vw;
     padding: 1vw 0;
     text-align: center;
@@ -147,7 +115,7 @@ body {
     font-weight: bold;
 }
 
-.background-consulta {
+.background-categoria {
     margin: 0.5% 3% 0% 3%;
     border-radius: 15px;
     border: 6px solid #29F217;
@@ -155,19 +123,12 @@ body {
 
 }
 
-.view-consulta .background-consulta {
+.view-categoria .background-categoria {
     background-color: rgba(41, 242, 23, 0.2);
     font-size: 1.2vw;
     padding: 1.5vw;
 }
 
-
-.list-consulta {
-    min-width: 30%;
-    max-width: 100%;
-    max-height: 100%;
-    min-height: 30%;
-}
 
 table {
     width: 100%;

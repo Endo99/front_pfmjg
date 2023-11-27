@@ -19,7 +19,7 @@ export class HomeComponent {
 
   pages = [
     { nome: "Home", rota: "" },
-    { nome: "Agendar", rota: "/agendas" },
+    { nome: "Agenda", rota: "/agendas" },
     { nome: "Consulta", rota: "/consultas" },
     { nome: "Nutricionista", rota: "/nutricionistas"},
     { nome: "Categoria", rota: "/categorias"},

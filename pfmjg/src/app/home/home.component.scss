@@ -52,71 +52,43 @@ html {
 
 .menu {
     position: absolute;
-    top: 0;
+    top: 1.5vw;
     bottom: 0;
+    z-index: 1;
 }
 
-.button-menu {
+#menu-bento {
     left: 93vw;
-}
-
-#menu-bento{
-    left: 93vw;
-}
-
-.menu img{
-    height: 6vw;
-}
-
-#menu-bento-aberto {
-    background-color: #E5E5E0;
-    padding: 5vw;
-    border-radius: 15%;
-    margin-left: 2vw;
-}
-
-.grid p {
-    font-size: 2vw;
-}
-
-.lista-item {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 33vw;
-    flex-direction: column;
-    list-style: none;
-    text-decoration: none;
-}
-
-button {
-    width: 5vw; 
-    height: 5vw;
-    background-color: #E5E5E0;
     border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 30%;
-    color: #09FE04;
+    background-color: transparent;
 }
 
-button p {
-    font-size: 2vw;
-    margin-top: 1.5vw;
-    margin-LEFT: 4vw;    
-    text-align: center;
+.menu mat-icon {
+    font-size: 4.8vw;
 }
 
-.lista-item button .custom-icon {
-    font-size: 5vw; /* Ajuste o valor conforme necessário */
-}
-
-button:last-child {
-    margin-right: 0;
-}
-
-button:hover {
+.menu mat-icon:hover {
     cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+mat-menu, .icon  {
+    background-color: transparent;
+    color:#09FE04;
+    font-size: 2vw;
+}
+
+
+mat-menu, .icon:hover  {
+    color: #000
+}
+
+::ng-deep .mat-menu-content {
+    background-color: #E5E5E0;
+}
+
+mat-menu, span {
+    font-size: 1vw;
     color: #000;
 }

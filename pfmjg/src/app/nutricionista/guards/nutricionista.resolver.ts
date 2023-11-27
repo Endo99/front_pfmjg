@@ -30,6 +30,7 @@ export class NutricionistaResolver implements Resolve<Nutricionista> {
       situacao: '',
       categoriasDescricao: [],
       categoriasIds: [],
+      categorias: []
     });
   }
 }

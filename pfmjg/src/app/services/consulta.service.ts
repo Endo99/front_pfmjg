@@ -14,8 +14,8 @@ export class ConsultaService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list() {
-    return this.httpClient.get<Consulta[]>(`${this.apiUrl}`)
+  list(record: String, filtros: String) {
+    return this.httpClient.get<Consulta[]>(`${this.apiUrl}?situacoes=${record}${filtros}`)
       .pipe(
         first(),
         tap(consultas => console.log(consultas))
@@ -57,6 +57,10 @@ export class ConsultaService {
 
   cancelar(id: number) {
     return this.httpClient.put(`${this.apiUrl}/${id}/cancelar`, id).pipe(first());
+  }
+
+  agendar(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/agendar`, id).pipe(first());
   }
 
   finalizar(id: number) {

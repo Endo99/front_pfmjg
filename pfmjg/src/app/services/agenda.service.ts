@@ -12,8 +12,8 @@ export class AgendaService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list() {
-    return this.httpClient.get<Agenda[]>(`${this.apiUrl}?situacao=ATIVO`)
+  list(record: String) {
+    return this.httpClient.get<Agenda[]>(`${this.apiUrl}?situacao=${record}`)
       .pipe(
         first(),
         tap(agenda => console.log(agenda))
@@ -40,6 +40,10 @@ export class AgendaService {
 
   remove(id: number) {
     return this.httpClient.put(`${this.apiUrl}/${id}/inativar`, id).pipe(first());
+  }
+
+  ativar(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/ativar`, id).pipe(first());
   }
 
   buscarPorId(id: number) {

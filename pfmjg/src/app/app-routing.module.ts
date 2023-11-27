@@ -15,8 +15,6 @@ import { FormConsultaComponent } from './consulta/form-consulta/form-consulta.co
 import { CategoriaResolver } from './categoria/guards/categoria.resolver';
 import { PacienteResolver } from './paciente/guards/paciente.resolver';
 import { NutricionistaResolver } from './nutricionista/guards/nutricionista.resolver';
-import { AgendaResolver } from './agenda/guards/agenda.resolver';
-import { ConsultaResolver } from './consulta/guards/consulta.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,14 +25,12 @@ const routes: Routes = [
   { path: 'nutricionistas/cadastrar', component: FormNutricionistaComponent, resolve: { nutricionista: NutricionistaResolver } },
   { path: 'nutricionistas/editar/:id', component: FormNutricionistaComponent, resolve: { nutricionista: NutricionistaResolver } },
   { path: 'agendas', component: HomeAgendaComponent },
-  { path: 'agendas/cadastrar', component: FormAgendaComponent, resolve: { agenda: AgendaResolver } },
-  { path: 'agendas/editar/:id', component: FormAgendaComponent, resolve: { agenda: AgendaResolver } },
+  { path: 'agendas/cadastrar', component: FormAgendaComponent },
   { path: 'categorias', component: HomeCategoriaComponent },
   { path: 'categorias/cadastrar', component: FormCategoriaComponent, resolve: { categoria: CategoriaResolver } },
   { path: 'categorias/editar/:id', component: FormCategoriaComponent, resolve: { categoria: CategoriaResolver } },
   { path: 'consultas', component: HomeConsultaComponent },
-  { path: 'consultas/cadastrar', component: FormConsultaComponent, resolve: { consulta: ConsultaResolver } },
-  { path: 'consultas/editar/:id', component: FormConsultaComponent, resolve: { consulta: ConsultaResolver } },
+  { path: 'consultas/cadastrar', component: FormConsultaComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -63,12 +63,16 @@ export class FormNutricionistaComponent {
     console.log("po9pular camposs")
     console.log(nutricionista)
     console.log("po9pular camposs")
+
+    // Popular campos do formulário com os dados do nutricionista
+    this.categoriasSelecionadas = nutricionista.categorias; // Preenche as categorias selecionadas do nutricionista
+
     this.form.setValue({
       id: nutricionista.id,
       cpf: nutricionista.cpf,
       nome: nutricionista.nome,
       descricao: nutricionista.descricao,
-      categoriasIds: nutricionista.categoriasIds,
+      categoriasIds: this.categoriasSelecionadas,
       telefone: nutricionista.telefone
     })
   }

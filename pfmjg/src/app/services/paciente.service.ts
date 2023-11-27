@@ -12,8 +12,8 @@ export class PacienteService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list() {
-    return this.httpClient.get<Paciente[]>(`${this.apiUrl}?situacao=ATIVO`)
+  list(record: String) {
+    return this.httpClient.get<Paciente[]>(`${this.apiUrl}?situacao=${record}`)
       .pipe(
         first(),
         tap(pacientes => console.log(pacientes))
@@ -40,6 +40,10 @@ export class PacienteService {
 
   remove(id: number) {
     return this.httpClient.put(`${this.apiUrl}/${id}/inativar`, id).pipe(first());
+  }
+
+  ativar(id: number) {
+    return this.httpClient.put(`${this.apiUrl}/${id}/ativar`, id).pipe(first());
   }
 
   buscarPorId(id: number) {

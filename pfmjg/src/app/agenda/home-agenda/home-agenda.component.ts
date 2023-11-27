@@ -16,6 +16,9 @@ import { AgendaService } from 'src/app/services/agenda.service';
 })
 export class HomeAgendaComponent implements OnInit {
 
+  ativo: boolean = true;
+  inativo: boolean = false;
+  status: string = 'ATIVO';
   isClick: Boolean = false;
 
   pages = [
@@ -48,7 +51,7 @@ export class HomeAgendaComponent implements OnInit {
   }
 
   refresh() {
-    this.agenda$ = this.agendaService.list()
+    this.agenda$ = this.agendaService.list(this.status)
       .pipe(
         catchError(error => {
           this.onError('Erro ao carregar itens');
@@ -69,10 +72,6 @@ export class HomeAgendaComponent implements OnInit {
 
   onAdd() {
     this.router.navigate(['cadastrar'], { relativeTo: this.route })
-  }
-
-  onEdit(agenda: Agenda) {
-    this.router.navigate(['editar', agenda.id], { relativeTo: this.route })
   }
 
   onDelete(agenda: Agenda) {
@@ -104,6 +103,35 @@ export class HomeAgendaComponent implements OnInit {
     });
   }
 
+  onReativar(agenda: Agenda) {
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem certeza que deseja reativar esse item ?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.agendaService.ativar(agenda.id).subscribe(
+          result => {
+            this.refresh();
+            this.snackBar.open('Item reativado com sucesso!', 'X', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          },
+          error => {
+            this.snackBar.open('Erro ao tentar reativar item!', '', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          }
+        );
+      }
+    });
+  }
+
   direcionarPagina(pagina: string) {
     const paginaEncontrada = this.pages.find(p => p.nome.toLowerCase() === pagina.toLowerCase());
 
@@ -115,6 +143,19 @@ export class HomeAgendaComponent implements OnInit {
 
   clicarMenuBento() {
     this.isClick = !this.isClick;
+  }
+
+  updateSituacao() {
+    if (this.ativo && this.inativo) {
+      this.status = 'ATIVO,INATIVO';
+    } else if (this.ativo) {
+      this.status = 'ATIVO';
+    } else if (this.inativo) {
+      this.status = 'INATIVO';
+    } else {
+      this.status = '';
+    }
+    this.refresh();
   }
 
 }

@@ -9,4 +9,5 @@ export interface Agenda {
     tempoPadrao: Time | null;
     situacao: string;
     nutricionistaNome: string;
+    nutricionistaId: number;
 }

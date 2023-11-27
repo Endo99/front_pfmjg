@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Location, Time } from '@angular/common';
+import { DatePipe, Location, Time } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConsultaService } from 'src/app/services/consulta.service';
 import { Paciente } from 'src/app/model/paciente';
@@ -8,7 +8,8 @@ import { Agenda } from 'src/app/model/agenda';
 import { Subscription } from 'rxjs';
 import { PacienteService } from 'src/app/services/paciente.service';
 import { AgendaService } from 'src/app/services/agenda.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Consulta } from 'src/app/model/consulta';
 
 @Component({
   selector: 'app-form-consulta',
@@ -37,11 +38,13 @@ export class FormConsultaComponent implements OnInit {
     private location: Location,
     private pacienteService: PacienteService,
     private agendaService: AgendaService,
-    private rota: Router
+    private rota: Router,
+    private route: ActivatedRoute
   ) {
     this.buscarPacientes();
     this.buscarDias();
     this.form = this.formBuilder.group({
+      id: [null],
       data: [null],
       horaInicial: [null],
       pacienteId: [null],
@@ -62,13 +65,14 @@ export class FormConsultaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   pages = [
     { nome: "Home", rota: "" },
     { nome: "Agenda", rota: "/agendas" },
     { nome: "Consulta", rota: "/consultas" },
-    { nome: "Nutricionista", rota: "/nutricionistas"},
-    { nome: "Categoria", rota: "/categorias"},
-    { nome: "Paciente", rota: "/pacientes"},
+    { nome: "Nutricionista", rota: "/nutricionistas" },
+    { nome: "Categoria", rota: "/categorias" },
+    { nome: "Paciente", rota: "/pacientes" },
     // Adicione outras páginas conforme necessário
   ];
 
@@ -105,7 +109,7 @@ export class FormConsultaComponent implements OnInit {
   }
 
   buscarPacientes() {
-    this.pacientesSubscription = this.pacienteService.list()
+    this.pacientesSubscription = this.pacienteService.list("ATIVO")
       .subscribe(
         (paciente: Paciente[]) => {
           this.pacientes = paciente;
@@ -167,7 +171,7 @@ export class FormConsultaComponent implements OnInit {
 
 
   onCancel() {
-    this.rota.navigate(['/categorias'])
+    this.rota.navigate(['/consultas'])
   }
 
   private success() {
@@ -182,5 +186,21 @@ export class FormConsultaComponent implements OnInit {
   private formatDate = (date: Date): string => {
     if (!date) return '';
     return date.toISOString().slice(0, 10);
+  };
+
+  private formatarData = (data: Date): string => {
+    const dataString = data.toString();
+    const partesData = dataString.split('/');
+    const dataObjeto = new Date(
+      +partesData[2],
+      +partesData[1] - 1,
+      +partesData[0]
+    );
+
+    const year = dataObjeto.getFullYear();
+    const month = ('0' + (dataObjeto.getMonth() + 1)).slice(-2);
+    const day = ('0' + dataObjeto.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
   };
 }

@@ -12,83 +12,63 @@
     <div class="top-bar">
         <header id="bar">
             <div class="logo">
-                <img src="./assets/icons/LOGO_JOHW.svg" alt="">
+                <img src="./assets/icons/LOGO_JOHW.svg" alt="" (click)="direcionarPagina('Home')">
 
             </div>
             <div class="menu">
-                <img id="menu-bento" src="/assets/icons/MENU_BENTO.svg" alt="" (click)="clicarMenuBento()">
-                <section id="menu-bento-aberto" *ngIf="isClick">
-                    <div class="lista-menu">
-                        <div class="container text-center">
-                            <div>
-                                <mat-grid-list cols="2" rowHeight="2:1">
+                <button id="menu-bento" mat-icon-button [matMenuTriggerFor]="menuButton" alt=""
+                    (click)="clicarMenuBento()">
+                    <mat-icon class="icon-menu">apps</mat-icon>
+                </button>
+                <mat-menu class="menu-content" #menuButton="matMenu">
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Home')">
+                            <mat-icon class="icon">home</mat-icon>
+                            <span>
+                                Home
+                            </span>
+                        </button>
 
-                                    <ul class="lista-item">
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Home')">
-                                                <mat-icon class="icon custom-icon">home</mat-icon>
-                                                <p>
-                                                    Home
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Agenda')">
+                            <mat-icon class="icon">today</mat-icon>
+                            <span>
+                                Agenda
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Agendar')">
-                                                <mat-icon class="icon custom-icon">today</mat-icon>
-                                                <p>
-                                                    Agendar
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Consulta')">
+                            <mat-icon class="icon">assignment_ind</mat-icon>
+                            <span>
+                                Consulta
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Consulta')">
-                                                <mat-icon class="icon custom-icon">assignment_ind</mat-icon>
-                                                <p>
-                                                    Consulta
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Categoria')">
+                            <mat-icon class="icon">library_books</mat-icon>
+                            <span>
+                                Categoria
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Categoria')">
-                                                <mat-icon class="icon custom-icon">library_books</mat-icon>
-                                                <p>
-                                                    Categoria
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Nutricionista')">
+                            <mat-icon class="icon">work_outline</mat-icon>
+                            <span>
+                                Nutricionista
+                            </span>
+                        </button>
 
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Nutricionista')">
-                                                <mat-icon class="icon custom-icon">work_outline</mat-icon>
-                                                <p>
-                                                    Nutricionista
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
-
-                                        <mat-grid-tile>
-                                            <button class="button-icon" mat-icon-button matTooltip="Basic"
-                                                (click)="direcionarPagina('Paciente')">
-                                                <mat-icon class="icon custom-icon">people_outline</mat-icon>
-                                                <p>
-                                                    Paciente
-                                                </p>
-                                            </button>
-                                        </mat-grid-tile>
-                                    </ul>
-                                </mat-grid-list>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                        <button mat-menu-item matTooltip="Basic"
+                            (click)="direcionarPagina('Paciente')">
+                            <mat-icon class="icon">people_outline</mat-icon>
+                            <span>
+                                Paciente
+                            </span>
+                        </button>
+                </mat-menu>
             </div>
         </header>
     </div>
@@ -100,6 +80,95 @@
 
                         <mat-card-content color="primary">Consultas</mat-card-content>
 
+                        <section class="status">
+                            <h1>Status:</h1>
+                            <section class="check-box">
+                                <mat-grid-list cols="2" rowHeight="2.5vw">
+                                    <mat-grid-tile class="check-box-status">
+                                        <mat-checkbox class="inativo" [(ngModel)]="agendado"
+                                            (change)="updateSituacao()">Agendado</mat-checkbox>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="check-box-status">
+                                        <mat-checkbox class="inativo" [(ngModel)]="emAndamento"
+                                            (change)="updateSituacao()">Em
+                                            Andamento</mat-checkbox>
+
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="check-box-status">
+                                        <mat-checkbox class="inativo" [(ngModel)]="finalizada"
+                                            (change)="updateSituacao()">Finalizada</mat-checkbox>
+
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="check-box-status">
+                                        <mat-checkbox class="inativo" [(ngModel)]="falta"
+                                            (change)="updateSituacao()">Falta</mat-checkbox>
+
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="check-box-status">
+                                        <mat-checkbox class="inativo" [(ngModel)]="cancelada"
+                                            (change)="updateSituacao()">Cancelada</mat-checkbox>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </section>
+                        </section>
+
+                        <section class="other">
+
+                            <mat-form-field>
+                                <mat-label>Data:</mat-label>
+                                <mat-select #hasBackdrop (selectionChange)="onDataSelecionada($event.value)">
+                                    <mat-option>None</mat-option>
+                                    <ng-container *ngIf="consulta$ | async as consultas">
+                                        <ng-container *ngIf="consultas && consultas.length">
+                                            <mat-option
+                                                *ngFor="let dataConsulta of extractUniqueValues(consultas, 'data')"
+                                                [value]="dataConsulta">
+                                                {{ dataConsulta }}
+                                            </mat-option>
+                                        </ng-container>
+                                    </ng-container>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Nutricionista:</mat-label>
+                                <mat-select #hasBackdrop (selectionChange)="onNutricionistaSelecionada($event.value)">
+                                    <mat-option>None</mat-option>
+                                    <ng-container *ngIf="consulta$ | async as consultas">
+                                        <ng-container *ngIf="consultas && consultas.length">
+                                            <mat-option
+                                                *ngFor="let nutricionista of extractUniqueValues(consultas, 'agendaNutricionista')"
+                                                [value]="nutricionista">
+                                                {{ nutricionista }}
+                                            </mat-option>
+                                        </ng-container>
+                                    </ng-container>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-drawer-container class="example-container" [hasBackdrop]="hasBackdrop.value">
+                                <mat-drawer #drawer></mat-drawer>
+                                <mat-drawer-content>
+                                    <mat-form-field>
+                                        <mat-label>Paciente:</mat-label>
+                                        <mat-select #hasBackdrop
+                                            (selectionChange)="onPacienteSelecionado($event.value)">
+                                            <mat-option>None</mat-option>
+                                            <ng-container *ngIf="consulta$ | async as consultas">
+                                                <ng-container *ngIf="consultas && consultas.length">
+                                                    <mat-option
+                                                        *ngFor="let paciente of extractUniqueValues(consultas, 'pacienteNome')"
+                                                        [value]="paciente">
+                                                        {{ paciente }}
+                                                    </mat-option>
+                                                </ng-container>
+                                            </ng-container>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-drawer-content>
+                            </mat-drawer-container>
+                        </section>
+
                         <div *ngIf="consulta$ | async as consulta; else loading">
                             <table mat-table [dataSource]="consulta" class="mat-elevation-z8">
 
@@ -110,7 +179,7 @@
 
                                 <ng-container class="field" matColumnDef="horaInicial">
                                     <th mat-header-cell *matHeaderCellDef> Hora </th>
-                                    <td mat-cell *matCellDef="let consultas"> {{consultas.hora}} </td>
+                                    <td mat-cell *matCellDef="let consultas"> {{consultas.horaInicial}} </td>
                                 </ng-container>
 
                                 <ng-container class="field" matColumnDef="periodo">
@@ -136,22 +205,43 @@
                                 <!-- Actions Column -->
                                 <ng-container class="field" matColumnDef="actions">
                                     <mat-header-cell *matHeaderCellDef class="action-column">
-                                        <button class="actions" mat-mini-fab color="accent" aria-label="Adicionar um consulta"
-                                            (click)="onAdd()" class="action-column-header">
+                                        <button class="actions" mat-mini-fab color="accent"
+                                            aria-label="Adicionar um consulta" (click)="onAdd()"
+                                            class="action-column-header">
                                             <mat-icon>add</mat-icon>
                                         </button>
                                     </mat-header-cell>
 
                                     <mat-cell *matCellDef="let consulta" class="action-column">
-                                        <button class="actions" mat-icon-button color="primary" aria-label="Editar consulta"
-                                            (click)="onEdit(consulta)">
-                                            <mat-icon class="actions-icon">edit</mat-icon>
-                                        </button>
 
-                                        <button mat-icon-button color="warn" aria-label="Remover consulta"
-                                            (click)="onDelete(consulta)">
-                                            <mat-icon class="actions-icon">delete</mat-icon>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu" color="primary"
+                                            aria-label="Remover consulta">
+                                            <mat-icon class="actions-icon">more_vert</mat-icon>
+
                                         </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item *ngIf="consulta.situacao !== 'AGENDADO'"
+                                                (click)="onAgendar(consulta)">
+                                                <mat-icon>circle</mat-icon>
+                                                <span>Agendado</span>
+                                            </button>
+                                            <button mat-menu-item (click)="onAndamento(consulta)"
+                                                *ngIf="consulta.situacao !== 'CANCELADA' && consulta.situacao !== 'EM_ANDAMENTO' && consulta.situacao !== 'FALTA'">
+                                                <mat-icon>circle</mat-icon>
+                                                <span>Em andamento</span>
+                                            </button>
+                                            <button mat-menu-item (click)="onFinalizar(consulta)"
+                                                *ngIf="consulta.situacao == 'EM_ANDAMENTO' && consulta.situacao !== 'FALTA'">
+                                                <mat-icon>
+                                                    circle</mat-icon>
+                                                <span>Finalizar</span>
+                                            </button>
+                                            <button mat-menu-item (click)="onCancelar(consulta)"
+                                                *ngIf="consulta.situacao !== 'CANCELADA' && consulta.situacao !== 'FALTA'">
+                                                <mat-icon>circle</mat-icon>
+                                                <span>Cancelar</span>
+                                            </button>
+                                        </mat-menu>
                                     </mat-cell>
                                 </ng-container>
 

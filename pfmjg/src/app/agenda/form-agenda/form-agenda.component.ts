@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AgendaService } from 'src/app/services/agenda.service';
 import { Nutricionista } from 'src/app/model/nutricionista';
 import { NutricionistaService } from 'src/app/services/nutricionista.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Agenda } from 'src/app/model/agenda';
 
 @Component({
   selector: 'app-form-agenda',
@@ -54,11 +55,14 @@ export class FormAgendaComponent implements OnInit {
     private nutricionistaService: NutricionistaService,
     private snackBar: MatSnackBar,
     private location: Location,
-    private rota: Router
+    private rota: Router,
+    private route: ActivatedRoute,
+    private dateFormat: DatePipe
   ) {
     this.buscarNutricionista();
 
     this.form = this.formBuilder.group({
+      id: [null],
       dataInicial: [null],
       dataFinal: [null],
       horaDiaInicial: [null],
@@ -70,6 +74,16 @@ export class FormAgendaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const agenda: Agenda = this.route.snapshot.data['agenda'];
+    this.form.setValue({
+      id: agenda.id,
+      dataInicial: this.formatDateToISO(agenda.dataInicial),
+      dataFinal: this.formatDateToISO(agenda.dataFinal),
+      horaDiaInicial:agenda.horaDiaInicial,
+      horaDiaFinal: agenda.horaDiaFinal,
+      tempoPadrao: agenda.tempoPadrao,
+      nutricionistaId: 3
+    })
   }
 
   onSubmit() {
@@ -95,7 +109,7 @@ export class FormAgendaComponent implements OnInit {
   }
 
   buscarNutricionista() {
-    this.nutricionistaSubscription = this.nutricionistaService.list()
+    this.nutricionistaSubscription = this.nutricionistaService.list('ATIVO')
       .subscribe(
         (nutricionista: Nutricionista[]) => {
           this.nutricionistas = nutricionista;
@@ -123,6 +137,22 @@ export class FormAgendaComponent implements OnInit {
   private formatDate = (date: Date): string => {
     if (!date) return '';
     return date.toISOString().slice(0, 10);
+  };
+
+  private formatDateToISO = (date: Date): Date | null => {
+    const dateString = date.toString();
+    if (!dateString) return null;
+
+    const [day, month, year] = dateString.split('/').map(Number);
+    if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+
+    const isoDateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T00:00:00.000Z`;
+
+    if (isoDateString) {
+      return new Date(isoDateString);
+    }
+
+    return null;
   };
 
 }
